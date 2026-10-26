@@ -1,2 +1,0 @@
-# bpr-tv
-BPR-TV OTT PLATFORM 
