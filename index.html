@@ -1,6 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BPR-TV</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-black m-0 overflow-hidden">
+<div id="app" class="w-screen h-screen bg-black text-white relative">
+<video id="vid" autoplay muted loop playsinline class="w-full h-full object-cover bg-black"></video>
+
+<div class="absolute top-0 left-0 w-full p-3 flex justify-between">
+<div class="bg-red-600 px-3 py-1 rounded-full text-xs font-bold">● LIVE BPR-TV</div>
+<div id="cnt" class="bg-white/20 px-3 py-1 rounded-full text-xs">1/4</div>
+</div>
+
+<div class="absolute bottom-20 left-0 w-full flex justify-center">
+<div class="bg-black/70 px-5 py-3 rounded-2xl border border-white/20 text-center">
+<div id="tag" class="text-xs text-red-400 font-bold">BPR ORIGINAL CH 1</div>
+<div id="name" class="text-sm font-bold mt-1">BPR ORIGINALS | INCEPTION</div>
+</div>
+</div>
+
+<div class="absolute bottom-4 left-0 w-full flex justify-between px-6">
+<button id="prev" class="w-14 h-14 bg-white/20 rounded-full text-xl">◀</button>
+<div class="text-[10px] opacity-50 mt-4">SWIPE TO CHANGE</div>
+<button id="next" class="w-14 h-14 bg-white/20 rounded-full text-xl">▶</button>
+</div>
+
+<div id="saver" class="hidden absolute inset-0 bg-black z-50 flex items-center justify-center">
+<div class="text-center"><div class="text-6xl font-black">BPR-TV</div><div class="text-red-500 mt-2">TAP TO WAKE 📺</div></div>
+</div>
+</div>
+
+<script>
 const chs=[
 {name:"BPR ORIGINALS | INCEPTION",tag:"BPR ORIGINAL CH 1",src:"https://www.w3schools.com/html/mov_bbb.mp4"},
 {name:"FREE FIRE MASS PARTY",tag:"GAMING LIVE CH 2",src:"https://www.w3schools.com/html/movie.mp4"},
 {name:"BPR MUSIC MASS",tag:"MUSIC CH 3",src:"https://www.w3schools.com/html/mov_bbb.mp4"},
 {name:"BPR LIVE STUDIO",tag:"LIVE CH 4",src:"https://www.w3schools.com/html/movie.mp4"}
 ];
+let c=0,t; 
+const v=document.getElementById('vid');
+function load(i){c=(i+chs.length)%chs.length; v.src=chs[c].src; document.getElementById('name').textContent=chs[c].name; document.getElementById('tag').textContent=chs[c].tag; document.getElementById('cnt').textContent=(c+1)+"/"+chs.length; v.play().catch(()=>{}); }
+function reset(){document.getElementById('saver').classList.add('hidden'); clearTimeout(t); t=setTimeout(()=>{document.getElementById('saver').classList.remove('hidden')},10000);}
+document.getElementById('next').onclick=()=>{load(c+1);reset();};
+document.getElementById('prev').onclick=()=>{load(c-1);reset();};
+let sx=0; 
+document.getElementById('app').addEventListener('touchstart',e=>sx=e.touches[0].clientX);
+document.getElementById('app').addEventListener('touchend',e=>{let dx=e.changedTouches[0].clientX-sx; if(dx<-40)load(c+1); if(dx>40)load(c-1); reset();});
+document.getElementById('saver').onclick=reset;
+document.getElementById('app').onclick=reset;
+load(0); reset();
+</script>
+</body>
+</html>
