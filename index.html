@@ -1,68 +1,45 @@
-"use client"
-import { useState, useEffect, useRef } from "react"
-
-export default function BPRTVPhone() {
-  const channels = [
-    { id:1, name:"BPR ORIGINALS | INCEPTION", tag:"BPR ORIGINAL", src:"https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" },
-    { id:2, name:"FREE FIRE MASS PARTY", tag:"GAMING LIVE", src:"https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" },
-    { id:3, name:"BPR MUSIC MASS", tag:"MUSIC", src:"https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" },
-    { id:4, name:"BPR LIVE STUDIO", tag:"LIVE", src:"https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" },
-  ]
-  const [ch, setCh] = useState(0)
-  const [idle, setIdle] = useState(false)
-  const videoRef = useRef<HTMLVideoElement>(null)
-  const timerRef = useRef<any>(null)
-
-  const resetIdle = () => {
-    setIdle(false)
-    clearTimeout(timerRef.current)
-    timerRef.current = setTimeout(()=>setIdle(true), 10000)
-  }
-
-  useEffect(()=>{ resetIdle(); return()=>clearTimeout(timerRef.current) }, [])
-
-  const next = () => { setCh((c)=> (c+1)%channels.length); resetIdle() }
-  const prev = () => { setCh((c)=> (c-1+channels.length)%channels.length); resetIdle() }
-
-  // swipe
-  const [sx, setSx] = useState(0)
-  return (
-    <div onTouchStart={e=>setSx(e.touches[0].clientX)} onTouchEnd={e=>{ const dx=e.changedTouches[0].clientX-sx; if(dx<-60) next(); if(dx>60) prev()}} onClick={resetIdle}
-    className="w-[100vw] h-[100vh] bg-black text-white relative overflow-hidden select-none">
-      <video ref={videoRef} src={channels[ch].src} autoPlay muted loop playsInline className="w-full h-full object-cover" />
-      
-      {/* TOP BAR */}
-      <div className="absolute top-0 left-0 w-full p-4 flex justify-between items-center bg-gradient-to-b from-black/80 to-transparent">
-        <div className="bg-red-600 px-3 py-1 rounded-full text-xs font-bold animate-pulse">● LIVE - BPR-TV</div>
-        <div className="text-xs opacity-80">{ch+1}/{channels.length}</div>
-      </div>
-
-      {/* CHANNEL NAME */}
-      <div className="absolute bottom-24 left-0 w-full text-center">
-        <div className="inline-block bg-black/60 backdrop-blur px-4 py-2 rounded-xl border border-white/20">
-          <div className="text-[10px] text-red-400 font-bold">{channels[ch].tag} • CH {channels[ch].id}</div>
-          <div className="font-bold text-sm">{channels[ch].name}</div>
-        </div>
-      </div>
-
-      {/* CONTROLS */}
-      <div className="absolute bottom-5 left-0 w-full flex justify-center gap-10">
-        <button onClick={prev} className="w-12 h-12 rounded-full bg-white/20 backdrop-blur">◀</button>
-        <div className="text-[10px] text-center opacity-60 pt-3">SWIPE TO CHANGE<br/>CHANNEL</div>
-        <button onClick={next} className="w-12 h-12 rounded-full bg-white/20 backdrop-blur">▶</button>
-      </div>
-
-      {/* SCREENSAVER */}
-      {idle && (
-        <div onClick={resetIdle} className="absolute inset-0 bg-black z-50 grid place-items-center">
-          <div className="text-center animate-pulse">
-            <div className="text-5xl font-black">BPR-TV</div>
-            <div className="text-red-500 font-bold">SCREENSAVER MODE 📺</div>
-            <div className="mt-4 text-xs opacity-60">Tap to watch</div>
-            <video src={channels[ch].src} autoPlay muted loop className="w-64 h-36 mx-auto mt-6 rounded-xl opacity-50 object-cover" />
-          </div>
-        </div>
-      )}
-    </div>
-  )
-}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BPR-TV CABLE</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-black m-0 p-0 overflow-hidden">
+<div id="app" class="w-screen h-screen bg-black text-white relative overflow-hidden">
+<video id="vid" autoplay muted loop playsinline class="w-full h-full object-cover"></video>
+<div class="absolute top-0 w-full p-3 flex justify-between bg-gradient-to-b from-black/80 to-transparent">
+<div class="bg-red-600 px-3 py-1 rounded-full text-xs font-bold animate-pulse">● LIVE BPR-TV</div>
+<div id="cnt" class="bg-white/20 px-2 py-1 rounded-full text-xs">1/4</div>
+</div>
+<div class="absolute bottom-24 w-full text-center">
+<div class="inline-block bg-black/60 backdrop-blur px-4 py-2 rounded-xl border border-white/20">
+<div id="tag" class="text-xs text-red-400 font-bold">BPR ORIGINAL CH 1</div>
+<div id="name" class="font-bold text-sm">BPR ORIGINALS | INCEPTION</div>
+</div>
+</div>
+<div class="absolute bottom-5 w-full flex justify-center gap-8">
+<button id="prev" class="w-12 h-12 rounded-full bg-white/20">◀</button>
+<div class="text-xs opacity-60 pt-3">SWIPE TO CHANGE CHANNEL</div>
+<button id="next" class="w-12 h-12 rounded-full bg-white/20">▶</button>
+</div>
+<div id="saver" class="absolute inset-0 bg-black z-50 hidden grid place-items-center text-center">
+<div><div class="text-5xl font-black">BPR-TV</div><div class="text-red-500">TAP TO WAKE 📺</div></div>
+</div>
+</div>
+<script>
+const chs=[
+{name:"BPR ORIGINALS | INCEPTION",tag:"BPR ORIGINAL CH 1",src:"https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"},
+{name:"FREE FIRE MASS PARTY",tag:"GAMING LIVE CH 2",src:"https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"},
+{name:"BPR MUSIC MASS",tag:"MUSIC CH 3",src:"https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"},
+{name:"BPR LIVE STUDIO",tag:"LIVE CH 4",src:"https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4"}];
+let c=0,timer;const vid=document.getElementById('vid'),name=document.getElementById('name'),tag=document.getElementById('tag'),cnt=document.getElementById('cnt'),saver=document.getElementById('saver');
+function load(i){c=(i+chs.length)%chs.length;vid.src=chs[c].src;name.textContent=chs[c].name;tag.textContent=chs[c].tag;cnt.textContent=`${c+1}/${chs.length}`;vid.play();}
+function reset(){saver.classList.add('hidden');clearTimeout(timer);timer=setTimeout(()=>saver.classList.remove('hidden'),10000);}
+document.getElementById('next').onclick=()=>{load(c+1);reset();};document.getElementById('prev').onclick=()=>{load(c-1);reset();};
+let sx=0;document.getElementById('app').addEventListener('touchstart',e=>sx=e.touches[0].clientX);document.getElementById('app').addEventListener('touchend',e=>{let dx=e.changedTouches[0].clientX-sx;if(dx<-50)load(c+1);if(dx>50)load(c-1);reset();});
+saver.onclick=reset;load(0);reset();
+</script>
+</body>
+</html>
