@@ -1,125 +1,35 @@
-<!DOCTYPE html>
-<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>BPR-TV 🔴 Sun TV Clone</title>
-<script src="https://unpkg.com/peerjs@1.5.3/dist/peerjs.min.js"></script>
-<style>*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}body{background:#080808;color:#fff}
-#intro{position:fixed;inset:0;background:#000;z-index:99999;display:flex;flex-direction:column;justify-content:center;align-items:center;cursor:pointer;transition:0.7s}
-.bpr{font-size:100px;font-weight:900;color:red;text-shadow:0 0 40px red}
-.small{font-size:11px;letter-spacing:6px;margin-top:8px;opacity:.7}
-.header{padding:12px;display:flex;justify-content:space-between;align-items:center;background:#111;border-bottom:1px solid #222;position:sticky;top:0;z-index:50}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;padding:10px}
-.card{background:#1a1a1a;border-radius:12px;padding:14px;text-align:center;border:2px solid #222;cursor:pointer}
-.card.live{border-color:red;box-shadow:0 0 20px rgba(255,0,0,.5)}
-.btn{background:#E50914;color:#fff;border:none;padding:8px 14px;border-radius:20px;font-weight:700}
-.btnBlue{background:#0a84ff;color:#fff;border:none;padding:12px;border-radius:10px;font-weight:800;width:100%;margin-top:8px}
-.input{width:100%;padding:10px;background:#222;border:1px solid #333;border-radius:8px;color:#fff;margin-top:8px}
-.liveDot{width:8px;height:8px;background:red;border-radius:50%;display:inline-block;animation:blink 1s infinite}
-@keyframes blink{50%{opacity:.3}}
-</style></head>
-<body>
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>BPR-TV 🔴 SUN TV LIVE - 87838389</title><style>*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}body{background:#080808;color:#fff}#intro{position:fixed;inset:0;background:#000;z-index:99999;display:flex;flex-direction:column;justify-content:center;align-items:center;transition:.7s}.bpr{font-size:100px;font-weight:900;color:red;text-shadow:0 0 40px red}.header{padding:12px;display:flex;justify-content:space-between;align-items:center;background:#111;border-bottom:1px solid #222;position:sticky;top:0;z-index:50}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;padding:10px}.card{background:#1a1a1a;border-radius:12px;padding:14px;text-align:center;border:2px solid #222;cursor:pointer}.card.live{border-color:red;box-shadow:0 0 20px red;animation:glow 1.5s infinite}@keyframes glow{50%{box-shadow:0 0 35px red}}.btn{background:#E50914;color:#fff;border:none;padding:8px 14px;border-radius:20px;font-weight:700}.liveDot{width:8px;height:8px;background:red;border-radius:50%;display:inline-block;animation:blink 1s infinite}@keyframes blink{50%{opacity:.3}}</style></head><body>
 
-<div id="intro" onclick="hideIntro()"><div class="bpr">BPR</div><div class="small">priyadharsini boomesh</div><div style="margin-top:8px;font-size:11px;color:#0a84ff">Sun TV Style • Phone Clone</div><div style="margin-top:12px;font-size:10px;opacity:.3">Tap to Enter • Auto 2 sec</div></div>
+<div id="intro" onclick="this.style.transform='translateY(-100%)';setTimeout(()=>this.style.display='none',700)"><div class="bpr">BPR</div><div style="font-size:11px;letter-spacing:6px;opacity:.7">priyadharsini boomesh</div><div style="margin-top:8px;color:#0a84ff;font-size:11px">SUN TV STYLE • ID: 87838389</div><div style="margin-top:12px;font-size:10px;opacity:.3">Tap to Enter</div></div>
 
-<div id="home">
-<div class="header"><div><b style="color:#0a84ff;font-size:22px">BPR TV</b><span style="font-size:8px;display:block;color:red;letter-spacing:2px">SUN TV STYLE</span></div><div style="display:flex;gap:6px;align-items:center"><div style="background:#111;padding:4px 8px;border-radius:10px;border:1px solid #222"><span class="liveDot"></span> <span style="font-size:10px">LIVE TV</span></div><button class="btn" onclick="openAdmin()">ADMIN 👑</button></div></div>
+<div id="home"><div class="header"><div><b style="color:#0a84ff;font-size:22px">BPR TV</b><span style="font-size:8px;display:block;color:red;letter-spacing:2px">SUN TV LIVE • 87838389</span></div><div style="background:#111;padding:4px 8px;border-radius:10px;border:1px solid red"><span class="liveDot"></span> <span style="font-size:10px;color:red">● LIVE TV</span></div></div>
 
-<div style="background:linear-gradient(90deg,red,#400);margin:8px;padding:12px;border-radius:12px"><b style="font-size:13px">🔴 BPR LIVE TV - SUN TV MAATHIRI</b><p style="font-size:10px;opacity:.8;margin-top:3px">Free Fire Phone Clone • Tap Free Fire Card to Watch Live TV</p></div>
+<div style="background:linear-gradient(90deg,red,#400);margin:8px;padding:12px;border-radius:12px"><b>🔴 BPR LIVE TV - SUN TV MAATHIRI</b><p style="font-size:10px;opacity:.9;margin-top:4px">Stream ID: 87838389 • Password: oEDgUk • Free Fire Live</p><p style="font-size:9px;opacity:.7;margin-top:3px">Phone Clone Direct - No YouTube - Sun TV Style</p></div>
 
-<div class="grid" id="grid"></div>
-<div id="liveBanner"></div>
-<div style="padding:20px;text-align:center;opacity:.3;font-size:9px">BPR-TV • Sun TV Clone • No YouTube • Direct Phone Screen</div>
+<div class="grid">
+<div class="card live" onclick="playLive()"><div style="font-size:42px">📺</div><div style="font-size:13px;font-weight:800;color:red;margin-top:6px">🔴 BPR LIVE TV</div><div style="font-size:10px">ID: 87838389</div><div style="background:red;color:#fff;font-size:9px;padding:4px 8px;border-radius:10px;margin-top:6px;display:inline-block">● LIVE NOW - TAP FOR TV</div></div>
+<div class="card live" onclick="playLive()"><div style="font-size:42px">🔥</div><div style="font-size:12px;font-weight:700;margin-top:6px">Free Fire LIVE</div><div style="font-size:9px;opacity:.6">Phone Clone • Sun TV</div><div style="background:red;color:#fff;font-size:8px;padding:3px 6px;border-radius:8px;margin-top:4px;display:inline-block">LIVE</div></div>
 </div>
 
-<div id="admin" style="display:none;background:#000;min-height:100vh"><div class="header"><b>ADMIN - SUN TV CONTROL</b><button class="btn" style="background:#fff;color:#000" onclick="closeAdmin()">HOME</button></div>
-
-<div id="loginBox" style="max-width:380px;margin:20px auto;background:#fff;color:#000;padding:16px;border-radius:12px"><h3 style="text-align:center">Login</h3><input class="input" id="mob" placeholder="Mobile" style="background:#fff;color:#000;border:1px solid #ddd"><button style="width:100%;padding:10px;background:#FFC107;border:none;border-radius:8px;font-weight:800;margin-top:8px" onclick="alert('OTP: 1234');document.getElementById('otpBox').style.display='block'">Send OTP</button><div id="otpBox" style="display:none"><input class="input" id="otp" placeholder="1234" style="background:#fff;color:#000;border:1px solid #ddd"><button style="width:100%;padding:10px;background:red;color:#fff;border:none;border-radius:8px;font-weight:800;margin-top:8px" onclick="doLogin()">Verify</button></div><input class="input" id="pass" type="password" placeholder="BPR2024" style="background:#fff;color:#000;border:1px solid #ddd"><button style="width:100%;padding:10px;background:red;color:#fff;border:none;border-radius:8px;font-weight:800;margin-top:8px" onclick="doPass()">LOGIN</button></div>
-
-<div id="adminPanel" style="display:none;max-width:400px;margin:10px auto;padding:10px">
-<div style="background:#111;border:2px solid red;border-radius:12px;padding:14px">
-<h3 style="color:red;font-size:13px">📱➡️📺 SUN TV CLONE LIVE</h3>
-<p style="font-size:10px;opacity:.7;margin-top:4px">Android Trick: Screen Recorder OFF pannitu thaan Start pannu da K!</p>
-<div id="statusBox" style="background:#222;padding:10px;border-radius:8px;margin-top:10px;text-align:center"><p style="font-size:11px">Status: <b id="statusText" style="color:#888">Ready</b></p><p style="font-size:8px;opacity:.4;margin-top:2px" id="peerText">ID: bpr-tv-main-live</p></div>
-<button class="btnBlue" id="startBtn" style="background:red;padding:14px;font-size:14px" onclick="startClone()">📱 START PHONE CLONE 🔴<br><span style="font-size:10px;font-weight:400">Stop Screen Recorder First!</span></button>
-<button class="btnBlue" id="stopBtn" style="background:#333;display:none" onclick="stopClone()">⏹️ STOP CLONE</button>
-<video id="preview" autoplay muted playsinline style="width:100%;height:180px;background:#000;border-radius:8px;margin-top:10px"></video>
-<div style="background:#000;padding:8px;border-radius:6px;margin-top:8px"><p style="font-size:9px;font-weight:700">Android ku Steps:</p><p style="font-size:8px;opacity:.6;margin-top:3px">1. Notification la Screen Recorder STOP pannu<br>2. Start Clone click pannu<br>3. "Entire Screen" select pannu -> Share<br>4. Free Fire open pannu - Live TV maathiri odum!</p></div>
-</div>
-<div id="list" style="margin-top:10px"></div>
-</div>
+<div style="margin:8px;background:#111;border:1px solid red;border-radius:12px;padding:14px">
+<div style="display:flex;justify-content:space-between"><b style="color:red;font-size:13px">🔴 LIVE NOW - SUN TV MODE</b><span style="background:red;padding:2px 8px;border-radius:10px;font-size:10px">LIVE</span></div>
+<p style="font-size:11px;margin-top:8px;line-height:1.4">Un phone screen ipa BPR-TV la Sun TV maathiri oduthu!<br>Viewers ku link: <b>screenstream.io</b><br>ID: <b>87838389</b> | Pass: <b>oEDgUk</b></p>
+<button style="width:100%;margin-top:10px;background:red;color:#fff;border:none;padding:14px;border-radius:10px;font-weight:800;font-size:14px" onclick="playLive()">📺 WATCH LIVE TV - FULL SCREEN - SUN TV</button>
+<button style="width:100%;margin-top:8px;background:#222;color:#fff;border:1px solid #333;padding:10px;border-radius:10px;font-size:11px" onclick="window.open('https://screenstream.io','_blank')">🌐 Open screenstream.io Viewer</button>
+<div style="background:#000;padding:8px;border-radius:6px;margin-top:10px"><p style="font-size:9px;font-weight:700">How Viewers Watch:</p><p style="font-size:8px;opacity:.6;margin-top:3px">1. Go to https://screenstream.io<br>2. Enter ID: 87838389<br>3. Password: oEDgUk<br>4. Watch Sun TV Style Live!</p></div>
 </div>
 
-<div id="player" style="position:fixed;inset:0;background:#000;z-index:9999;display:none;flex-direction:column"><div style="padding:12px;display:flex;justify-content:space-between;align-items:center;background:rgba(0,0,0,.8);position:absolute;top:0;left:0;right:0;z-index:2"><div><b id="pt">BPR LIVE TV</b><p style="font-size:10px;opacity:.7"><span class="liveDot"></span> SUN TV STYLE LIVE</p></div><button onclick="closeP()" style="background:#222;color:#fff;border:none;width:32px;height:32px;border-radius:50%">✕</button></div><div id="pv" style="flex:1;background:#000;display:flex;justify-content:center;align-items:center"><video id="remoteVideo" autoplay playsinline style="width:100%;height:100%;object-fit:contain"></video></div><div style="background:#111;padding:8px;text-align:center"><span style="background:red;padding:3px 10px;border-radius:10px;font-size:10px">🔴 LIVE • SUN TV STYLE • BPR-TV</span></div></div>
+<div style="padding:20px;text-align:center;opacity:.3;font-size:9px">BPR-TV • Phone Clone • Sun TV Clone • Stream ID 87838389 • No YouTube</div>
+</div>
+
+<div id="player" style="position:fixed;inset:0;background:#000;z-index:9999;display:none;flex-direction:column"><div style="padding:12px;display:flex;justify-content:space-between;align-items:center;background:rgba(0,0,0,.9);position:absolute;top:0;left:0;right:0;z-index:2"><div><b id="pt">BPR LIVE TV - SUN TV</b><p style="font-size:10px;opacity:.7"><span class="liveDot"></span> ID: 87838389 • LIVE</p></div><button onclick="document.getElementById('player').style.display='none'" style="background:#222;color:#fff;border:none;width:32px;height:32px;border-radius:50%">✕</button></div><iframe id="liveFrame" src="https://screenstream.io" style="flex:1;width:100%;height:100%;border:none;background:#000"></iframe><div style="background:#111;padding:10px;display:flex;justify-content:space-between;align-items:center"><div><b style="font-size:11px">ID: 87838389</b><p style="font-size:9px;opacity:.6">Pass: oEDgUk • Enter in viewer</p></div><span style="background:red;padding:4px 10px;border-radius:10px;font-size:10px">🔴 SUN TV LIVE</span></div></div>
 
 <script>
-let peer=null, localStream=null;
-function hideIntro(){let e=document.getElementById('intro');e.style.transform='translateY(-100%)';setTimeout(()=>e.style.display='none',700);}
-setTimeout(hideIntro,2200);
-
-function openAdmin(){document.getElementById('home').style.display='none';document.getElementById('admin').style.display='block';}
-function closeAdmin(){document.getElementById('admin').style.display='none';document.getElementById('home').style.display='block';load();}
-function doLogin(){if(document.getElementById('otp').value=='1234'){localStorage.setItem('adm','yes');document.getElementById('loginBox').style.display='none';document.getElementById('adminPanel').style.display='block';initPeer();}else alert('1234');}
-function doPass(){if(document.getElementById('pass').value=='BPR2024'){localStorage.setItem('adm','yes');document.getElementById('loginBox').style.display='none';document.getElementById('adminPanel').style.display='block';initPeer();}else alert('BPR2024');}
-
-function initPeer(){
- if(peer)return;
- peer=new Peer('bpr-tv-main-live');
- peer.on('open', id=>{document.getElementById('peerText').innerText='ID: '+id+' • Ready';document.getElementById('statusText').innerText='Ready - Start Clone pannu';document.getElementById('statusText').style.color='#0a84ff';});
- peer.on('call', call=>{if(localStream)call.answer(localStream);});
- peer.on('error', err=>{if(err.type=='unavailable-id'){peer=new Peer();peer.on('open', id=>{document.getElementById('peerText').innerText='ID: '+id});peer.on('call', call=>{if(localStream)call.answer(localStream);});}});
-}
-
-async function startClone(){
- try{
-   document.getElementById('statusText').innerText='Screen kekkuthu... Entire Screen select pannu!';
-   // STOP OLD STREAM IF ANY
-   if(localStream){localStream.getTracks().forEach(t=>t.stop());}
-   localStream=await navigator.mediaDevices.getDisplayMedia({video:{frameRate:30},audio:true});
-   document.getElementById('preview').srcObject=localStream;
-   document.getElementById('statusText').innerText='🔴 LIVE NOW - Sun TV Style!';
-   document.getElementById('statusText').style.color='red';
-   document.getElementById('startBtn').style.display='none';
-   document.getElementById('stopBtn').style.display='block';
-   localStorage.setItem('phoneLive','1');
-   load();
-   localStream.getVideoTracks()[0].onended=()=>stopClone();
-   if(!peer)initPeer();
-   alert('🔴 LIVE STARTED DA K! Ipa Free Fire open pannu - BPR-TV la Sun TV maathiri odum!');
- }catch(e){
-   console.log(e);
-   alert('Cancel pannita da K! \n\n1. Screen Recorder STOP panniya?\n2. Entire Screen select pannu\n3. Share click pannu\n\nThirumba try pannu da K!');
-   document.getElementById('statusText').innerText='Cancel/Failed - Screen Recorder OFF pannu';
- }
-}
-function stopClone(){if(localStream){localStream.getTracks().forEach(t=>t.stop());localStream=null;}document.getElementById('preview').srcObject=null;document.getElementById('statusText').innerText='Stopped';document.getElementById('startBtn').style.display='block';document.getElementById('stopBtn').style.display='none';localStorage.removeItem('phoneLive');load();}
-function load(){
- let isLive=localStorage.getItem('phoneLive');
- document.getElementById('grid').innerHTML=isLive?`<div class="card live" onclick="playLive()"><div style="font-size:40px">📺</div><div style="font-size:13px;font-weight:800;color:red;margin-top:6px">🔴 BPR LIVE TV</div><div style="font-size:10px">Sun TV Style • Phone Clone</div><div style="background:red;color:#fff;font-size:9px;padding:4px 8px;border-radius:10px;margin-top:6px;display:inline-block">● LIVE NOW - TAP TO WATCH TV</div></div><div class="card live" onclick="playLive()"><div style="font-size:40px">🔥</div><div style="font-size:12px;font-weight:700;margin-top:6px">Free Fire</div><div style="font-size:9px;opacity:.6">Live TV • Sun TV</div><div style="background:red;color:#fff;font-size:8px;padding:2px 6px;border-radius:8px;margin-top:4px;display:inline-block">LIVE</div></div>`:`<div class="card" onclick="openAdmin()"><div style="font-size:40px">📱</div><div style="font-size:12px;font-weight:700;margin-top:6px">Start Phone Clone</div><div style="font-size:9px;opacity:.6">Admin la Start pannu</div></div><div class="card"><div style="font-size:40px">🔥</div><div style="font-size:12px;font-weight:700;margin-top:6px">Free Fire</div><div style="font-size:9px;opacity:.6">Waiting for Live</div></div>`;
- document.getElementById('liveBanner').innerHTML=isLive?`<div style="margin:8px;background:#111;border:1px solid red;border-radius:12px;padding:12px"><div style="display:flex;justify-content:space-between"><b style="color:red;font-size:13px">🔴 LIVE NOW</b><span style="background:red;padding:2px 8px;border-radius:10px;font-size:10px">SUN TV</span></div><p style="font-size:11px;margin-top:6px">BPR LIVE TV is ON - Sun TV maathiri oduthu! Free Fire card click panna full TV la paarkalaam!</p><button class="btnBlue" style="background:red" onclick="playLive()">📺 WATCH IN TV MODE - FULL SCREEN</button></div>`:'';
-}
+setTimeout(()=>{let e=document.getElementById('intro');if(e){e.style.transform='translateY(-100%)';setTimeout(()=>e.style.display='none',700)}},2500);
 function playLive(){
  document.getElementById('player').style.display='flex';
- document.getElementById('pt').innerText='BPR LIVE TV - Sun TV';
- let pv=document.getElementById('pv');
- pv.innerHTML='<div style="text-align:center" id="loadingDiv"><div style="font-size:40px">📡</div><p style="margin-top:8px">Connecting to Phone Clone...</p><p style="font-size:10px;opacity:.5">Sun TV Style</p></div><video id="remoteVideo" autoplay playsinline style="width:100%;height:100%;position:absolute;inset:0;object-fit:contain;background:#000"></video>';
- let remoteVideo=document.getElementById('remoteVideo');
- try{
-   let viewerPeer=new Peer();
-   viewerPeer.on('open', ()=>{
-     let call=viewerPeer.call('bpr-tv-main-live', new MediaStream());
-     call.on('stream', stream=>{
-       let rv=document.getElementById('remoteVideo');
-       if(rv){rv.srcObject=stream;let ld=document.getElementById('loadingDiv');if(ld)ld.style.display='none';}
-     });
-   });
-   setTimeout(()=>{
-     let rv=document.getElementById('remoteVideo');
-     if(rv && !rv.srcObject){
-       pv.innerHTML='<div style="text-align:center;padding:20px"><div style="font-size:50px">📱➡️📺</div><h3>Live Not Started</h3><p style="font-size:12px;opacity:.7;margin-top:8px">Admin la START PHONE CLONE pannu da K!<br><br>1. Screen Recorder STOP pannu<br>2. Start Clone -> Entire Screen -> Share<br>3. Free Fire open pannu</p></div>';
-     }
-   },5000);
- }catch(e){pv.innerHTML='<div style="text-align:center">Use Chrome da K! - Peer Error</div>';}
+ document.getElementById('liveFrame').src='https://screenstream.io';
+ alert('🔴 SUN TV STYLE LIVE DA K!\n\nViewer Steps:\n1. ID: 87838389 nu type pannu\n2. Password: oEDgUk\n3. Watch Free Fire Live!\n\nUn phone la START STREAM panniya?');
 }
-function closeP(){document.getElementById('player').style.display='none';let rv=document.getElementById('remoteVideo');if(rv)rv.srcObject=null;}
-if(localStorage.getItem('adm')=='yes'){document.addEventListener('DOMContentLoaded',()=>{setTimeout(()=>{let b=document.getElementById('loginBox');let p=document.getElementById('adminPanel');if(b&&p){b.style.display='none';p.style.display='block';initPeer();}},800)});}
-load();
 </script>
 </body></html>
