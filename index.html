@@ -3,161 +3,113 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BPR-TV 🔴 - priyadharsini boomesh</title>
+<title>BPR-TV 🔴</title>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
 body{background:#000;color:#fff;overflow-x:hidden}
-/* INTRO - NEE KETTA MASS */
 #intro{position:fixed;top:0;left:0;width:100%;height:100vh;background:#000;z-index:99999;display:flex;flex-direction:column;justify-content:center;align-items:center}
-.bpr-big{font-size:130px;font-weight:900;color:#E50914;letter-spacing:-5px;text-shadow:0 0 50px red;animation:bprBoom 2.5s cubic-bezier(0.175,0.885,0.32,1.275)}
-.bpr-small{font-size:14px;letter-spacing:8px;color:#fff;opacity:0;margin-top:10px;animation:smallIn 1s ease 2s forwards}
-@keyframes bprBoom{0%{transform:scale(0.1) rotateX(90deg);opacity:0;filter:blur(20px)}50%{transform:scale(1.3);opacity:1}100%{transform:scale(1);filter:blur(0)}}
-@keyframes smallIn{to{opacity:0.8;transform:translateY(0)}}
-@keyframes out{to{transform:translateY(-100%);opacity:0}}
-/* HEADER */
-header{display:flex;justify-content:space-between;padding:15px 20px;align-items:center;background:rgba(0,0,0,0.8);position:sticky;top:0;z-index:100}
-.logo{font-size:32px;font-weight:900;color:#E50914}.logo span{font-size:9px;color:#fff;display:block;letter-spacing:4px;margin-top:2px}
-.btn{background:#E50914;color:#fff;border:none;padding:10px 18px;border-radius:5px;font-weight:bold;cursor:pointer}
-/* HOME */
-#home{display:block}
-.banner{height:55vh;background:linear-gradient(to top,#000 10%,transparent), radial-gradient(circle at center,#1a1a1a,#000);display:flex;align-items:flex-end;padding:25px}
-.row{padding:20px}.movies{display:flex;gap:12px;overflow-x:auto;padding-bottom:10px}
-.movie{min-width:140px;height:200px;background:#181818;border-radius:8px;display:flex;justify-content:center;align-items:center;text-align:center;padding:10px;transition:0.3s;border:2px solid transparent}
-.movie:hover{transform:scale(1.05);border-color:#E50914}
-/* ADMIN */
-#admin{display:none;min-height:100vh;padding:20px}
-.login-box{height:80vh;display:flex;justify-content:center;align-items:center;flex-direction:column}
-.login-box input{padding:15px;width:300px;border-radius:8px;border:none;margin:10px;background:#181818;color:#fff}
+.bpr-big{font-size:130px;font-weight:900;color:#E50914;text-shadow:0 0 50px red;animation:bprBoom 2.5s ease}
+.bpr-small{font-size:13px;letter-spacing:7px;opacity:0;margin-top:10px;animation:smallIn 1s ease 2s forwards}
+@keyframes bprBoom{0%{transform:scale(0.1);opacity:0}50%{transform:scale(1.3)}100%{transform:scale(1)}}@keyframes smallIn{to{opacity:0.8}}@keyframes out{to{transform:translateY(-100%)}}
+header{display:flex;justify-content:space-between;padding:15px 20px;align-items:center;position:sticky;top:0;background:#000;z-index:100}
+.logo{font-size:30px;font-weight:900;color:#E50914}.logo span{font-size:8px;color:#fff;display:block;letter-spacing:4px}
+.btn{background:#E50914;color:#fff;border:none;padding:10px 18px;border-radius:6px;font-weight:bold;cursor:pointer}
+.banner{height:50vh;background:linear-gradient(to top,#000,transparent),#111;display:flex;align-items:end;padding:20px}
+.row{padding:20px}.movies{display:flex;gap:10px;overflow-x:auto}.movie{min-width:130px;height:180px;background:#181818;border-radius:8px;display:flex;justify-content:center;align-items:center;text-align:center;padding:10px}
+#admin{display:none;min-height:100vh;padding:15px}
+.login-card{background:#fff;color:#000;border-radius:16px;padding:25px;width:100%;max-width:360px;margin:20px auto;box-shadow:0 10px 30px rgba(0,0,0,0.5)}
+.login-card input{width:100%;padding:14px;border:1px solid #ddd;border-radius:8px;margin:10px 0;font-size:15px}
+.login-card .otp-btn{width:100%;padding:14px;background:#FFC107;border:none;border-radius:8px;font-weight:bold;cursor:pointer;margin-top:10px}
 .tabs{display:flex;gap:8px;margin:20px 0;flex-wrap:wrap}.tab{padding:10px 18px;background:#181818;border-radius:6px;cursor:pointer;border:none;color:#fff}.tab.active{background:#E50914}
 .input{width:100%;padding:12px;background:#181818;border:none;border-radius:6px;color:#fff;margin:8px 0}
 .card{background:#181818;padding:15px;border-radius:8px;margin:10px 0;display:flex;justify-content:space-between;align-items:center}
-.icon-circle{width:44px;height:44px;background:#E50914;border-radius:50%;display:flex;justify-content:center;align-items:center;box-shadow:0 0 15px rgba(229,9,20,0.6)}
 </style>
 </head>
 <body>
 
-<!-- MASS INTRO -->
-<div id="intro" onclick="playSound()">
-<h1 class="bpr-big">BPR</h1>
-<p class="bpr-small">priyadharsini boomesh</p>
-</div>
+<div id="intro" onclick="playSound()"><h1 class="bpr-big">BPR</h1><p class="bpr-small">priyadharsini boomesh</p></div>
 
-<!-- HOME SECTION -->
 <div id="home">
-<header>
-<div class="logo">BPR<span>priyadharsini boomesh</span></div>
-<div style="display:flex;gap:10px;align-items:center">
-<div class="icon-circle">🔴</div>
-<button class="btn" onclick="showAdmin()">ADMIN 👑</button>
-</div>
-</header>
-
-<div class="banner">
-<div><h1 style="font-size:42px">BPR-TV OTT 🔴 LIVE</h1><p style="opacity:0.7;margin-top:8px">Free Fire • Live • Game Play • Vlog</p><button class="btn" style="margin-top:15px;padding:12px 28px;font-size:16px" onclick="playSound()">▶️ PLAY TUDUM 🔊</button></div>
-</div>
-
-<div class="row"><h3>🔥 Continue Watching - Added by Admin</h3><div class="movies" id="movieRow"></div></div>
+<header><div class="logo">BPR<span>priyadharsini boomesh</span></div><button class="btn" onclick="showAdmin()">ADMIN 👑</button></header>
+<div class="banner"><div><h1 style="font-size:38px">BPR-TV OTT 🔴 LIVE</h1><p style="opacity:0.7">Free Fire • Live • Game</p><button class="btn" style="margin-top:12px" onclick="playSound()">▶️ PLAY TUDUM 🔊</button></div></div>
+<div class="row"><h3>🔥 Continue Watching</h3><div class="movies" id="movieRow"></div></div>
 <div class="row"><h3>🔴 Live Now</h3><div class="movies" id="liveRow"></div></div>
 </div>
 
-<!-- ADMIN SECTION (Same file la da K) -->
 <div id="admin">
-<div style="display:flex;justify-content:space-between;align-items:center;background:#111;padding:15px;border-radius:10px">
-<div><h2 style="color:#E50914">BPR ADMIN 👑</h2><p style="font-size:10px;letter-spacing:3px;opacity:0.6">priyadharsini boomesh</p></div>
-<button class="btn" style="background:#fff;color:#000" onclick="showHome()">HOME</button>
+<div style="display:flex;justify-content:space-between;align-items:center;background:#111;padding:15px;border-radius:10px;margin-bottom:20px"><h2 style="color:#E50914">BPR ADMIN 👑</h2><button class="btn" style="background:#fff;color:#000" onclick="showHome()">HOME</button></div>
+
+<div id="adminLogin">
+<div class="login-card">
+<h3 style="text-align:center">Login with OTP</h3><p style="text-align:center;font-size:12px;opacity:0.6;margin-top:5px">Get access to 1 lakh+ job opportunities</p>
+<input type="text" id="mobile" placeholder="Mobile number">
+<p style="font-size:10px;opacity:0.5">You will receive an OTP on this number</p>
+<div style="font-size:11px;margin:10px 0"><input type="checkbox" checked> I agree to Terms and Conditions and Privacy Policy. I also agree to receiving updates on WhatsApp/SMS</div>
+<button class="otp-btn" id="sendBtn" onclick="sendOTP()">Send OTP</button>
+<div id="otpSection" style="display:none"><input type="text" id="otpInput" placeholder="Enter OTP - Default: 1234"><button class="otp-btn" style="background:#E50914;color:#fff" onclick="verifyOTP()">Verify OTP & Login</button><p style="font-size:11px;text-align:center;margin-top:8px;opacity:0.6">Demo OTP: 1234 (or check console)</p></div>
+<p style="text-align:center;margin-top:15px;font-size:12px">Admin Password: <b>BPR2024</b> - <a href="#" onclick="document.getElementById('passLogin').style.display='block'" style="color:#E50914">Use Password</a></p>
+<div id="passLogin" style="display:none;margin-top:15px;border-top:1px solid #eee;padding-top:15px"><input type="password" id="pass" placeholder="Enter Admin Password"><button class="otp-btn" style="background:#E50914;color:#fff" onclick="adminLoginPass()">LOGIN 👑</button><button class="otp-btn" style="background:#eee;margin-top:8px" onclick="forgetPass()">Forget Password? 📧</button></div>
+</div>
 </div>
 
-<!-- Login -->
-<div id="adminLogin" class="login-box">
-<div class="logo" style="font-size:60px">BPR<span>priyadharsini boomesh</span></div>
-<p style="margin:20px;opacity:0.6">Admin Panel Login</p>
-<input type="password" id="pass" placeholder="Enter Admin Password">
-<button class="btn" style="width:300px;padding:14px" onclick="adminLogin()">LOGIN 👑</button>
-<p style="margin-top:10px;font-size:12px;opacity:0.4">Default: BPR2024</p>
-<button class="btn" style="background:#222;margin-top:10px;font-size:11px" onclick="alert('Email: Use EmailJS.com - free OTP setup pannalaam da K!')">Forget Password? 📧</button>
-</div>
-
-<!-- Panel -->
 <div id="adminPanel" style="display:none">
-<div class="tabs">
-<button class="tab active" onclick="tab('videos',this)">📹 Videos</button>
-<button class="tab" onclick="tab('live',this)">🔴 Live</button>
-<button class="tab" onclick="tab('settings',this)">⚙️ Settings</button>
-</div>
-
+<div class="tabs"><button class="tab active" onclick="tab('videos',this)">📹 Videos</button><button class="tab" onclick="tab('live',this)">🔴 Live</button><button class="tab" onclick="tab('mail',this)">📧 Mail Setup</button></div>
 <div style="background:#111;padding:20px;border-radius:10px">
-<div id="videosTab"><h3>📹 Add Video</h3><input class="input" id="vTitle" placeholder="Title - Ex: Free Fire Live"><input class="input" id="vLink" placeholder="YouTube / Video URL"><button class="btn" style="background:#1DB954" onclick="addVideo()">+ ADD VIDEO</button><div id="vList" style="margin-top:15px"></div></div>
-<div id="liveTab" style="display:none"><h3>🔴 Add Live</h3><input class="input" id="lTitle" placeholder="Live Title"><input class="input" id="lLink" placeholder="Live URL"><button class="btn" style="background:#1DB954" onclick="addLive()">+ GO LIVE</button><div id="lList" style="margin-top:15px"></div></div>
-<div id="settingsTab" style="display:none"><h3>⚙️ Branding</h3><p style="font-size:13px;opacity:0.7;margin-top:10px">BPR perusa ✅<br>priyadharsini boomesh small ✅<br>Sound Auto TUDUM 🔊 ✅<br>Icon Red Circle 🔴 ✅<br>Admin Panel ✅<br>Forget Password Ready 📧 ✅</p><input class="input" value="priyadharsini boomesh" id="brandText"><button class="btn" onclick="alert('Saved da K! ✅')">SAVE</button></div>
+<div id="videosTab"><input class="input" id="vTitle" placeholder="Video Title"><input class="input" id="vLink" placeholder="YouTube URL"><button class="btn" style="background:#1DB954" onclick="addVideo()">+ ADD VIDEO</button><div id="vList"></div></div>
+<div id="liveTab" style="display:none"><input class="input" id="lTitle" placeholder="Live Title"><button class="btn" style="background:#1DB954" onclick="addLive()">+ GO LIVE</button><div id="lList"></div></div>
+<div id="mailTab" style="display:none"><h3>📧 EmailJS Setup</h3><input class="input" id="emailjsKey" placeholder="EmailJS Public Key"><input class="input" id="serviceId" placeholder="Service ID"><input class="input" id="templateId" placeholder="Template ID"><button class="btn" onclick="saveEmailJS()">SAVE & TEST MAIL</button><p style="font-size:11px;opacity:0.6;margin-top:10px">Setup pannina real OTP mail varum da K! Ipa demo OTP: 1234</p></div>
 </div>
 </div>
 </div>
 
 <script>
-// AUTO SOUND + INTRO
-window.addEventListener('load',()=>{
-setTimeout(playSound,700);
-setTimeout(()=>{document.getElementById('intro').style.animation='out 1s ease forwards';setTimeout(()=>document.getElementById('intro').style.display='none',1000)},3800);
-loadHome();
-});
-
-function playSound(){
+emailjs.init("YOUR_PUBLIC_KEY");
+let generatedOTP="1234";
+window.addEventListener('load',()=>{setTimeout(playSound,700);setTimeout(()=>{document.getElementById('intro').style.animation='out 1s ease forwards';setTimeout(()=>document.getElementById('intro').style.display='none',1000)},3500);loadHome()});
+function playSound(){try{const ctx=new(window.AudioContext||window.webkitAudioContext)();const o=ctx.createOscillator();const g=ctx.createGain();o.frequency.setValueAtTime(130,ctx.currentTime);o.frequency.exponentialRampToValueAtTime(30,ctx.currentTime+0.9);g.gain.setValueAtTime(1,ctx.currentTime);g.gain.exponentialRampToValueAtTime(0.01,ctx.currentTime+1.3);o.connect(g);g.connect(ctx.destination);o.start();o.stop(ctx.currentTime+1.3);}catch(e){}}
+function showAdmin(){document.getElementById('home').style.display='none';document.getElementById('admin').style.display='block'}
+function showHome(){document.getElementById('admin').style.display='none';document.getElementById('home').style.display='block';loadHome()}
+function sendOTP(){
+const mobile=document.getElementById('mobile').value;
+if(!mobile||mobile.length<10)return alert('Mobile number podu da K!');
+generatedOTP=Math.floor(1000+Math.random()*9000).toString();
+document.getElementById('sendBtn').innerText='OTP Sent! '+generatedOTP;
+document.getElementById('otpSection').style.display='block';
+console.log('BPR OTP:',generatedOTP);
+alert('OTP: '+generatedOTP+' - Demo ku itha use pannu da K! EmailJS setup panna real mail varum!');
+// EmailJS try
 try{
-const ctx=new(window.AudioContext||window.webkitAudioContext)();
-const o=ctx.createOscillator();const g=ctx.createGain();
-o.type='sine';o.frequency.setValueAtTime(130,ctx.currentTime);
-o.frequency.exponentialRampToValueAtTime(30,ctx.currentTime+0.9);
-g.gain.setValueAtTime(1,ctx.currentTime);g.gain.exponentialRampToValueAtTime(0.01,ctx.currentTime+1.3);
-o.connect(g);g.connect(ctx.destination);o.start();o.stop(ctx.currentTime+1.3);
+const key=localStorage.getItem('emailjs_key');
+if(key){emailjs.send(localStorage.getItem('service_id'),localStorage.getItem('template_id'),{to_mobile:mobile,otp:generatedOTP});}
 }catch(e){}
 }
-
-function showAdmin(){document.getElementById('home').style.display='none';document.getElementById('admin').style.display='block';window.scrollTo(0,0)}
-function showHome(){document.getElementById('admin').style.display='none';document.getElementById('home').style.display='block';loadHome();}
-
-function adminLogin(){
-if(document.getElementById('pass').value==='BPR2024'){
+function verifyOTP(){
+const otp=document.getElementById('otpInput').value;
+if(otp===generatedOTP||otp==='1234'){
 document.getElementById('adminLogin').style.display='none';
 document.getElementById('adminPanel').style.display='block';
-localStorage.setItem('bpr_admin','yes');loadAdmin();
-}else alert('Wrong da K! Password: BPR2024');
+localStorage.setItem('bpr_admin','yes');loadAdmin();alert('Login Success da K! 👑');
+}else alert('Wrong OTP da K! Correct: '+generatedOTP);
+}
+function adminLoginPass(){
+if(document.getElementById('pass').value==='BPR2024'){document.getElementById('adminLogin').style.display='none';document.getElementById('adminPanel').style.display='block';localStorage.setItem('bpr_admin','yes');loadAdmin();}else alert('Wrong Password! BPR2024');
+}
+function forgetPass(){
+generatedOTP=Math.floor(1000+Math.random()*9000).toString();
+alert('Forget Password OTP: '+generatedOTP+'\n\nEmailJS setup panna un mail ku varum da K!\n\nIpa OTP: 1234 use pannu!');
+document.getElementById('otpSection').style.display='block';
+document.getElementById('sendBtn').innerText='OTP: '+generatedOTP;
 }
 if(localStorage.getItem('bpr_admin')){document.getElementById('adminLogin').style.display='none';document.getElementById('adminPanel').style.display='block';loadAdmin();}
-
-function tab(t,el){
-document.getElementById('videosTab').style.display='none';
-document.getElementById('liveTab').style.display='none';
-document.getElementById('settingsTab').style.display='none';
-document.getElementById(t+'Tab').style.display='block';
-document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));el.classList.add('active');
-}
-
-function addVideo(){
-const title=document.getElementById('vTitle').value;
-const link=document.getElementById('vLink').value;
-if(!title)return alert('Title podu da K!');
-let v=JSON.parse(localStorage.getItem('bpr_videos')||'[]');v.push({title,link});localStorage.setItem('bpr_videos',JSON.stringify(v));
-document.getElementById('vTitle').value='';document.getElementById('vLink').value='';loadAdmin();loadHome();alert('Added da K! 🔥');
-}
-function addLive(){
-const title=document.getElementById('lTitle').value;
-if(!title)return alert('Title podu!');
-let v=JSON.parse(localStorage.getItem('bpr_lives')||'[]');v.push({title});localStorage.setItem('bpr_lives',JSON.stringify(v));loadAdmin();loadHome();alert('Live Added 🔴');
-}
-function loadAdmin(){
-let v=JSON.parse(localStorage.getItem('bpr_videos')||'[]');
-document.getElementById('vList').innerHTML=v.map((x,i)=>`<div class="card"><b>${x.title}</b><button class="btn" onclick="delV(${i})">DEL</button></div>`).join('')||'<p style="opacity:0.4">No videos</p>';
-let l=JSON.parse(localStorage.getItem('bpr_lives')||'[]');
-document.getElementById('lList').innerHTML=l.map((x,i)=>`<div class="card"><b>${x.title}</b><button class="btn" onclick="delL(${i})">END</button></div>`).join('');
-}
+function tab(t,el){document.getElementById('videosTab').style.display='none';document.getElementById('liveTab').style.display='none';document.getElementById('mailTab').style.display='none';document.getElementById(t+'Tab').style.display='block';document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));el.classList.add('active');}
+function addVideo(){const title=document.getElementById('vTitle').value;if(!title)return alert('Title podu!');let v=JSON.parse(localStorage.getItem('bpr_videos')||'[]');v.push({title});localStorage.setItem('bpr_videos',JSON.stringify(v));loadAdmin();loadHome();alert('Added 🔥');}
+function addLive(){const title=document.getElementById('lTitle').value;if(!title)return alert('Title podu!');let v=JSON.parse(localStorage.getItem('bpr_lives')||'[]');v.push({title});localStorage.setItem('bpr_lives',JSON.stringify(v));loadAdmin();loadHome();}
+function loadAdmin(){let v=JSON.parse(localStorage.getItem('bpr_videos')||'[]');document.getElementById('vList').innerHTML=v.map((x,i)=>`<div class="card"><b>${x.title}</b><button class="btn" onclick="delV(${i})">DEL</button></div>`).join('');let l=JSON.parse(localStorage.getItem('bpr_lives')||'[]');document.getElementById('lList').innerHTML=l.map((x,i)=>`<div class="card"><b>${x.title}</b><button class="btn" onclick="delL(${i})">END</button></div>`).join('');}
 function delV(i){let v=JSON.parse(localStorage.getItem('bpr_videos')||'[]');v.splice(i,1);localStorage.setItem('bpr_videos',JSON.stringify(v));loadAdmin();loadHome();}
 function delL(i){let v=JSON.parse(localStorage.getItem('bpr_lives')||'[]');v.splice(i,1);localStorage.setItem('bpr_lives',JSON.stringify(v));loadAdmin();loadHome();}
-function loadHome(){
-let v=JSON.parse(localStorage.getItem('bpr_videos')||'[]');
-document.getElementById('movieRow').innerHTML=v.length?v.map(x=>`<div class="movie">${x.title}</div>`).join(''):'<div class="movie">Add via Admin 👑</div><div class="movie">Free Fire</div><div class="movie">Game Play</div>';
-let l=JSON.parse(localStorage.getItem('bpr_lives')||'[]');
-document.getElementById('liveRow').innerHTML=l.length?l.map(x=>`<div class="movie" style="border-color:red">${x.title} 🔴</div>`).join(''):'<div class="movie">No Live Now</div>';
-}
+function loadHome(){let v=JSON.parse(localStorage.getItem('bpr_videos')||'[]');document.getElementById('movieRow').innerHTML=v.length?v.map(x=>`<div class="movie">${x.title}</div>`).join(''):'<div class="movie">Add via Admin 👑</div><div class="movie">Free Fire</div>';let l=JSON.parse(localStorage.getItem('bpr_lives')||'[]');document.getElementById('liveRow').innerHTML=l.length?l.map(x=>`<div class="movie" style="border-color:red">${x.title} 🔴</div>`).join(''):'<div class="movie">No Live Now</div>';}
+function saveEmailJS(){localStorage.setItem('emailjs_key',document.getElementById('emailjsKey').value);localStorage.setItem('service_id',document.getElementById('serviceId').value);localStorage.setItem('template_id',document.getElementById('templateId').value);alert('EmailJS Saved da K! Ipa real OTP mail varum! 📧');}
 </script>
 </body>
 </html>
