@@ -103,3 +103,13 @@ function clearAll(){if(confirm('Full data clear pannava da K?')){localStorage.cl
 </script>
 </body>
 </html>
+function playLive(i){
+  let l=JSON.parse(localStorage.getItem('bpr_lives')||'[]')[i];
+  if(l.link && l.link.includes('youtube')){
+    let id = l.link.split('v=')[1] || l.link.split('/').pop();
+    id = id.split('&')[0].split('?')[0];
+    document.body.innerHTML += `<div id="player" style="position:fixed;inset:0;background:#000;z-index:999999;display:flex;flex-direction:column"><div style="padding:15px;display:flex;justify-content:space-between"><b style="color:#E50914">🔴 LIVE: ${l.title}</b><button class="btn" onclick="document.getElementById('player').remove()">CLOSE ✕</button></div><iframe style="flex:1;border:none" src="https://www.youtube.com/embed/${id}?autoplay=1" allowfullscreen></iframe></div>`;
+  }else{
+    alert('🔴 LIVE: '+l.title+'\n\nYouTube link pota video play aagum da K!\n\nAdmin la Live Link add pannu!');
+  }
+}
