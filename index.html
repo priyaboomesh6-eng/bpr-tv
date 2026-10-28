@@ -2,39 +2,63 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BPR-TV 🔴 LIVE - priyadharsini boomesh</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>BPR-TV 🔴 JioTV + Earning - priyadharsini boomesh</title>
+
+<!-- GOOGLE ADSENSE EARNING - ID MAATHU DA K -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0000000000000000" crossorigin="anonymous"></script>
+<meta name="google-adsense-account" content="ca-pub-0000000000000000">
+
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,Arial}
-body{background:#000;color:#fff;overflow-x:hidden}
-#intro{position:fixed;inset:0;background:#000;z-index:99999;display:flex;flex-direction:column;justify-content:center;align-items:center;transition:1s}
-.bpr-big{font-size:125px;font-weight:900;color:#E50914;letter-spacing:-6px;text-shadow:0 0 60px #E50914,0 0 100px red;animation:bprBoom 2.4s cubic-bezier(.175,.885,.32,1.275)}
-.bpr-small{font-size:13px;letter-spacing:9px;color:#fff;opacity:0;margin-top:12px;animation:smallIn 1s ease 1.9s forwards}
-@keyframes bprBoom{0%{transform:scale(0.1) rotateX(80deg);opacity:0;filter:blur(30px)}50%{transform:scale(1.25)}100%{transform:scale(1);filter:blur(0)}}
-@keyframes smallIn{to{opacity:.85}}
-@keyframes glow{0%,100%{box-shadow:0 0 10px red}50%{box-shadow:0 0 25px red,0 0 40px #E50914}}
-header{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;background:linear-gradient(to bottom,#000,transparent);position:sticky;top:0;z-index:50}
-.logo{font-size:31px;font-weight:900;color:#E50914;line-height:0.9}.logo span{font-size:8.5px;color:#fff;display:block;letter-spacing:4px;font-weight:400;margin-top:4px}
-.btn{border:none;border-radius:6px;padding:10px 18px;font-weight:800;cursor:pointer;background:#E50914;color:#fff}
-.banner{height:52vh;background:radial-gradient(600px at 30% 20%,#1f1f1f,#000 70%);display:flex;align-items:flex-end;padding:22px;border-bottom:1px solid #111}
-.row{padding:18px 16px}.row h3{font-size:15px;margin-bottom:12px;opacity:.9}
-.movies{display:flex;gap:11px;overflow-x:auto;scrollbar-width:none;padding-bottom:6px}
-.movies::-webkit-scrollbar{display:none}
-.movie{min-width:138px;height:195px;background:#121212;border-radius:10px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:10px;border:1.5px solid #1f1f1f;transition:.25s;cursor:pointer}
-.movie:hover{transform:scale(1.06);border-color:#E50914}
-.live-card{background:linear-gradient(180deg,#E50914 0%,#000 100%)!important;border-color:red!important;animation:glow 1.2s infinite}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',system-ui,Arial}
+body{background:#080808;color:#fff;overflow-x:hidden;padding-bottom:75px}
+#intro{position:fixed;inset:0;background:#000;z-index:99999;display:flex;flex-direction:column;justify-content:center;align-items:center;transition:.8s}
+.bpr-big{font-size:110px;font-weight:900;color:#E50914;text-shadow:0 0 50px red;animation:bprBoom 2.2s ease}
+.bpr-small{font-size:12px;letter-spacing:8px;opacity:0;margin-top:8px;animation:smallIn 1s ease 1.8s forwards}
+@keyframes bprBoom{0%{transform:scale(0.1);opacity:0;filter:blur(20px)}50%{transform:scale(1.2)}100%{transform:scale(1)}}
+@keyframes smallIn{to{opacity:.8}}
+.jioHeader{position:sticky;top:0;z-index:100;background:#080808;border-bottom:1px solid #1a1a1a;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.jioLogo{font-size:24px;font-weight:900;color:#0a84ff}.jioLogo span{font-size:8px;display:block;letter-spacing:3px;color:#E50914;font-weight:400}
+.jioSearch{flex:1;max-width:300px;background:#161616;border-radius:20px;padding:7px 12px;display:flex;gap:6px;align-items:center}
+.jioSearch input{background:transparent;border:none;color:#fff;width:100%;outline:none;font-size:12px}
+.liveDot{width:8px;height:8px;background:red;border-radius:50%;animation:blink 1s infinite}
+@keyframes blink{50%{opacity:.3}}
+.btnAdmin{background:#E50914;color:#fff;border:none;border-radius:20px;padding:7px 12px;font-size:11px;font-weight:700}
+.catBar{position:sticky;top:48px;z-index:90;background:#080808;display:flex;gap:7px;overflow-x:auto;padding:10px 12px;border-bottom:1px solid #1a1a1a;scrollbar-width:none}
+.catBar::-webkit-scrollbar{display:none}
+.cat{white-space:nowrap;padding:6px 14px;border-radius:20px;background:#1a1a1a;color:#aaa;font-size:11px;font-weight:600;border:1px solid #222;cursor:pointer}
+.cat.active{background:#fff;color:#000}
+.jioTitle{padding:12px 12px 6px;font-size:13px;font-weight:700;display:flex;justify-content:space-between}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;padding:0 8px 8px}
+@media(min-width:600px){.grid{grid-template-columns:repeat(5,1fr)}}
+.chCard{background:#141414;border-radius:12px;overflow:hidden;border:1px solid #1e1e1e;cursor:pointer}
+.chLogo{height:85px;background:#0f0f0f;display:flex;justify-content:center;align-items:center;font-size:28px;position:relative}
+.liveBadge{position:absolute;top:5px;left:5px;background:red;color:#fff;font-size:7px;padding:2px 5px;border-radius:4px;font-weight:800}
+.chInfo{padding:7px}
+.chName{font-size:10px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chProg{font-size:8px;color:#888;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.adBox{margin:10px 8px;background:#111;border:1px dashed #333;border-radius:12px;padding:10px;text-align:center}
+.adBox p{font-size:9px;opacity:.4;margin-bottom:6px}
+.jioList{display:grid;gap:1px;padding:0 8px;background:#1a1a1a;border-radius:12px;overflow:hidden;margin:0 8px}
+.jioRow{display:flex;gap:10px;padding:10px;background:#141414;align-items:center;cursor:pointer}
+.jioThumb{width:56px;height:56px;background:#0f0f0f;border-radius:10px;display:flex;justify-content:center;align-items:center;font-size:22px;position:relative;flex-shrink:0}
+.jioMeta{flex:1;min-width:0}
+.jioMeta b{font-size:11px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.jioMeta p{font-size:9px;color:#888;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.jioPlay{width:26px;height:26px;background:#0a84ff;border-radius:50%;display:flex;justify-content:center;align-items:center;font-size:11px}
+#player{position:fixed;inset:0;background:#000;z-index:999999;display:none;flex-direction:column}
+.playerTop{padding:12px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(to bottom,rgba(0,0,0,.9),transparent);position:absolute;top:0;left:0;right:0;z-index:2}
+.playerVideo{flex:1;background:#000;display:flex;justify-content:center;align-items:center}
+.playerVideo iframe{width:100%;height:100%;border:none}
+.playerBottom{background:#111;border-top:1px solid #222;padding:10px 12px}
+#bottomAd{position:fixed;bottom:0;left:0;right:0;background:#0f0f0f;border-top:1px solid #222;padding:6px 8px;z-index:9998;display:flex;align-items:center;gap:8px}
 #adminPage{display:none;min-height:100vh;background:#000}
-.adminTop{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:#0f0f0f;border-bottom:1px solid #222}
-.loginWrap{padding:18px;display:flex;justify-content:center}
-.whiteCard{background:#fff;color:#111;width:100%;max-width:390px;border-radius:18px;padding:22px 20px;box-shadow:0 15px 40px rgba(0,0,0,.6)}
-.whiteCard h2{text-align:center;font-size:20px}.whiteCard p.sub{text-align:center;font-size:12px;opacity:.6;margin-top:6px}
-.whiteCard input{width:100%;padding:14px 12px;border-radius:10px;border:1px solid #ddd;margin-top:14px;font-size:15px}
-.yellowBtn{width:100%;padding:14px;border:none;border-radius:10px;background:#FFC107;font-weight:800;margin-top:14px;cursor:pointer}
-.redBtn{width:100%;padding:14px;border:none;border-radius:10px;background:#E50914;color:#fff;font-weight:800;margin-top:10px;cursor:pointer}
-.mini{font-size:11px;opacity:.6;margin-top:10px;line-height:1.4}
-.tabs{display:flex;gap:8px;margin:18px 0;flex-wrap:wrap}.tab{padding:9px 16px;border-radius:20px;border:none;background:#1e1e1e;color:#fff;font-size:13px;cursor:pointer}.tab.active{background:#E50914}
-.inputDark{width:100%;padding:13px;background:#181818;border:1px solid #222;border-radius:10px;color:#fff;margin-top:10px}
-.cardDark{background:#141414;border:1px solid #222;padding:14px;border-radius:12px;margin-top:10px;display:flex;justify-content:space-between;align-items:center}
+.whiteCard{background:#fff;color:#111;max-width:380px;margin:14px auto;border-radius:16px;padding:16px}
+.whiteCard input{width:100%;padding:11px;border-radius:10px;border:1px solid #ddd;margin-top:8px}
+.yellowBtn{width:100%;padding:11px;background:#FFC107;border:none;border-radius:10px;font-weight:800;margin-top:8px;cursor:pointer}
+.redBtn{width:100%;padding:11px;background:#E50914;color:#fff;border:none;border-radius:10px;font-weight:800;margin-top:6px;cursor:pointer}
+.inputDark{width:100%;padding:10px;background:#181818;border:1px solid #222;border-radius:10px;color:#fff;margin-top:7px}
+.cardDark{background:#141414;border:1px solid #222;padding:9px;border-radius:10px;margin-top:7px;display:flex;justify-content:space-between;align-items:center}
 </style>
 </head>
 <body>
@@ -42,74 +66,27 @@ header{display:flex;justify-content:space-between;align-items:center;padding:14p
 <div id="intro" onclick="playTudum()"><h1 class="bpr-big">BPR</h1><p class="bpr-small">priyadharsini boomesh</p></div>
 
 <div id="homePage">
-<header><div class="logo">BPR<span>priyadharsini boomesh</span></div><div style="display:flex;gap:10px;align-items:center"><div style="width:32px;height:32px;background:#E50914;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 0 15px rgba(229,9,20,.7)">🔴</div><button class="btn" onclick="openAdmin()">ADMIN 👑</button></div></header>
-<div class="banner"><div><h1 style="font-size:34px;line-height:1.1">BPR-TV OTT<br><span style="color:#E50914">🔴 LIVE</span></h1><p style="opacity:.7;margin-top:8px;font-size:13px">Free Fire • Live • Game • Vlog</p><button class="btn" style="margin-top:14px;padding:12px 22px" onclick="playTudum()">▶️ PLAY TUDUM 🔊</button></div></div>
-<div class="row"><h3>🔥 Continue Watching</h3><div class="movies" id="movieRow"></div></div>
-<div class="row"><h3>🔴 Live Now</h3><div class="movies" id="liveRow"></div></div>
+<div class="jioHeader">
+<div style="display:flex;align-items:center;gap:8px"><div class="jioLogo">BPR TV<span>priyadharsini boomesh</span></div><div style="display:flex;align-items:center;gap:4px;background:#111;padding:3px 7px;border-radius:10px;border:1px solid #222"><div class="liveDot"></div><span style="font-size:9px;font-weight:700">LIVE</span></div></div>
+<div class="jioSearch"><span>🔍</span><input id="searchBox" placeholder="Search channels" oninput="loadHome()"></div>
+<div><button class="btnAdmin" onclick="openAdmin()">ADMIN 👑</button></div>
 </div>
 
-<div id="adminPage">
-<div class="adminTop"><div><div class="logo" style="font-size:22px">BPR ADMIN 👑<span>priyadharsini boomesh</span></div></div><button class="btn" style="background:#fff;color:#000" onclick="openHome()">HOME</button></div>
-
-<div id="adminLogin" class="loginWrap">
-<div class="whiteCard">
-<h2>Login with OTP</h2><p class="sub">Get access to 1 lakh+ job opportunities</p>
-<input id="mobileInput" type="tel" placeholder="Mobile number" maxlength="10" inputmode="numeric">
-<p class="mini">You will receive an OTP on this number</p>
-<div class="mini" style="display:flex;gap:6px;margin-top:10px"><input type="checkbox" id="agree" checked style="width:14px"><label for="agree">I agree to Terms and Conditions and Privacy Policy. I also agree to receiving updates on WhatsApp/SMS</label></div>
-<button class="yellowBtn" id="sendBtn" onclick="sendOTP()">Send OTP</button>
-<div id="otpBox" style="display:none">
-<input id="otpInput" type="tel" placeholder="Enter OTP - Demo: 1234" maxlength="4" inputmode="numeric">
-<button class="redBtn" onclick="verifyOTP()">Verify OTP & Login</button>
-<p class="mini" style="text-align:center">Demo OTP: <b id="demoOtp">1234</b> (shown for testing)</p>
-</div>
-<div style="margin-top:16px;border-top:1px solid #eee;padding-top:12px">
-<p class="mini" style="text-align:center">Admin Password: <b>BPR2024</b></p>
-<input id="passInput" type="password" placeholder="Or Enter Admin Password" style="margin-top:10px">
-<button class="redBtn" onclick="loginWithPass()">LOGIN WITH PASSWORD 👑</button>
-<button class="yellowBtn" style="background:#f1f1f1;margin-top:8px" onclick="forgetPass()">Forget Password? 📧 Get OTP</button>
-</div>
-</div>
+<div class="catBar" id="catBar">
+<div class="cat active" onclick="setCat('all',this)">All</div>
+<div class="cat" onclick="setCat('live',this)">🔴 Live</div>
+<div class="cat" onclick="setCat('freefire',this)">Free Fire</div>
+<div class="cat" onclick="setCat('game',this)">Game</div>
+<div class="cat" onclick="setCat('vlog',this)">Vlog</div>
+<div class="cat" onclick="setCat('entertainment',this)">Entertainment</div>
 </div>
 
-<div id="adminPanel" style="display:none;padding:16px">
-<div class="tabs"><button class="tab active" onclick="switchTab('videos',this)">📹 Videos</button><button class="tab" onclick="switchTab('live',this)">🔴 Live</button><button class="tab" onclick="switchTab('info',this)">ℹ️ Info</button></div>
-<div style="background:#0f0f0f;border:1px solid #222;border-radius:14px;padding:16px">
-<div id="videosTab"><h3 style="font-size:14px">📹 Add Video</h3><input class="inputDark" id="vTitle" placeholder="Video Title - Ex: Free Fire MAX"><input class="inputDark" id="vLink" placeholder="YouTube Link (optional)"><button class="btn" style="background:#1DB954;width:100%;margin-top:10px" onclick="addVideo()">+ ADD VIDEO</button><div id="vList"></div></div>
-<div id="liveTab" style="display:none"><h3 style="font-size:14px">🔴 Go Live</h3><input class="inputDark" id="lTitle" placeholder="Live Title - Ex: Free Fire Live Now"><button class="btn" style="background:#1DB954;width:100%;margin-top:10px" onclick="addLive()">+ GO LIVE 🔴</button><div id="lList"></div></div>
-<div id="infoTab" style="display:none"><h3>✅ BPR-TV All Features</h3><p class="mini" style="color:#fff;opacity:.8;line-height:1.8;font-size:13px;margin-top:10px">BPR perusa glowing ✅<br>priyadharsini boomesh small ✅<br>Auto TUDUM sound ✅<br>OTP Login (Mobile) ✅<br>Admin Password BPR2024 ✅<br>Forget Password OTP ✅<br>Video Add -> Home ✅<br>Live Add -> Home 🔴 glow ✅<br>LocalStorage - No backend needed ✅</p><button class="btn" style="background:#222;margin-top:12px" onclick="clearAll()">Clear All Data</button></div>
-</div>
-</div>
-</div>
+<div class="jioTitle"><span>🔥 BPR Originals</span><span style="color:#0a84ff;font-size:11px" onclick="openAdmin()">+ Add Channel</span></div>
+<div class="grid" id="movieGrid"></div>
 
-<script>
-let curOTP="1234";
-function playTudum(){try{const ctx=new(window.AudioContext||window.webkitAudioContext)();const o=ctx.createOscillator();const g=ctx.createGain();o.type='sine';o.frequency.setValueAtTime(140,ctx.currentTime);o.frequency.exponentialRampToValueAtTime(32,ctx.currentTime+0.9);g.gain.setValueAtTime(1,ctx.currentTime);g.gain.exponentialRampToValueAtTime(0.01,ctx.currentTime+1.3);o.connect(g);g.connect(ctx.destination);o.start();o.stop(ctx.currentTime+1.3);}catch(e){}}
-window.addEventListener('load',()=>{setTimeout(playTudum,700);setTimeout(()=>{const el=document.getElementById('intro');el.style.transform='translateY(-100%)';el.style.opacity='0';setTimeout(()=>el.style.display='none',800)},3600);loadHome();if(localStorage.getItem('bpr_admin')==='yes'){document.getElementById('adminLogin').style.display='none';document.getElementById('adminPanel').style.display='block';}});
-function openAdmin(){document.getElementById('homePage').style.display='none';document.getElementById('adminPage').style.display='block';window.scrollTo(0,0);if(localStorage.getItem('bpr_admin')==='yes'){document.getElementById('adminLogin').style.display='none';document.getElementById('adminPanel').style.display='block';loadAdmin();}}
-function openHome(){document.getElementById('adminPage').style.display='none';document.getElementById('homePage').style.display='block';loadHome();}
-function sendOTP(){const m=document.getElementById('mobileInput').value.trim();if(m.length<8)return alert('Mobile number podu da K! 10 digit');if(!document.getElementById('agree').checked)return alert('Terms agree pannu da K!');curOTP=Math.floor(1000+Math.random()*9000).toString();document.getElementById('demoOtp').innerText=curOTP;document.getElementById('sendBtn').innerText='OTP Sent! '+curOTP+' 📩';document.getElementById('otpBox').style.display='block';alert('BPR-TV OTP: '+curOTP+'\n\nDemo ku itha use pannu da K!\n\nMobile: '+m);}
-function verifyOTP(){const e=document.getElementById('otpInput').value.trim();if(e===curOTP||e==='1234'){localStorage.setItem('bpr_admin','yes');document.getElementById('adminLogin').style.display='none';document.getElementById('adminPanel').style.display='block';loadAdmin();alert('Login Success da K! 👑🔥');}else alert('Wrong OTP da K! Correct: '+curOTP);}
-function loginWithPass(){const p=document.getElementById('passInput').value;if(p==='BPR2024'){localStorage.setItem('bpr_admin','yes');document.getElementById('adminLogin').style.display='none';document.getElementById('adminPanel').style.display='block';loadAdmin();alert('Password Login Success da K! 👑');}else alert('Wrong Password da K! BPR2024');}
-function forgetPass(){curOTP=Math.floor(1000+Math.random()*9000).toString();document.getElementById('demoOtp').innerText=curOTP;document.getElementById('otpBox').style.display='block';document.getElementById('sendBtn').innerText='OTP: '+curOTP+' - Use it da K!';alert('Forget Password OTP: '+curOTP+'\n\nItha potu login pannu da K!');}
-function switchTab(t,el){document.getElementById('videosTab').style.display='none';document.getElementById('liveTab').style.display='none';document.getElementById('infoTab').style.display='none';document.getElementById(t+'Tab').style.display='block';document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));el.classList.add('active');}
-function addVideo(){const title=document.getElementById('vTitle').value.trim();const link=document.getElementById('vLink').value.trim();if(!title)return alert('Title podu da K!');let a=JSON.parse(localStorage.getItem('bpr_videos')||'[]');a.push({title,link,dt:Date.now()});localStorage.setItem('bpr_videos',JSON.stringify(a));document.getElementById('vTitle').value='';document.getElementById('vLink').value='';loadAdmin();loadHome();alert('Video Added da K! 🔥 Home la varum!');}
-function addLive(){const title=document.getElementById('lTitle').value.trim();if(!title)return alert('Live Title podu da K!');let a=JSON.parse(localStorage.getItem('bpr_lives')||'[]');a.push({title,dt:Date.now()});localStorage.setItem('bpr_lives',JSON.stringify(a));document.getElementById('lTitle').value='';loadAdmin();loadHome();alert('🔴 LIVE Started da K! Home la glow pannum!');}
-function loadAdmin(){let v=JSON.parse(localStorage.getItem('bpr_videos')||'[]');document.getElementById('vList').innerHTML=v.length?v.map((x,i)=>`<div class="cardDark"><div><b>${x.title}</b><br><small style="opacity:.5">${(x.link||'No link')}</small></div><button class="btn" style="padding:6px 12px;background:#222" onclick="delV(${i})">DEL</button></div>`).join(''):'<p class="mini" style="color:#fff">No videos yet</p>';let l=JSON.parse(localStorage.getItem('bpr_lives')||'[]');document.getElementById('lList').innerHTML=l.length?l.map((x,i)=>`<div class="cardDark"><b>🔴 ${x.title}</b><button class="btn" style="padding:6px 12px" onclick="delL(${i})">END</button></div>`).join(''):'<p class="mini" style="color:#fff">No live now</p>';}
-function delV(i){let a=JSON.parse(localStorage.getItem('bpr_videos')||'[]');a.splice(i,1);localStorage.setItem('bpr_videos',JSON.stringify(a));loadAdmin();loadHome();}
-function delL(i){let a=JSON.parse(localStorage.getItem('bpr_lives')||'[]');a.splice(i,1);localStorage.setItem('bpr_lives',JSON.stringify(a));loadAdmin();loadHome();}
-function loadHome(){let v=JSON.parse(localStorage.getItem('bpr_videos')||'[]');document.getElementById('movieRow').innerHTML=v.length?v.map(x=>`<div class="movie" onclick="alert('Playing: ${x.title}')"><div style="font-size:28px">▶️</div><b style="margin-top:8px;font-size:13px">${x.title}</b></div>`).join(''):'<div class="movie"><b>Add via Admin 👑</b><small style="opacity:.5;margin-top:6px">Video add pannu</small></div><div class="movie"><b>Free Fire 🔥</b><small style="opacity:.5">Demo</small></div><div class="movie"><b>Game Play 🎮</b></div>';let l=JSON.parse(localStorage.getItem('bpr_lives')||'[]');document.getElementById('liveRow').innerHTML=l.length?l.map(x=>`<div class="movie live-card"><div style="font-size:22px">🔴 LIVE</div><b style="margin-top:6px">${x.title}</b><small style="margin-top:4px;background:#fff;color:#E50914;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:800">LIVE NOW</small></div>`).join(''):'<div class="movie"><b>No Live Now</b><small style="opacity:.5">Add in Admin</small></div>';}
-function clearAll(){if(confirm('Full data clear pannava da K?')){localStorage.clear();location.reload();}}
-</script>
-</body>
-</html>
-function playLive(i){
-  let l=JSON.parse(localStorage.getItem('bpr_lives')||'[]')[i];
-  if(l.link && l.link.includes('youtube')){
-    let id = l.link.split('v=')[1] || l.link.split('/').pop();
-    id = id.split('&')[0].split('?')[0];
-    document.body.innerHTML += `<div id="player" style="position:fixed;inset:0;background:#000;z-index:999999;display:flex;flex-direction:column"><div style="padding:15px;display:flex;justify-content:space-between"><b style="color:#E50914">🔴 LIVE: ${l.title}</b><button class="btn" onclick="document.getElementById('player').remove()">CLOSE ✕</button></div><iframe style="flex:1;border:none" src="https://www.youtube.com/embed/${id}?autoplay=1" allowfullscreen></iframe></div>`;
-  }else{
-    alert('🔴 LIVE: '+l.title+'\n\nYouTube link pota video play aagum da K!\n\nAdmin la Live Link add pannu!');
-  }
-}
+<!-- EARNING AD 1 - MID BANNER -->
+<div class="adBox">
+<p>ADVERTISEMENT - SUPPORT BPR-TV 💰</p>
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0000000000000000" data-ad-slot="1111111111" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+<div style="background:#0a84ff;color:#fff;padding:6px 12px;border-radius:20px;font-size:10px;display:inline-block;margin-top:6px">💰 Earning Ad - Replace ID for
