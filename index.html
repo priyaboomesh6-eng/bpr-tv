@@ -1,92 +1,72 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>BPR-TV 🔴 JioTV + Earning - priyadharsini boomesh</title>
-
-<!-- GOOGLE ADSENSE EARNING - ID MAATHU DA K -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0000000000000000" crossorigin="anonymous"></script>
-<meta name="google-adsense-account" content="ca-pub-0000000000000000">
-
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',system-ui,Arial}
-body{background:#080808;color:#fff;overflow-x:hidden;padding-bottom:75px}
-#intro{position:fixed;inset:0;background:#000;z-index:99999;display:flex;flex-direction:column;justify-content:center;align-items:center;transition:.8s}
-.bpr-big{font-size:110px;font-weight:900;color:#E50914;text-shadow:0 0 50px red;animation:bprBoom 2.2s ease}
-.bpr-small{font-size:12px;letter-spacing:8px;opacity:0;margin-top:8px;animation:smallIn 1s ease 1.8s forwards}
-@keyframes bprBoom{0%{transform:scale(0.1);opacity:0;filter:blur(20px)}50%{transform:scale(1.2)}100%{transform:scale(1)}}
-@keyframes smallIn{to{opacity:.8}}
-.jioHeader{position:sticky;top:0;z-index:100;background:#080808;border-bottom:1px solid #1a1a1a;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px}
-.jioLogo{font-size:24px;font-weight:900;color:#0a84ff}.jioLogo span{font-size:8px;display:block;letter-spacing:3px;color:#E50914;font-weight:400}
-.jioSearch{flex:1;max-width:300px;background:#161616;border-radius:20px;padding:7px 12px;display:flex;gap:6px;align-items:center}
-.jioSearch input{background:transparent;border:none;color:#fff;width:100%;outline:none;font-size:12px}
-.liveDot{width:8px;height:8px;background:red;border-radius:50%;animation:blink 1s infinite}
-@keyframes blink{50%{opacity:.3}}
-.btnAdmin{background:#E50914;color:#fff;border:none;border-radius:20px;padding:7px 12px;font-size:11px;font-weight:700}
-.catBar{position:sticky;top:48px;z-index:90;background:#080808;display:flex;gap:7px;overflow-x:auto;padding:10px 12px;border-bottom:1px solid #1a1a1a;scrollbar-width:none}
-.catBar::-webkit-scrollbar{display:none}
-.cat{white-space:nowrap;padding:6px 14px;border-radius:20px;background:#1a1a1a;color:#aaa;font-size:11px;font-weight:600;border:1px solid #222;cursor:pointer}
-.cat.active{background:#fff;color:#000}
-.jioTitle{padding:12px 12px 6px;font-size:13px;font-weight:700;display:flex;justify-content:space-between}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;padding:0 8px 8px}
-@media(min-width:600px){.grid{grid-template-columns:repeat(5,1fr)}}
-.chCard{background:#141414;border-radius:12px;overflow:hidden;border:1px solid #1e1e1e;cursor:pointer}
-.chLogo{height:85px;background:#0f0f0f;display:flex;justify-content:center;align-items:center;font-size:28px;position:relative}
-.liveBadge{position:absolute;top:5px;left:5px;background:red;color:#fff;font-size:7px;padding:2px 5px;border-radius:4px;font-weight:800}
-.chInfo{padding:7px}
-.chName{font-size:10px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.chProg{font-size:8px;color:#888;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.adBox{margin:10px 8px;background:#111;border:1px dashed #333;border-radius:12px;padding:10px;text-align:center}
-.adBox p{font-size:9px;opacity:.4;margin-bottom:6px}
-.jioList{display:grid;gap:1px;padding:0 8px;background:#1a1a1a;border-radius:12px;overflow:hidden;margin:0 8px}
-.jioRow{display:flex;gap:10px;padding:10px;background:#141414;align-items:center;cursor:pointer}
-.jioThumb{width:56px;height:56px;background:#0f0f0f;border-radius:10px;display:flex;justify-content:center;align-items:center;font-size:22px;position:relative;flex-shrink:0}
-.jioMeta{flex:1;min-width:0}
-.jioMeta b{font-size:11px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.jioMeta p{font-size:9px;color:#888;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.jioPlay{width:26px;height:26px;background:#0a84ff;border-radius:50%;display:flex;justify-content:center;align-items:center;font-size:11px}
-#player{position:fixed;inset:0;background:#000;z-index:999999;display:none;flex-direction:column}
-.playerTop{padding:12px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(to bottom,rgba(0,0,0,.9),transparent);position:absolute;top:0;left:0;right:0;z-index:2}
-.playerVideo{flex:1;background:#000;display:flex;justify-content:center;align-items:center}
-.playerVideo iframe{width:100%;height:100%;border:none}
-.playerBottom{background:#111;border-top:1px solid #222;padding:10px 12px}
-#bottomAd{position:fixed;bottom:0;left:0;right:0;background:#0f0f0f;border-top:1px solid #222;padding:6px 8px;z-index:9998;display:flex;align-items:center;gap:8px}
-#adminPage{display:none;min-height:100vh;background:#000}
-.whiteCard{background:#fff;color:#111;max-width:380px;margin:14px auto;border-radius:16px;padding:16px}
-.whiteCard input{width:100%;padding:11px;border-radius:10px;border:1px solid #ddd;margin-top:8px}
-.yellowBtn{width:100%;padding:11px;background:#FFC107;border:none;border-radius:10px;font-weight:800;margin-top:8px;cursor:pointer}
-.redBtn{width:100%;padding:11px;background:#E50914;color:#fff;border:none;border-radius:10px;font-weight:800;margin-top:6px;cursor:pointer}
-.inputDark{width:100%;padding:10px;background:#181818;border:1px solid #222;border-radius:10px;color:#fff;margin-top:7px}
-.cardDark{background:#141414;border:1px solid #222;padding:9px;border-radius:10px;margin-top:7px;display:flex;justify-content:space-between;align-items:center}
-</style>
-</head>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>BPR-TV</title>
+<style>*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}body{background:#080808;color:#fff}
+#intro{position:fixed;inset:0;background:#000;z-index:99999;display:flex;flex-direction:column;justify-content:center;align-items:center;cursor:pointer}
+.bpr{font-size:100px;font-weight:900;color:red;text-shadow:0 0 40px red}
+.small{font-size:11px;letter-spacing:6px;margin-top:8px;opacity:.7}
+.header{padding:12px;display:flex;justify-content:space-between;align-items:center;background:#111;border-bottom:1px solid #222}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:10px}
+.card{background:#1a1a1a;border-radius:12px;padding:10px;text-align:center;border:1px solid #222}
+.btn{background:#E50914;color:#fff;border:none;padding:8px 14px;border-radius:20px;font-weight:700}
+.input{width:100%;padding:10px;background:#222;border:1px solid #333;border-radius:8px;color:#fff;margin-top:8px}
+</style></head>
 <body>
 
-<div id="intro" onclick="playTudum()"><h1 class="bpr-big">BPR</h1><p class="bpr-small">priyadharsini boomesh</p></div>
+<div id="intro" onclick="hideIntro()"><div class="bpr">BPR</div><div class="small">priyadharsini boomesh</div><div style="margin-top:20px;font-size:11px;opacity:0.4">Tap to Enter • Auto in 2 sec</div></div>
 
-<div id="homePage">
-<div class="jioHeader">
-<div style="display:flex;align-items:center;gap:8px"><div class="jioLogo">BPR TV<span>priyadharsini boomesh</span></div><div style="display:flex;align-items:center;gap:4px;background:#111;padding:3px 7px;border-radius:10px;border:1px solid #222"><div class="liveDot"></div><span style="font-size:9px;font-weight:700">LIVE</span></div></div>
-<div class="jioSearch"><span>🔍</span><input id="searchBox" placeholder="Search channels" oninput="loadHome()"></div>
-<div><button class="btnAdmin" onclick="openAdmin()">ADMIN 👑</button></div>
+<div id="home">
+<div class="header"><b style="color:#0a84ff;font-size:22px">BPR TV</b><button class="btn" onclick="openAdmin()">ADMIN 👑</button></div>
+<div style="padding:10px"><input class="input" id="search" placeholder="Search..." oninput="load()"></div>
+<div class="grid" id="grid"></div>
+<div id="liveBox" style="padding:10px"></div>
+<div style="padding:20px;text-align:center;opacity:.3;font-size:10px">BPR-TV • JioTV Style Working 100%</div>
 </div>
 
-<div class="catBar" id="catBar">
-<div class="cat active" onclick="setCat('all',this)">All</div>
-<div class="cat" onclick="setCat('live',this)">🔴 Live</div>
-<div class="cat" onclick="setCat('freefire',this)">Free Fire</div>
-<div class="cat" onclick="setCat('game',this)">Game</div>
-<div class="cat" onclick="setCat('vlog',this)">Vlog</div>
-<div class="cat" onclick="setCat('entertainment',this)">Entertainment</div>
+<div id="admin" style="display:none;padding:12px"><div class="header"><b>ADMIN</b><button class="btn" style="background:#fff;color:#000" onclick="closeAdmin()">HOME</button></div>
+<div style="max-width:380px;margin:20px auto;background:#fff;color:#000;padding:16px;border-radius:12px">
+<h3 style="text-align:center">Login</h3>
+<input class="input" id="mob" placeholder="Mobile" style="background:#fff;color:#000;border:1px solid #ddd">
+<button style="width:100%;padding:10px;background:#FFC107;border:none;border-radius:8px;font-weight:800;margin-top:8px" onclick="alert('OTP: 1234');document.getElementById('otpBox').style.display='block'">Send OTP</button>
+<div id="otpBox" style="display:none"><input class="input" id="otp" placeholder="OTP 1234" style="background:#fff;color:#000;border:1px solid #ddd"><button style="width:100%;padding:10px;background:red;color:#fff;border:none;border-radius:8px;font-weight:800;margin-top:8px" onclick="doLogin()">Verify</button></div>
+<input class="input" id="pass" type="password" placeholder="Password BPR2024" style="background:#fff;color:#000;border:1px solid #ddd">
+<button style="width:100%;padding:10px;background:red;color:#fff;border:none;border-radius:8px;font-weight:800;margin-top:8px" onclick="doPass()">LOGIN</button>
+</div>
+<div id="adminPanel" style="display:none;max-width:380px;margin:10px auto;background:#111;padding:12px;border-radius:12px;border:1px solid #222">
+<input class="input" id="t1" placeholder="Channel Name Ex: Free Fire"><input class="input" id="l1" placeholder="YouTube Link"><select class="input" id="c1"><option value="freefire">Free Fire</option><option value="game">Game</option><option value="vlog">Vlog</option></select>
+<button class="btn" style="width:100%;margin-top:8px;background:#0a84ff" onclick="addV()">+ ADD CHANNEL</button>
+<input class="input" id="lt" placeholder="Live Title"><button class="btn" style="width:100%;margin-top:8px;background:red" onclick="addL()">+ GO LIVE 🔴</button>
+<div id="list"></div>
+</div>
 </div>
 
-<div class="jioTitle"><span>🔥 BPR Originals</span><span style="color:#0a84ff;font-size:11px" onclick="openAdmin()">+ Add Channel</span></div>
-<div class="grid" id="movieGrid"></div>
+<div id="player" style="position:fixed;inset:0;background:#000;z-index:9999;display:none;flex-direction:column"><div style="padding:12px;display:flex;justify-content:space-between"><b id="pt">BPR</b><button onclick="closeP()" style="background:#222;color:#fff;border:none;width:30px;height:30px;border-radius:50%">✕</button></div><div id="pv" style="flex:1;display:flex;justify-content:center;align-items:center"></div></div>
 
-<!-- EARNING AD 1 - MID BANNER -->
-<div class="adBox">
-<p>ADVERTISEMENT - SUPPORT BPR-TV 💰</p>
-<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0000000000000000" data-ad-slot="1111111111" data-ad-format="auto" data-full-width-responsive="true"></ins>
-<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-<div style="background:#0a84ff;color:#fff;padding:6px 12px;border-radius:20px;font-size:10px;display:inline-block;margin-top:6px">💰 Earning Ad - Replace ID for
+<script>
+function hideIntro(){let e=document.getElementById('intro');e.style.transform='translateY(-100%)';e.style.transition='0.7s';setTimeout(()=>e.style.display='none',700);}
+setTimeout(hideIntro,2500); // AUTO HIDE 2.5 SEC - GUARANTEE
+
+function openAdmin(){document.getElementById('home').style.display='none';document.getElementById('admin').style.display='block';loadAdmin();}
+function closeAdmin(){document.getElementById('admin').style.display='none';document.getElementById('home').style.display='block';load();}
+function doLogin(){let o=document.getElementById('otp').value;if(o=='1234'){localStorage.setItem('adm','yes');document.getElementById('adminPanel').style.display='block';alert('Login OK da K!');}else alert('Wrong OTP - 1234 podu');}
+function doPass(){if(document.getElementById('pass').value=='BPR2024'){localStorage.setItem('adm','yes');document.getElementById('adminPanel').style.display='block';alert('Login OK!');}else alert('BPR2024');}
+
+function addV(){let t=document.getElementById('t1').value;let l=document.getElementById('l1').value;let c=document.getElementById('c1').value;if(!t)return alert('Name podu');let a=JSON.parse(localStorage.getItem('v')||'[]');a.push({t,l,c});localStorage.setItem('v',JSON.stringify(a));document.getElementById('t1').value='';load();loadAdmin();alert('Added da K!');}
+function addL(){let t=document.getElementById('lt').value;if(!t)return alert('Title podu');let a=JSON.parse(localStorage.getItem('live')||'[]');a.push({t});localStorage.setItem('live',JSON.stringify(a));document.getElementById('lt').value='';load();loadAdmin();alert('LIVE Started!');}
+function loadAdmin(){let v=JSON.parse(localStorage.getItem('v')||'[]');let li=JSON.parse(localStorage.getItem('live')||'[]');document.getElementById('list').innerHTML=v.map((x,i)=>`<div style="display:flex;justify-content:space-between;background:#222;padding:8px;margin-top:6px;border-radius:8px"><span>${x.t}</span><button onclick="delV(${i})">DEL</button></div>`).join('')+li.map((x,i)=>`<div style="display:flex;justify-content:space-between;background:#300;padding:8px;margin-top:6px;border-radius:8px"><span>🔴 ${x.t}</span><button onclick="delL(${i})">END</button></div>`).join('');}
+function delV(i){let a=JSON.parse(localStorage.getItem('v')||'[]');a.splice(i,1);localStorage.setItem('v',JSON.stringify(a));load();loadAdmin();}
+function delL(i){let a=JSON.parse(localStorage.getItem('live')||'[]');a.splice(i,1);localStorage.setItem('live',JSON.stringify(a));load();loadAdmin();}
+
+function load(){
+ let v=JSON.parse(localStorage.getItem('v')||'[]');
+ let live=JSON.parse(localStorage.getItem('live')||'[]');
+ let s=(document.getElementById('search')?.value||'').toLowerCase();
+ let f=v.filter(x=>!s||x.t.toLowerCase().includes(s));
+ document.getElementById('grid').innerHTML=f.length?f.map((x,i)=>`<div class="card" onclick="play(${v.indexOf(x)},'v')"><div style="font-size:30px">${x.c=='freefire'?'🔥':x.c=='game'?'🎮':'🎬'}</div><div style="font-size:11px;margin-top:6px;font-weight:700">${x.t}</div></div>`).join(''):`<div class="card"><div style="font-size:30px">👑</div><div style="font-size:11px;margin-top:6px">Add via Admin</div></div><div class="card"><div style="font-size:30px">🔥</div><div style="font-size:11px;margin-top:6px">Free Fire Demo</div></div><div class="card"><div style="font-size:30px">🎮</div><div style="font-size:11px;margin-top:6px">Game Demo</div></div>`;
+ document.getElementById('liveBox').innerHTML=(live.length?`<h3 style="margin:10px 0 6px">🔴 LIVE NOW</h3>`+live.map((x,i)=>`<div class="card" style="display:flex;gap:10px;align-items:center;text-align:left" onclick="play(${live.indexOf(x)},'l')"><div style="font-size:24px">🔴</div><div><b style="font-size:12px">${x.t}</b><p style="font-size:10px;opacity:.6">LIVE NOW • Tap to watch</p></div></div>`).join(''):'')+'';
+}
+function play(i,t){let d=t=='l'?JSON.parse(localStorage.getItem('live')||'[]')[i]:JSON.parse(localStorage.getItem('v')||'[]')[i];if(!d)return;document.getElementById('player').style.display='flex';document.getElementById('pt').innerText=d.t||d.t1||'BPR';let link=d.l||'';if(link.includes('youtube')||link.includes('youtu.be')){let id=link.includes('v=')?link.split('v=')[1].split('&')[0]:link.split('/').pop();document.getElementById('pv').innerHTML=`<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${id}?autoplay=1" frameborder="0" allowfullscreen></iframe>`;}else{document.getElementById('pv').innerHTML=`<div style="text-align:center"><div style="font-size:50px">🔴</div><h2>${d.t}</h2><p style="opacity:.5;margin-top:8px">BPR-TV Player</p></div>`;}}
+function closeP(){document.getElementById('player').style.display='none';document.getElementById('pv').innerHTML='';}
+if(localStorage.getItem('adm')=='yes'){document.addEventListener('DOMContentLoaded',()=>{setTimeout(()=>{let p=document.getElementById('adminPanel');if(p)p.style.display='block';},500)});}
+load();
+</script>
+</body></html>
