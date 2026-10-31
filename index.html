@@ -1,132 +1,80 @@
-<!DOCTYPE html>
-<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><title>BPR FREE FIRE - REAL</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box;touch-action:none;font-family:Arial Black}
-body{background:#000;overflow:hidden}
-#ui{position:fixed;top:0;left:0;right:0;z-index:10;padding:8px;display:flex;gap:8px}
-.b{background:rgba(0,0,0,.8);color:#fff;padding:6px 10px;border-radius:20px;font-size:11px;border:1px solid #555}
-#minimap{position:fixed;top:50px;right:10px;width:90px;height:90px;background:rgba(0,0,0,.7);border:2px solid #fff;border-radius:10px;z-index:10}
-#joy{position:fixed;bottom:20px;left:15px;width:120px;height:120px;background:rgba(255,255,255,.12);border-radius:50%;border:2px solid rgba(255,255,255,.25);z-index:10}
-#stick{position:absolute;left:40px;top:40px;width:40px;height:40px;background:#fff;border-radius:50%;box-shadow:0 2px 10px rgba(0,0,0,.5)}
-#fire{position:fixed;bottom:25px;right:20px;width:85px;height:85px;background:radial-gradient(#ff4444,#aa0000);border-radius:50%;border:3px solid #fff;display:flex;align-items:center;justify-content:center;font-size:35px;z-index:10;box-shadow:0 0 20px red}
-#reload{position:fixed;bottom:120px;right:25px;width:55px;height:55px;background:rgba(0,150,255,.8);border-radius:50%;border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff;font-weight:900;z-index:10}
-#start{position:fixed;inset:0;background:linear-gradient(#000,#330000);z-index:20;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center}
-</style></head><body>
-<div id="start" onclick="start()">
-<div style="font-size:55px;color:#ffcc00;text-shadow:0 0 30px #ff6600">BPR<br>FREE FIRE</div>
-<div style="background:#ffcc00;color:#000;padding:5px 15px;border-radius:20px;font-size:12px;margin-top:8px">REAL BATTLE ROYALE V2</div>
-<div style="margin-top:20px;background:red;padding:15px 35px;border-radius:30px;font-size:20px;box-shadow:0 0 30px red">▶️ TAP TO START</div>
-<div style="margin-top:15px;font-size:11px;opacity:.7">Tamil Nadu Island • Buildings • Loot • Safe Zone<br>Joystick Move • Fire Button Shoot • Reload</div>
-</div>
-
-<div id="ui">
-<div class="b">🔥 ALIVE <span id="alive">20</span></div>
-<div class="b">💀 KILL <span id="kill">0</span></div>
-<div class="b">❤️ <span id="hp">200</span></div>
-<div class="b">🔫 <span id="ammo">30/90</span></div>
-</div>
-<canvas id="mini" width="90" height="90" style="position:fixed;top:50px;right:10px;z-index:11;border-radius:8px"></canvas>
-<div id="joy"><div id="stick"></div></div>
-<div id="fire">🔫</div>
-<div id="reload">RELOAD</div>
-<canvas id="c"></canvas>
-
+<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"><title>BPR 3D Tamil Nadu</title>
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+<style>*{margin:0;overflow:hidden;touch-action:none}body{background:#000}#joy{position:fixed;bottom:20px;left:15px;width:120px;height:120px;background:rgba(255,255,255,.15);border-radius:50%;z-index:10}#stick{position:absolute;left:35px;top:35px;width:50px;height:50px;background:#fff;border-radius:50%}#fire{position:fixed;bottom:20px;right:15px;width:90px;height:90px;background:radial-gradient(red,darkred);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;border:3px solid #fff;z-index:10}#info{position:fixed;top:10px;left:10px;color:#fff;font-family:Arial Black;background:rgba(0,0,0,.6);padding:8px 12px;border-radius:20px;font-size:12px;z-index:10}</style></head><body>
+<div id="info">🔥 BPR 3D - TAMIL NADU MAP<br>❤️ <span id="hp">200</span> | KILL <span id="kill">0</span></div>
+<div id="joy"><div id="stick"></div></div><div id="fire">FIRE</div>
 <script>
-let c=document.getElementById('c'),ctx=c.getContext('2d'),W,H,game=false;
-let mini=document.getElementById('mini'),mctx=mini.getContext('2d');
-let player,bullets=[],enemies=[],buildings=[],loot=[],zone={x:0,y:0,r:2000},kills=0,alive=20,hp=200,ammo=30,reserve=90;
-let joy={active:false,x:0,y:0},keys={},cam={x:0,y:0};
+let scene=new THREE.Scene();scene.fog=new THREE.Fog(0x87CEEB,50,300);
+let camera=new THREE.PerspectiveCamera(75,innerWidth/innerHeight,0.1,1000);
+let renderer=new THREE.WebGLRenderer({antialias:true});renderer.setSize(innerWidth,innerHeight);document.body.appendChild(renderer.domElement);
+scene.background=new THREE.Color(0x87CEEB);
 
-function resize(){W=c.width=innerWidth;H=c.height=innerHeight;}resize();onresize=resize;
+// Light - Rich look
+let sun=new THREE.DirectionalLight(0xffffff,1.2);sun.position.set(50,80,50);scene.add(sun);scene.add(new THREE.AmbientLight(0xffffff,0.6));
 
-class Building{constructor(x,y,w,h){this.x=x;this.y=y;this.w=w;this.h=h;}}
-function genMap(){
- buildings=[];
- for(let i=0;i<15;i++)buildings.push(new Building(Math.random()*2000-1000,Math.random()*2000-1000,80+Math.random()*100,80+Math.random()*100));
- loot=[];
- for(let i=0;i<20;i++)loot.push({x:Math.random()*1800-900,y:Math.random()*1800-900,type:Math.random()>.5?'ammo':'med',taken:false});
+// Ground - Vayal + Beach
+let ground=new THREE.Mesh(new THREE.PlaneGeometry(600,600),new THREE.MeshStandardMaterial({color:0x3a8a2a}));ground.rotation.x=-Math.PI/2;scene.add(ground);
+let beach=new THREE.Mesh(new THREE.PlaneGeometry(600,100),new THREE.MeshStandardMaterial({color:0xf5deb3}));beach.rotation.x=-Math.PI/2;beach.position.set(0,0.1,250);scene.add(beach);
+let sea=new THREE.Mesh(new THREE.PlaneGeometry(600,100),new THREE.MeshStandardMaterial({color:0x1e90ff}));sea.rotation.x=-Math.PI/2;sea.position.set(0,-0.2,350);scene.add(sea);
+
+// Temple Gopuram - Center - Rich
+function temple(x,z){
+  let g=new THREE.Group();
+  let base=new THREE.Mesh(new THREE.BoxGeometry(20,12,20),new THREE.MeshStandardMaterial({color:0x8b5a2b}));base.position.y=6;g.add(base);
+  for(let i=0;i<5;i++){let tower=new THREE.Mesh(new THREE.BoxGeometry(16-i*2,6,16-i*2),new THREE.MeshStandardMaterial({color:i%2?0xff6600:0x3399ff}));tower.position.y=15+i*6;g.add(tower);}
+  g.position.set(x,0,z);scene.add(g);return g;
 }
+let kovil=temple(0,0);
 
-function start(){
- document.getElementById('start').style.display='none';
- player={x:0,y:0,size:18,angle:0,speed:4.5};
- bullets=[];enemies=[];kills=0;alive=20;hp=200;ammo=30;reserve=90;genMap();
- zone={x:0,y:0,r:900};
- for(let i=0;i<19;i++)enemies.push({x:Math.random()*1600-800,y:Math.random()*1600-800,hp:100,speed:1.2+Math.random(),angle:0,shootCD:0});
- game=true; loop();
-}
+// Houses - Tamil Nadu style
+for(let i=0;i<20;i++){let h=new THREE.Mesh(new THREE.BoxGeometry(8,6,8),new THREE.MeshStandardMaterial({color:0xd2a679}));h.position.set(Math.random()*400-200,3,Math.random()*400-200);if(h.position.distanceTo(new THREE.Vector3(0,0,0))>30)scene.add(h);}
+for(let i=0;i<30;i++){let tree=new THREE.Mesh(new THREE.CylinderGeometry(0.5,0.8,8),new THREE.MeshStandardMaterial({color:0x8b4513}));tree.position.set(Math.random()*400-200,4,Math.random()*400-200);scene.add(tree);let leaves=new THREE.Mesh(new THREE.SphereGeometry(3),new THREE.MeshStandardMaterial({color:0x228B22}));leaves.position.copy(tree.position);leaves.position.y+=6;scene.add(leaves);}
 
-function collide(x,y){
- for(let b of buildings){if(x>b.x && x<b.x+b.w && y>b.y && y<b.y+b.h)return true;}return false;
-}
+// Player
+let player=new THREE.Group();let body=new THREE.Mesh(new THREE.BoxGeometry(1.5,3,1),new THREE.MeshStandardMaterial({color:0x0066ff}));body.position.y=1.5;player.add(body);player.position.set(0,0,40);scene.add(player);
+let enemies=[];for(let i=0;i<8;i++){let e=new THREE.Mesh(new THREE.BoxGeometry(1.5,3,1),new THREE.MeshStandardMaterial({color:0xff0000}));e.position.set(Math.random()*300-150,1.5,Math.random()*300-150);e.userData={hp:100};scene.add(e);enemies.push(e);}
+
+let hp=200,kills=0,keys={},joy={x:0,y:0,active:false},bullets=[];
+camera.position.set(0,15,25);camera.lookAt(player.position);
 
 function loop(){
- if(!game)return;
- // zone shrink
- zone.r-=0.15;
- if(Math.hypot(player.x-zone.x,player.y-zone.y)>zone.r)hp-=0.3;
-
- // input
- let mx=0,my=0;
- if(joy.active){mx=joy.x*player.speed;my=joy.y*player.speed;}
- if(keys['w'])my=-player.speed;if(keys['s'])my=player.speed;if(keys['a'])mx=-player.speed;if(keys['d'])mx=player.speed;
- let nx=player.x+mx,ny=player.y+my;
- if(!collide(nx,player.y))player.x=nx;
- if(!collide(player.x,ny))player.y=ny;
- if(mx||my)player.angle=Math.atan2(my,mx);
- cam.x=player.x-W/2;cam.y=player.y-H/2;
-
- // draw map
- ctx.fillStyle='#3a7d2a';ctx.fillRect(0,0,W,H);
- // grass dots
- ctx.fillStyle='rgba(0,0,0,.08)';for(let i=0;i<200;i++){let gx=Math.random()*W,gy=Math.random()*H;ctx.fillRect(gx,gy,2,2);}
- // zone
- ctx.save();ctx.translate(-cam.x,-cam.y);let zx=zone.x,y=zone.y;ctx.strokeStyle='rgba(0,150,255,.8)';ctx.lineWidth=4;ctx.beginPath();ctx.arc(zx,y,zone.r,0,Math.PI*2);ctx.stroke();ctx.fillStyle='rgba(0,150,255,.08)';ctx.fill();ctx.restore();
- // buildings
- ctx.save();ctx.translate(-cam.x,-cam.y);
- buildings.forEach(b=>{ctx.fillStyle='#8b5a2b';ctx.fillRect(b.x,b.y,b.w,b.h);ctx.fillStyle='#5d3a1a';ctx.fillRect(b.x,b.y,b.w,12);ctx.fillStyle='#000';ctx.fillRect(b.x+b.w/2-10,b.y+b.h-25,20,25);});
- // loot
- loot.forEach(l=>{if(l.taken)return;ctx.font='20px Arial';ctx.fillText(l.type=='ammo'?'🔫':'💊',l.x-10,l.y-10);if(Math.hypot(player.x-l.x,player.y-l.y)<30){l.taken=true;if(l.type=='ammo')reserve+=30;else hp=Math.min(200,hp+60);}});
- // enemies
- enemies.forEach(e=>{
-  let dx=player.x-e.x,dy=player.y-e.y,d=Math.hypot(dx,dy);
-  if(d<600){
-   let ang=Math.atan2(dy,dx);e.angle=ang;
-   let ex=e.x+Math.cos(ang)*e.speed,ey=e.y+Math.sin(ang)*e.speed;
-   if(!collide(ex,e.y))e.x=ex;if(!collide(e.x,ey))e.y=ey;
-   e.shootCD--;if(e.shootCD<=0 && d<300){bullets.push({x:e.x,y:e.y,vx:Math.cos(ang)*8,vy:Math.sin(ang)*8,enemy:true,life:90});e.shootCD=60;}
-  }
-  if(d<25)hp-=0.2;
-  ctx.save();ctx.translate(e.x,e.y);ctx.rotate(e.angle);ctx.fillStyle='red';ctx.fillRect(-10,-8,20,16);ctx.fillStyle='#fff';ctx.fillRect(10,-2,12,4);ctx.restore();
-  ctx.fillStyle='red';ctx.fillRect(e.x-15,e.y-25,e.hp/100*30,4);
- });
- // bullets
- bullets=bullets.filter(b=>{
-  b.x+=b.vx;b.y+=b.vy;b.life--;
-  if(b.enemy){if(Math.hypot(b.x-player.x,b.y-player.y)<18){hp-=15;return false;}}
-  else{
-   for(let i=enemies.length-1;i>=0;i--){let e=enemies[i];if(Math.hypot(b.x-e.x,b.y-e.y)<18){e.hp-=35;if(e.hp<=0){enemies.splice(i,1);kills++;alive--;if(alive<=1){win();return false;}}return false;}}
-  }
-  ctx.fillStyle=b.enemy?'#ff6600':'yellow';ctx.beginPath();ctx.arc(b.x,b.y,4,0,Math.PI*2);ctx.fill();
-  return b.life>0;
- });
- // player
- ctx.save();ctx.translate(player.x,player.y);ctx.rotate(player.angle);ctx.fillStyle='#0a84ff';ctx.fillRect(-12,-9,24,18);ctx.fillStyle='#ffcc00';ctx.fillRect(12,-3,18,6);ctx.fillStyle='#fff';ctx.font='12px Arial';ctx.fillText('YOU',-15,-18);ctx.restore();
- ctx.restore();
-
- // UI update
- document.getElementById('hp').innerText=Math.floor(hp);document.getElementById('kill').innerText=kills;document.getElementById('alive').innerText=alive+1;document.getElementById('ammo').innerText=ammo+'/'+reserve;
- if(hp<=0)gameOver();
-
- // minimap
- mctx.clearRect(0,0,90,90);mctx.fillStyle='#2a5a1a';mctx.fillRect(0,0,90,90);mctx.strokeStyle='#0af';mctx.beginPath();mctx.arc(45+(zone.x-player.x)/40,45+(zone.y-player.y)/40,zone.r/40,0,Math.PI*2);mctx.stroke();mctx.fillStyle='#08f';mctx.fillRect(43,43,4,4);enemies.forEach(e=>{mctx.fillStyle='red';mctx.fillRect(45+(e.x-player.x)/40,45+(e.y-player.y)/40,2,2);});
-
- requestAnimationFrame(loop);
+  requestAnimationFrame(loop);
+  // Move
+  let move=new THREE.Vector3(joy.x,0,joy.y).multiplyScalar(0.4);
+  move.x+= (keys['d']?0.4:0) - (keys['a']?0.4:0);
+  move.z+= (keys['s']?0.4:0) - (keys['w']?0.4:0);
+  player.position.add(move);
+  player.rotation.y=Math.atan2(move.x,move.z);
+  camera.position.x+= (player.position.x - camera.position.x + 0)*0.1;
+  camera.position.z+= (player.position.z + 25 - camera.position.z)*0.1;
+  camera.lookAt(player.position);
+  
+  // Enemies chase
+  enemies.forEach(e=>{
+    let dir=new THREE.Vector3().subVectors(player.position,e.position).normalize().multiplyScalar(0.08);
+    e.position.add(dir);e.lookAt(player.position);
+    if(e.position.distanceTo(player.position)<2){hp-=0.3;document.getElementById('hp').innerText=Math.floor(hp);}
+  });
+  
+  // Bullets
+  bullets=bullets.filter(b=>{b.position.add(b.velocity);if(b.position.length()>400)return false;
+    enemies.forEach((e,i)=>{if(b.position.distanceTo(e.position)<2){scene.remove(e);enemies.splice(i,1);kills++;document.getElementById('kill').innerText=kills;scene.remove(b);if(enemies.length==0){alert("BOOYAH DA K! 🏆");location.reload();}}});return true;
+  });
+  
+  if(hp<=0){alert("ELIMINATED DA K!");location.reload();}
+  renderer.render(scene,camera);
 }
+loop();
 
-function shoot(){
- if(ammo<=0)return;ammo--;let a=player.angle;bullets.push({x:player.x+Math.cos(a)*25,y:player.y+Math.sin(a)*25,vx:Math.cos(a)*12,vy:Math.sin(a)*12,life:80,enemy:false});
- if(ammo==0)document.getElementById('ammo').style.color='red';else document.getElementById('ammo').style.color='#fff';
-}
-function gameOver(){game=false;let d=document.createElement('div');d.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:30;display:flex;flex-direction:column;justify-content:center;align-items:center;color:#fff';d.innerHTML=`<div style="font-size:50px">💀</div><div style="font-size:30px;font-weight:900">ELIMINATED</div><div>KILL ${kills}</div><button onclick="location.reload()" style="margin-top:15px;background:red;color:#fff;padding:12px 25px;border:none;border-radius:20px;font-weight:800">TRY AGAIN</button>`;document.body.appendChild(d);}
-function win(){game=false;let d=document.createElement('div');d.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:30;display:flex;flex-direction:
+// Controls
+onkeydown=e=>keys[e.key.toLowerCase()]=true;onkeyup=e=>keys[e.key.toLowerCase()]=false;
+let joyEl=document.getElementById('joy'),stick=document.getElementById('stick');
+joyEl.addEventListener('touchmove',e=>{
+  e.preventDefault();let r=joyEl.getBoundingClientRect(),t=e.touches[0],dx=t.clientX-(r.left+60),dy=t.clientY-(r.top+60),d=Math.hypot(dx,dy);if(d>40){dx=dx/d*40;dy=dy/d*40;}stick.style.transform=`translate(${dx}px,${dy}px)`;joy.x=dx/40;joy.y=dy/40;joy.active=true;
+},{passive:false});
+joyEl.addEventListener('touchend',()=>{stick.style.transform='translate(0,0)';joy.x=joy.y=0;});
+document.getElementById('fire').addEventListener('touchstart',e=>{
+  e.preventDefault();let b=new THREE.Mesh(new THREE.SphereGeometry(0.3),new THREE.MeshStandardMaterial({color:0xffff00}));b.position.copy(player.position);b.position.y+=1.5;b.velocity=new THREE.Vector3(0,0,-2).applyQuaternion(player.quaternion).multiplyScalar(2);bullets.push(b);scene.add(b);
+});
+addEventListener('resize',()=>{renderer.setSize(innerWidth,innerHeight);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();});
+</script></body></html>
