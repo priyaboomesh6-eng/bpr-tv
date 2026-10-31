@@ -1,80 +1,223 @@
-<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"><title>BPR 3D Tamil Nadu</title>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>BPR 3D - Tamil Nadu Battlegrounds</title>
 <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
-<style>*{margin:0;overflow:hidden;touch-action:none}body{background:#000}#joy{position:fixed;bottom:20px;left:15px;width:120px;height:120px;background:rgba(255,255,255,.15);border-radius:50%;z-index:10}#stick{position:absolute;left:35px;top:35px;width:50px;height:50px;background:#fff;border-radius:50%}#fire{position:fixed;bottom:20px;right:15px;width:90px;height:90px;background:radial-gradient(red,darkred);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;border:3px solid #fff;z-index:10}#info{position:fixed;top:10px;left:10px;color:#fff;font-family:Arial Black;background:rgba(0,0,0,.6);padding:8px 12px;border-radius:20px;font-size:12px;z-index:10}</style></head><body>
-<div id="info">🔥 BPR 3D - TAMIL NADU MAP<br>❤️ <span id="hp">200</span> | KILL <span id="kill">0</span></div>
-<div id="joy"><div id="stick"></div></div><div id="fire">FIRE</div>
+<style>
+*{margin:0;padding:0;overflow:hidden;touch-action:none;box-sizing:border-box;font-family:Arial Black}
+body{background:#000}
+#ui{position:fixed;top:0;left:0;right:0;padding:10px;display:flex;gap:8px;z-index:10}
+.badge{background:rgba(0,0,0,0.8);color:#fff;padding:6px 12px;border-radius:20px;font-size:12px;border:1px solid #555}
+#joy{position:fixed;bottom:20px;left:15px;width:130px;height:130px;background:rgba(255,255,255,0.12);border-radius:50%;border:2px solid rgba(255,255,255,0.3);z-index:10}
+#stick{position:absolute;left:40px;top:40px;width:50px;height:50px;background:#fff;border-radius:50%;box-shadow:0 3px 15px rgba(0,0,0,0.5)}
+#fire{position:fixed;bottom:25px;right:20px;width:90px;height:90px;background:radial-gradient(#ff3333,#990000);border-radius:50%;border:3px solid #fff;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;font-weight:900;z-index:10;box-shadow:0 0 25px red}
+#scope{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:20px;height:20px;z-index:5;pointer-events:none}
+#scope::before,#scope::after{content:'';position:absolute;background:#fff}
+#scope::before{left:9px;top:0;width:2px;height:20px}
+#scope::after{top:9px;left:0;width:20px;height:2px}
+</style>
+</head>
+<body>
+<div id="ui">
+<div class="badge">🔥 ALIVE <span id="alive">9</span></div>
+<div class="badge">💀 KILL <span id="kill">0</span></div>
+<div class="badge">❤️ <span id="hp">200</span></div>
+<div class="badge">🔫 <span id="ammo">30</span></div>
+</div>
+<div id="scope"></div>
+<div id="joy"><div id="stick"></div></div>
+<div id="fire">FIRE</div>
+
 <script>
-let scene=new THREE.Scene();scene.fog=new THREE.Fog(0x87CEEB,50,300);
-let camera=new THREE.PerspectiveCamera(75,innerWidth/innerHeight,0.1,1000);
-let renderer=new THREE.WebGLRenderer({antialias:true});renderer.setSize(innerWidth,innerHeight);document.body.appendChild(renderer.domElement);
+// SCENE - RICH TAMIL NADU
+let scene=new THREE.Scene();
+scene.fog=new THREE.Fog(0x87CEEB, 80, 400);
+let camera=new THREE.PerspectiveCamera(70, innerWidth/innerHeight, 0.1, 1000);
+let renderer=new THREE.WebGLRenderer({antialias:true});
+renderer.setSize(innerWidth, innerHeight);
+renderer.shadowMap.enabled=true;
+document.body.appendChild(renderer.domElement);
 scene.background=new THREE.Color(0x87CEEB);
 
-// Light - Rich look
-let sun=new THREE.DirectionalLight(0xffffff,1.2);sun.position.set(50,80,50);scene.add(sun);scene.add(new THREE.AmbientLight(0xffffff,0.6));
+// LIGHT - RICH
+let sun=new THREE.DirectionalLight(0xffffff, 1.5);
+sun.position.set(100,150,80);
+sun.castShadow=true;
+scene.add(sun);
+scene.add(new THREE.AmbientLight(0xffffff, 0.7));
 
-// Ground - Vayal + Beach
-let ground=new THREE.Mesh(new THREE.PlaneGeometry(600,600),new THREE.MeshStandardMaterial({color:0x3a8a2a}));ground.rotation.x=-Math.PI/2;scene.add(ground);
-let beach=new THREE.Mesh(new THREE.PlaneGeometry(600,100),new THREE.MeshStandardMaterial({color:0xf5deb3}));beach.rotation.x=-Math.PI/2;beach.position.set(0,0.1,250);scene.add(beach);
-let sea=new THREE.Mesh(new THREE.PlaneGeometry(600,100),new THREE.MeshStandardMaterial({color:0x1e90ff}));sea.rotation.x=-Math.PI/2;sea.position.set(0,-0.2,350);scene.add(sea);
+// GROUND - VAYAL (GREEN)
+let groundMat=new THREE.MeshStandardMaterial({color:0x2e8b2e});
+let ground=new THREE.Mesh(new THREE.PlaneGeometry(800,800), groundMat);
+ground.rotation.x=-Math.PI/2;
+ground.receiveShadow=true;
+scene.add(ground);
 
-// Temple Gopuram - Center - Rich
-function temple(x,z){
-  let g=new THREE.Group();
-  let base=new THREE.Mesh(new THREE.BoxGeometry(20,12,20),new THREE.MeshStandardMaterial({color:0x8b5a2b}));base.position.y=6;g.add(base);
-  for(let i=0;i<5;i++){let tower=new THREE.Mesh(new THREE.BoxGeometry(16-i*2,6,16-i*2),new THREE.MeshStandardMaterial({color:i%2?0xff6600:0x3399ff}));tower.position.y=15+i*6;g.add(tower);}
-  g.position.set(x,0,z);scene.add(g);return g;
+// BEACH - SAND
+let beach=new THREE.Mesh(new THREE.PlaneGeometry(800,150), new THREE.MeshStandardMaterial({color:0xf4e4bc}));
+beach.rotation.x=-Math.PI/2;
+beach.position.set(0,0.2,325);
+scene.add(beach);
+
+// SEA - BLUE
+let sea=new THREE.Mesh(new THREE.PlaneGeometry(800,150), new THREE.MeshStandardMaterial({color:0x1e90ff}));
+sea.rotation.x=-Math.PI/2;
+sea.position.set(0,-0.5,450);
+scene.add(sea);
+
+// TEMPLE - RICH GOPURAM - CENTER (Your screenshot maathiri)
+function createTemple(x,z){
+  let group=new THREE.Group();
+  // Base
+  let base=new THREE.Mesh(new THREE.BoxGeometry(24,12,24), new THREE.MeshStandardMaterial({color:0x8B4513}));
+  base.position.y=6; base.castShadow=true; group.add(base);
+  // Levels - colorful like real Tamil Nadu temple
+  let colors=[0xff6600, 0x0066cc, 0xffcc00, 0xcc3366, 0x33aa33];
+  for(let i=0;i<5;i++){
+    let h=8; let size=20-i*2.5;
+    let tower=new THREE.Mesh(new THREE.BoxGeometry(size,h,size), new THREE.MeshStandardMaterial({color:colors[i]}));
+    tower.position.y=15+i*h; tower.castShadow=true; group.add(tower);
+    // Small statues on top
+    if(i==4){
+      let kalasam=new THREE.Mesh(new THREE.CylinderGeometry(1,2,4), new THREE.MeshStandardMaterial({color:0xffd700}));
+      kalasam.position.y=15+i*h+6; group.add(kalasam);
+    }
+  }
+  group.position.set(x,0,z);
+  scene.add(group);
+  return group;
 }
-let kovil=temple(0,0);
+let temple=createTemple(0,0);
 
-// Houses - Tamil Nadu style
-for(let i=0;i<20;i++){let h=new THREE.Mesh(new THREE.BoxGeometry(8,6,8),new THREE.MeshStandardMaterial({color:0xd2a679}));h.position.set(Math.random()*400-200,3,Math.random()*400-200);if(h.position.distanceTo(new THREE.Vector3(0,0,0))>30)scene.add(h);}
-for(let i=0;i<30;i++){let tree=new THREE.Mesh(new THREE.CylinderGeometry(0.5,0.8,8),new THREE.MeshStandardMaterial({color:0x8b4513}));tree.position.set(Math.random()*400-200,4,Math.random()*400-200);scene.add(tree);let leaves=new THREE.Mesh(new THREE.SphereGeometry(3),new THREE.MeshStandardMaterial({color:0x228B22}));leaves.position.copy(tree.position);leaves.position.y+=6;scene.add(leaves);}
+// HOUSES - TAMIL NADU STYLE
+for(let i=0;i<25;i++){
+  let x=Math.random()*600-300, z=Math.random()*600-300;
+  if(Math.abs(x)<40 && Math.abs(z)<40) continue;
+  let house=new THREE.Mesh(new THREE.BoxGeometry(8,5,8), new THREE.MeshStandardMaterial({color:0xd2a679}));
+  house.position.set(x,2.5,z); house.castShadow=true; scene.add(house);
+  let roof=new THREE.Mesh(new THREE.ConeGeometry(6,4,4), new THREE.MeshStandardMaterial({color:0x8B0000}));
+  roof.position.set(x,7,z); roof.rotation.y=Math.PI/4; scene.add(roof);
+}
 
-// Player
-let player=new THREE.Group();let body=new THREE.Mesh(new THREE.BoxGeometry(1.5,3,1),new THREE.MeshStandardMaterial({color:0x0066ff}));body.position.y=1.5;player.add(body);player.position.set(0,0,40);scene.add(player);
-let enemies=[];for(let i=0;i<8;i++){let e=new THREE.Mesh(new THREE.BoxGeometry(1.5,3,1),new THREE.MeshStandardMaterial({color:0xff0000}));e.position.set(Math.random()*300-150,1.5,Math.random()*300-150);e.userData={hp:100};scene.add(e);enemies.push(e);}
+// TREES - COCONUT / PALM
+for(let i=0;i<50;i++){
+  let x=Math.random()*600-300, z=Math.random()*600-300;
+  let trunk=new THREE.Mesh(new THREE.CylinderGeometry(0.4,0.7,10), new THREE.MeshStandardMaterial({color:0x8B4513}));
+  trunk.position.set(x,5,z); scene.add(trunk);
+  let leaves=new THREE.Mesh(new THREE.SphereGeometry(3.5), new THREE.MeshStandardMaterial({color:0x228B22}));
+  leaves.position.set(x,11,z); scene.add(leaves);
+}
 
-let hp=200,kills=0,keys={},joy={x:0,y:0,active:false},bullets=[];
-camera.position.set(0,15,25);camera.lookAt(player.position);
+// BOATS ON BEACH
+for(let i=0;i<8;i++){
+  let boat=new THREE.Mesh(new THREE.BoxGeometry(3,1,8), new THREE.MeshStandardMaterial({color:0x4a2c17}));
+  boat.position.set(Math.random()*400-200,0.8,320+Math.random()*20); scene.add(boat);
+}
+
+// PLAYER - BLUE
+let player=new THREE.Group();
+let body=new THREE.Mesh(new THREE.BoxGeometry(1.4,2.8,1), new THREE.MeshStandardMaterial({color:0x0066ff}));
+body.position.y=1.8; body.castShadow=true; player.add(body);
+player.position.set(0,0,50);
+scene.add(player);
+
+// ENEMIES - RED - 8 BOTS
+let enemies=[];
+for(let i=0;i<8;i++){
+  let e=new THREE.Mesh(new THREE.BoxGeometry(1.4,2.8,1), new THREE.MeshStandardMaterial({color:0xff1111}));
+  e.position.set(Math.random()*500-250,1.4,Math.random()*500-250);
+  if(e.position.distanceTo(player.position)<40) e.position.x+=80;
+  e.userData={hp:100, speed:0.6+Math.random()*0.4};
+  e.castShadow=true; scene.add(e); enemies.push(e);
+}
+
+let hp=200, kills=0, ammo=30, alive=8;
+let keys={}, joy={x:0,y:0}, bullets=[], cameraOffset=new THREE.Vector3(0,12,22);
+
+function updateUI(){
+  document.getElementById('hp').innerText=Math.floor(hp);
+  document.getElementById('kill').innerText=kills;
+  document.getElementById('alive').innerText=alive;
+  document.getElementById('ammo').innerText=ammo;
+}
 
 function loop(){
   requestAnimationFrame(loop);
-  // Move
-  let move=new THREE.Vector3(joy.x,0,joy.y).multiplyScalar(0.4);
-  move.x+= (keys['d']?0.4:0) - (keys['a']?0.4:0);
-  move.z+= (keys['s']?0.4:0) - (keys['w']?0.4:0);
+  // PLAYER MOVE
+  let move=new THREE.Vector3(joy.x*0.5,0,joy.y*0.5);
+  if(keys['w']) move.z-=0.5; if(keys['s']) move.z+=0.5;
+  if(keys['a']) move.x-=0.5; if(keys['d']) move.x+=0.5;
   player.position.add(move);
-  player.rotation.y=Math.atan2(move.x,move.z);
-  camera.position.x+= (player.position.x - camera.position.x + 0)*0.1;
-  camera.position.z+= (player.position.z + 25 - camera.position.z)*0.1;
-  camera.lookAt(player.position);
+  if(move.length()>0.01) player.rotation.y=Math.atan2(move.x,move.z);
   
-  // Enemies chase
+  // CAMERA FOLLOW - Free Fire style
+  let targetCamPos=player.position.clone().add(cameraOffset);
+  camera.position.lerp(targetCamPos, 0.08);
+  camera.lookAt(player.position.clone().add(new THREE.Vector3(0,2,0)));
+  
+  // ENEMIES CHASE
   enemies.forEach(e=>{
-    let dir=new THREE.Vector3().subVectors(player.position,e.position).normalize().multiplyScalar(0.08);
-    e.position.add(dir);e.lookAt(player.position);
-    if(e.position.distanceTo(player.position)<2){hp-=0.3;document.getElementById('hp').innerText=Math.floor(hp);}
+    let dir=new THREE.Vector3().subVectors(player.position,e.position); dir.y=0; dir.normalize().multiplyScalar(e.userData.speed*0.05);
+    e.position.add(dir); e.lookAt(player.position);
+    if(e.position.distanceTo(player.position)<2.5){ hp-=0.4; updateUI(); }
   });
   
-  // Bullets
-  bullets=bullets.filter(b=>{b.position.add(b.velocity);if(b.position.length()>400)return false;
-    enemies.forEach((e,i)=>{if(b.position.distanceTo(e.position)<2){scene.remove(e);enemies.splice(i,1);kills++;document.getElementById('kill').innerText=kills;scene.remove(b);if(enemies.length==0){alert("BOOYAH DA K! 🏆");location.reload();}}});return true;
+  // BULLETS
+  bullets=bullets.filter(b=>{
+    b.position.add(b.velocity);
+    if(b.position.length()>600){ scene.remove(b); return false; }
+    enemies.forEach((e,idx)=>{
+      if(b.position.distanceTo(e.position)<2.5){
+        e.userData.hp-=35;
+        if(e.userData.hp<=0){
+          scene.remove(e); enemies.splice(idx,1); kills++; alive--; updateUI();
+          if(alive<=0){ alert("🏆 BOOYAH DA K! TAMIL NADU CHAMPION!"); location.reload(); }
+        }
+        scene.remove(b); return false;
+      }
+    });
+    return true;
   });
   
-  if(hp<=0){alert("ELIMINATED DA K!");location.reload();}
+  if(hp<=0){ alert("💀 ELIMINATED DA K! TRY AGAIN!"); location.reload(); }
   renderer.render(scene,camera);
 }
 loop();
 
-// Controls
-onkeydown=e=>keys[e.key.toLowerCase()]=true;onkeyup=e=>keys[e.key.toLowerCase()]=false;
-let joyEl=document.getElementById('joy'),stick=document.getElementById('stick');
+// CONTROLS - PHONE JOYSTICK
+let joyEl=document.getElementById('joy'), stick=document.getElementById('stick');
+joyEl.addEventListener('touchstart',e=>e.preventDefault());
 joyEl.addEventListener('touchmove',e=>{
-  e.preventDefault();let r=joyEl.getBoundingClientRect(),t=e.touches[0],dx=t.clientX-(r.left+60),dy=t.clientY-(r.top+60),d=Math.hypot(dx,dy);if(d>40){dx=dx/d*40;dy=dy/d*40;}stick.style.transform=`translate(${dx}px,${dy}px)`;joy.x=dx/40;joy.y=dy/40;joy.active=true;
+  e.preventDefault();
+  let r=joyEl.getBoundingClientRect(), t=e.touches[0];
+  let dx=t.clientX-(r.left+65), dy=t.clientY-(r.top+65), d=Math.hypot(dx,dy);
+  if(d>45){ dx=dx/d*45; dy=dy/d*45; }
+  stick.style.transform=`translate(${dx}px,${dy}px)`;
+  joy.x=dx/45; joy.y=dy/45;
 },{passive:false});
-joyEl.addEventListener('touchend',()=>{stick.style.transform='translate(0,0)';joy.x=joy.y=0;});
+joyEl.addEventListener('touchend',()=>{ stick.style.transform='translate(0,0)'; joy.x=0; joy.y=0; });
+document.addEventListener('keydown',e=>keys[e.key.toLowerCase()]=true);
+document.addEventListener('keyup',e=>keys[e.key.toLowerCase()]=false);
 document.getElementById('fire').addEventListener('touchstart',e=>{
-  e.preventDefault();let b=new THREE.Mesh(new THREE.SphereGeometry(0.3),new THREE.MeshStandardMaterial({color:0xffff00}));b.position.copy(player.position);b.position.y+=1.5;b.velocity=new THREE.Vector3(0,0,-2).applyQuaternion(player.quaternion).multiplyScalar(2);bullets.push(b);scene.add(b);
+  e.preventDefault();
+  if(ammo<=0) return; ammo--; updateUI();
+  let b=new THREE.Mesh(new THREE.SphereGeometry(0.25), new THREE.MeshStandardMaterial({color:0xffff00, emissive:0xffff00}));
+  b.position.copy(player.position); b.position.y+=1.8;
+  let dir=new THREE.Vector3(0,0,-1).applyQuaternion(player.quaternion);
+  b.velocity=dir.multiplyScalar(2.5); bullets.push(b); scene.add(b);
 });
-addEventListener('resize',()=>{renderer.setSize(innerWidth,innerHeight);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();});
-</script></body></html>
+renderer.domElement.addEventListener('click',e=>{
+  if(e.target.id!='joy' && e.target.id!='fire'){
+    if(ammo<=0) return; ammo--; updateUI();
+    let b=new THREE.Mesh(new THREE.SphereGeometry(0.25), new THREE.MeshStandardMaterial({color:0xffff00, emissive:0xffff00}));
+    b.position.copy(player.position); b.position.y+=1.8;
+    let dir=new THREE.Vector3(0,0,-1).applyQuaternion(player.quaternion);
+    b.velocity=dir.multiplyScalar(2.5); bullets.push(b); scene.add(b);
+  }
+});
+addEventListener('resize',()=>{ renderer.setSize(innerWidth,innerHeight); camera.aspect=innerWidth/innerHeight; camera.updateProjectionMatrix(); });
+</script>
+</body>
+</html>
