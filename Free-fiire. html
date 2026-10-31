@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><title>BPR FREE FIRE 🔥 BOOYAH!</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;user-select:none;-webkit-user-select:none}
+body{background:#000;color:#fff;overflow:hidden;font-family:Arial;touch-action:none}
+#game{position:relative;width:100vw;height:100vh;background:linear-gradient(#87CEEB,#228B22)}
+#canvas{width:100%;height:100%;display:block;background:#2d5a27}
+.ui{position:absolute;top:0;left:0;right:0;padding:10px;display:flex;justify-content:space-between;z-index:10}
+.badge{background:rgba(0,0,0,.7);padding:6px 12px;border-radius:20px;font-size:12px;border:1px solid #555}
+.joystick{position:absolute;bottom:20px;left:20px;width:110px;height:110px;background:rgba(255,255,255,.15);border-radius:50%;border:2px solid rgba(255,255,255,.3);z-index:10}
+.stick{position:absolute;left:35px;top:35px;width:40px;height:40px;background:rgba(255,255,255,.8);border-radius:50%}
+.btns{position:absolute;bottom:20px;right:20px;display:flex;flex-direction:column;gap:12px;z-index:10}
+.gunBtn{width:70px;height:70px;background:rgba(255,0,0,.8);border-radius:50%;border:3px solid #fff;display:flex;justify-content:center;align-items:center;font-size:30px}
+.jumpBtn{width:55px;height:55px;background:rgba(0,200,0,.7);border-radius:50%;border:2px solid #fff;display:flex;justify-content:center;align-items:center;font-size:22px}
+#startScreen{position:absolute;inset:0;background:linear-gradient(180deg,#000 0%,#400 100%);z-index:20;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.logo{font-size:60px;font-weight:900;color:#ffcc00;text-shadow:0 0 20px #ff6600,0 4px 0 #000}
+</style></head><body>
+<div id="startScreen" onclick="startGame()">
+<div class="logo">BPR<br>FREE FIRE</div>
+<div style="background:#ffcc00;color:#000;padding:4px 12px;border-radius:20px;font-weight:900;margin-top:10px;font-size:12px;letter-spacing:2px">BATTLE ROYALE</div>
+<div style="margin-top:20px;background:red;color:#fff;padding:14px 30px;border-radius:30px;font-weight:800;font-size:18px;box-shadow:0 0 20px red">▶️ TAP TO PLAY - BOOYAH!</div>
+<div style="margin-top:15px;font-size:10px;opacity:.6">Joystick: Move • Red Button: Shoot • Green: Jump<br>Enemies Kill Pannu • BOOYAH Vangu!</div>
+<div style="margin-top:10px;font-size:9px;opacity:.4">BPR-TV Special • Sun TV Style Game</div>
+</div>
+
+<canvas id="canvas"></canvas>
+<div class="ui">
+<div class="badge">🔥 ALIVE: <span id="alive">10</span></div>
+<div class="badge">💀 KILL: <span id="kill">0</span></div>
+<div class="badge">❤️ HP: <span id="hp">100</span></div>
+</div>
+<div class="joystick" id="joy"><div class="stick" id="stick"></div></div>
+<div class="btns">
+<div class="jumpBtn" id="jumpBtn">⬆️</div>
+<div class="gunBtn" id="fireBtn">🔫</div>
+</div>
+
+<script>
+let canvas=document.getElementById('canvas'),ctx=canvas.getContext('2d'),W,H,player,bullets=[],enemies=[],kills=0,alive=10,hp=100,keys={},gameOn=false;
+let joyActive=false,joyX=0,joyY=0;
+
+function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;}
+resize();window.onresize=resize;
+
+class Player{constructor(){this.x=W/2;this.y=H/2;this.size=18;this.speed=5;this.angle=0;}
+ draw(){ctx.save();ctx.translate(this.x,this.y);ctx.rotate(this.angle);ctx.fillStyle='#0a84ff';ctx.fillRect(-this.size/2,-this.size/2,this.size,this.size);ctx.fillStyle='#ffcc00';ctx.fillRect(this.size/2-2,-4,14,8);ctx.restore();}}
+class Enemy{constructor(){let side=Math.floor(Math.random()*4);if(side==0){this.x=Math.random()*W;this.y=-30}else if(side==1){this.x=W+30;this.y=Math.random()*H}else if(side==2){this.x=Math.random()*W;this.y=H+30}else{this.x=-30;this.y=Math.random()*H}this.size=16;this.speed=1+Math.random()*1.5;this.hp=2;}
+ update(){let dx=player.x-this.x,dy=player.y-this.y,d=Math.sqrt(dx*dx+dy*dy);if(d>0){this.x+=dx/d*this.speed;this.y+=dy/d*this.speed}if(d<25){hp-=0.3;document.getElementById('hp').innerText=Math.max(0,Math.floor(hp));if(hp<=0)gameOver(false);}}
+ draw(){ctx.fillStyle='red';ctx.fillRect(this.x-this.size/2,this.y-this.size/2,this.size,this.size);ctx.fillStyle='#fff';ctx.font='10px Arial';ctx.fillText('💀',this.x-7,this.y+3);}}
+class Bullet{constructor(x,y,ang){this.x=x;this.y=y;this.vx=Math.cos(ang)*12;this.vy=Math.sin(ang)*12;this.life=60;}update(){this.x+=this.vx;this.y+=this.vy;this.life--;}draw(){ctx.fillStyle='yellow';ctx.beginPath();ctx.arc(this.x,this.y,4,0,Math.PI*2);ctx.fill();}}
+
+function startGame(){
+ document.getElementById('startScreen').style.display='none';
+ player=new Player();bullets=[];enemies=[];kills=0;alive=10;hp=100;gameOn=true;
+ for(let i=0;i<9;i++)enemies.push(new Enemy());
+ loop();
+}
+function gameOver(win){
+ gameOn=false;
+ let div=document.createElement('div');div.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:30;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center';
+ div.innerHTML=win?`<div style="font-size:70px">🏆</div><div style="font-size:40px;font-weight:900;color:#ffcc00">BOOYAH!</div><p style="margin-top:10px">KILL: ${kills}</p><button onclick="location.reload()" style="margin-top:20px;background:#ffcc00;color:#000;padding:12px 24px;border:none;border-radius:20px;font-weight:800">PLAY AGAIN</button>`:`<div style="font-size:60px">💀</div><div style="font-size:30px;font-weight:900">ELIMINATED</div><p style="margin-top:10px">KILL: ${kills}</p><button onclick="location.reload()" style="margin-top:20px;background:red;color:#fff;padding:12px 24px;border:none;border-radius:20px;font-weight:800">TRY AGAIN</button>`;
+ document.body.appendChild(div);
+}
+
+function loop(){
+ if(!gameOn)return;
+ ctx.clearRect(0,0,W,H);
+ // grass
+ ctx.fillStyle='#2d5a27';ctx.fillRect(0,0,W,H);
+ ctx.fillStyle='rgba(0,0,0,.1)';for(let i=0;i<50;i++)ctx.fillRect(Math.random()*W,Math.random()*H,3,3);
+ 
+ let moveX=0,moveY=0;
+ if(joyActive){moveX=joyX*player.speed;moveY=joyY*player.speed;}
+ if(keys['w']||keys['ArrowUp'])moveY=-player.speed;
+ if(keys['s']||keys['ArrowDown'])moveY=player.speed;
+ if(keys['a']||keys['ArrowLeft'])moveX=-player.speed;
+ if(keys['d']||keys['ArrowRight'])moveX=player.speed;
+ player.x=Math.max(20,Math.min(W-20,player.x+moveX));
+ player.y=Math.max(20,Math.min(H-20,player.y+moveY));
+ if(moveX||moveY)player.angle=Math.atan2(moveY,moveX);
+ player.draw();
+
+ // bullets
+ bullets=bullets.filter(b=>{
+  b.update();b.draw();
+  for(let i=enemies.length-1;i>=0;i--){
+   let e=enemies[i];let d=Math.hypot(b.x-e.x,b.y-e.y);
+   if(d<18){e.hp--;if(e.hp<=0){enemies.splice(i,1);kills++;alive--;document.getElementById('kill').innerText=kills;document.getElementById('alive').innerText=alive;if(alive<=0)gameOver(true);else enemies.push(new Enemy());}return false;}
+  }
+  return b.life>0;
+ });
+ enemies.forEach(e=>{e.update();e.draw();});
+ requestAnimationFrame(loop);
+}
+
+// Joystick
+let joy=document.getElementById('joy'),stick=document.getElementById('stick');
+joy.addEventListener('touchstart',e=>{joyActive=true;},{passive:false});
+joy.addEventListener('touchmove',e=>{
+ e.preventDefault();
+ let rect=joy.getBoundingClientRect();let t=e.touches[0];
+ let cx=rect.left+rect.width/2,cy=rect.top+rect.height/2;
+ let dx=t.clientX-cx,dy=t.clientY-cy,d=Math.hypot(dx,dy),max=35;
+ if(d>max){dx=dx/d*max;dy=dy/d*max;}
+ stick.style.transform=`translate(${dx}px,${dy}px)`;
+ joyX=dx/max;joyY=dy/max;
+},{passive:false});
+joy.addEventListener('touchend',()=>{joyActive=false;joyX=joyY=0;stick.style.transform='translate(0,0)';});
+
+document.addEventListener('keydown',e=>keys[e.key]=true);
+document.addEventListener('keyup',e=>keys[e.key]=false);
+document.getElementById('fireBtn').addEventListener('touchstart',e=>{e.preventDefault();if(player){let bx=player.x+Math.cos(player.angle)*20,by=player.y+Math.sin(player.angle)*20;bullets.push(new Bullet(bx,by,player.angle));}});
+document.getElementById('jumpBtn').addEventListener('touchstart',e=>{e.preventDefault();player.x+=Math.cos(player.angle)*40;player.y+=Math.sin(player.angle)*40;});
+canvas.addEventListener('click',e=>{if(!player)return;let ang=Math.atan2(e.clientY-player.y,e.clientX-player.x);player.angle=ang;bullets.push(new Bullet(player.x,player.y,ang));});
+</script>
+</body></html>
