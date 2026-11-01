@@ -16,3 +16,228 @@ head.position.y=3.2; player.add(head);
 
 let hair=new THREE.Mesh(new THREE.SphereGeometry(0.55,16,16,0,Math.PI*2,0,Math.PI/2), new THREE.MeshStandardMaterial({color:0x111111}));
 hair.position.y=3.3; player.add(hair);
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<title>BPR - REALITY Tamil Nadu</title>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<style>
+*{margin:0;padding:0;touch-action:none;font-family:Arial Black;box-sizing:border-box}
+body{background:#000;overflow:hidden}
+#top{position:fixed;top:0;left:0;right:0;padding:10px;display:flex;gap:6px;z-index:10}
+.badge{background:rgba(0,0,0,0.7);backdrop-filter:blur(10px);color:#fff;padding:6px 12px;border-radius:20px;font-size:11px;border:1px solid #555}
+#joy{position:fixed;bottom:20px;left:15px;width:135px;height:135px;background:rgba(255,255,255,0.1);border-radius:50%;border:2px solid rgba(255,255,255,0.25);z-index:10}
+#stick{position:absolute;left:42px;top:42px;width:50px;height:50px;background:#fff;border-radius:50%;box-shadow:0 5px 25px #0009}
+.btn{position:fixed;z-index:10;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;border:3px solid #fff;box-shadow:0 0 20px #000a}
+#fire{bottom:25px;right:15px;width:95px;height:95px;background:radial-gradient(#ff2222,#990000);font-size:15px}
+#gloo{bottom:140px;right:20px;width:72px;height:72px;background:radial-gradient(#22aaff,#0044aa);font-size:10px}
+#scope{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:5;pointer-events:none;color:#fff;font-size:20px;text-shadow:0 0 10px #000}
+</style>
+</head>
+<body>
+<div id="top">
+<div class="badge">🔥 <span id="alive">8</span> ALIVE</div>
+<div class="badge">💀 <span id="kill">0</span></div>
+<div class="badge">❤️ <span id="hp">200</span></div>
+<div class="badge">🔫 <span id="ammo">30</span>/90</div>
+<div class="badge">🏛️ TAMIL NADU REAL</div>
+</div>
+<div id="scope">+</div>
+<div id="joy"><div id="stick"></div></div>
+<div id="fire" class="btn">FIRE</div>
+<div id="gloo" class="btn">GLOO</div>
+
+<script type="module">
+import * as THREE from 'three';
+
+// SCENE REALITY
+let scene=new THREE.Scene();
+scene.fog=new THREE.FogExp2(0x87CEEB, 0.002);
+let camera=new THREE.PerspectiveCamera(65, innerWidth/innerHeight,0.1,1000);
+let renderer=new THREE.WebGLRenderer({antialias:true, powerPreference:"high-performance"});
+renderer.setSize(innerWidth,innerHeight);
+renderer.shadowMap.enabled=true;
+renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+renderer.toneMapping=THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure=1.1;
+document.body.appendChild(renderer.domElement);
+scene.background=new THREE.Color(0x87CEEB);
+
+// LIGHT - REAL SUNSET
+let sun=new THREE.DirectionalLight(0xfff0d0, 1.6);
+sun.position.set(120,180,90);
+sun.castShadow=true;
+sun.shadow.mapSize.set(2048,2048);
+sun.shadow.camera.left=-200; sun.shadow.camera.right=200; sun.shadow.camera.top=200; sun.shadow.camera.bottom=-200;
+scene.add(sun);
+scene.add(new THREE.HemisphereLight(0x87CEEB, 0x2e8b2e, 0.8));
+
+// TEXTURES - REALITY
+let loader=new THREE.TextureLoader();
+let grassTex=loader.load('https://threejs.org/examples/textures/terrain/grasslight-big.jpg');
+grassTex.wrapS=grassTex.wrapT=THREE.RepeatWrapping; grassTex.repeat.set(40,40);
+let sandTex=loader.load('https://threejs.org/examples/textures/terrain/backgrounddetailed6.jpg');
+sandTex.wrapS=sandTex.wrapT=THREE.RepeatWrapping; sandTex.repeat.set(20,10);
+
+// GROUND - REAL GRASS
+let groundMat=new THREE.MeshStandardMaterial({map:grassTex, roughness:0.9, metalness:0.05});
+let ground=new THREE.Mesh(new THREE.PlaneGeometry(800,800,50,50), groundMat);
+ground.rotation.x=-Math.PI/2; ground.receiveShadow=true;
+scene.add(ground);
+
+// BEACH - REAL SAND
+let beachMat=new THREE.MeshStandardMaterial({map:sandTex, roughness:1});
+let beach=new THREE.Mesh(new THREE.PlaneGeometry(800,140), beachMat);
+beach.rotation.x=-Math.PI/2; beach.position.set(0,0.3,340); beach.receiveShadow=true; scene.add(beach);
+
+// SEA - REAL WATER
+let sea=new THREE.Mesh(new THREE.PlaneGeometry(800,300), new THREE.MeshStandardMaterial({color:0x0a4a8a, roughness:0.1, metalness:0.3, transparent:true, opacity:0.9}));
+sea.rotation.x=-Math.PI/2; sea.position.set(0,-1,530); scene.add(sea);
+
+// TEMPLE - REALITY - Detailed with textures
+let templeGroup=new THREE.Group();
+function realTower(y,size,color,texScale){
+  let mat=new THREE.MeshStandardMaterial({color:color, roughness:0.7, metalness:0.1});
+  let box=new THREE.Mesh(new THREE.BoxGeometry(size,size*0.35,size), mat);
+  box.position.y=y; box.castShadow=true; box.receiveShadow=true; templeGroup.add(box);
+  // Add small statues pillars
+  for(let i=0;i<4;i++){
+    let pillar=new THREE.Mesh(new THREE.CylinderGeometry(0.3,0.4,size*0.35), new THREE.MeshStandardMaterial({color:0x5a3a1a}));
+    let angle=i*Math.PI/2; pillar.position.set(Math.cos(angle)*size*0.4, y, Math.sin(angle)*size*0.4); templeGroup.add(pillar);
+  }
+}
+realTower(4,28,0x8B5a2b);
+realTower(12,23,0xd2691e);
+realTower(19,19,0xcd853f);
+realTower(25,15,0xcc5533);
+realTower(31,11,0x8b4513);
+let gold=new THREE.Mesh(new THREE.CylinderGeometry(0.6,1.2,4,8), new THREE.MeshStandardMaterial({color:0xffd700, metalness:0.8, roughness:0.2}));
+gold.position.y=37; templeGroup.add(gold);
+scene.add(templeGroup);
+
+// HOUSES - REAL TAMIL NADU - with tiled roof
+for(let i=0;i<28;i++){
+  let x=Math.random()*600-300, z=Math.random()*600-300;
+  if(Math.hypot(x,z)<35) continue;
+  let wallMat=new THREE.MeshStandardMaterial({color:0xe8d5b5, roughness:0.9});
+  let house=new THREE.Mesh(new THREE.BoxGeometry(10,6,9), wallMat);
+  house.position.set(x,3,z); house.castShadow=true; house.receiveShadow=true; scene.add(house);
+  let roofMat=new THREE.MeshStandardMaterial({color:0x8B0000, roughness:0.6});
+  let roof=new THREE.Mesh(new THREE.ConeGeometry(7.5,5,4), roofMat);
+  roof.position.set(x,8.5,z); roof.rotation.y=Math.PI/4; roof.castShadow=true; scene.add(roof);
+}
+
+// PALM TREES - REAL
+for(let i=0;i<70;i++){
+  let x=Math.random()*600-300, z=Math.random()*600-300;
+  let trunk=new THREE.Mesh(new THREE.CylinderGeometry(0.35,0.65,13), new THREE.MeshStandardMaterial({color:0x4a2c17, roughness:0.9}));
+  trunk.position.set(x,6.5,z); trunk.castShadow=true; scene.add(trunk);
+  let leaves=new THREE.Mesh(new THREE.SphereGeometry(4.2,8,6), new THREE.MeshStandardMaterial({color:0x1a5a1a, roughness:0.8}));
+  leaves.position.set(x,14,z); leaves.castShadow=true; scene.add(leaves);
+}
+
+// PLAYER - REAL CHARACTER
+let player=new THREE.Group();
+let pBody=new THREE.Mesh(new THREE.CapsuleGeometry(0.6,1.6,4,8), new THREE.MeshStandardMaterial({color:0x0066ff, roughness:0.5}));
+pBody.position.y=1.7; pBody.castShadow=true; player.add(pBody);
+let pHead=new THREE.Mesh(new THREE.SphereGeometry(0.55,16,16), new THREE.MeshStandardMaterial({color:0xffdbac, roughness:0.6}));
+pHead.position.y=3.4; player.add(pHead);
+player.position.set(45,0,45); scene.add(player);
+
+// ENEMIES - REAL
+let enemies=[];
+for(let i=0;i<8;i++){
+  let e=new THREE.Group();
+  let eBody=new THREE.Mesh(new THREE.CapsuleGeometry(0.6,1.6,4,8), new THREE.MeshStandardMaterial({color:0xcc1111}));
+  eBody.position.y=1.7; eBody.castShadow=true; e.add(eBody);
+  e.position.set(Math.random()*300-150,0,Math.random()*300-150);
+  if(e.position.distanceTo(player.position)<40) e.position.x+=70;
+  e.userData={hp:100, speed:0.8}; scene.add(e); enemies.push(e);
+}
+
+let hp=200,kills=0,ammo=30,reserve=90,alive=8, joy={x:0,y:0}, bullets=[], glooWalls=[], keys={}, isSprinting=false;
+let cameraOffset=new THREE.Vector3(2.5,9,16);
+
+function updateUI(){
+  document.getElementById('hp').innerText=Math.floor(hp);
+  document.getElementById('kill').innerText=kills;
+  document.getElementById('alive').innerText=alive;
+  document.getElementById('ammo').innerText=ammo;
+}
+
+function loop(){
+  requestAnimationFrame(loop);
+  let speed=isSprinting?0.85:0.42;
+  let move=new THREE.Vector3(joy.x*speed,0,joy.y*speed);
+  if(keys['w']) move.z-=speed; if(keys['s']) move.z+=speed;
+  if(keys['a']) move.x-=speed; if(keys['d']) move.x+=speed;
+  player.position.add(move);
+  if(move.length()>0.01) player.rotation.y=Math.atan2(move.x,move.z);
+  
+  let targetCam=player.position.clone().add(cameraOffset);
+  camera.position.lerp(targetCam,0.1);
+  camera.lookAt(player.position.clone().add(new THREE.Vector3(0,2.5,0)));
+
+  enemies.forEach(e=>{
+    let dir=new THREE.Vector3().subVectors(player.position,e.position); dir.y=0;
+    dir.normalize().multiplyScalar(e.userData.speed*0.04);
+    e.position.add(dir); e.lookAt(player.position);
+    if(e.position.distanceTo(player.position)<2.5){ hp-=0.4; updateUI(); }
+  });
+
+  bullets=bullets.filter(b=>{
+    b.position.add(b.velocity);
+    if(b.position.length()>800){ scene.remove(b); return false; }
+    for(let w of glooWalls){ if(b.position.distanceTo(w.position)<3.2){ scene.remove(b); return false; } }
+    enemies.forEach((e,idx)=>{
+      if(b.position.distanceTo(e.position)<2.8){
+        e.userData.hp-=40;
+        if(e.userData.hp<=0){ scene.remove(e); enemies.splice(idx,1); kills++; alive--; updateUI();
+          if(alive<=0){ alert("🏆 BOOYAH! REALITY CHAMPION!"); location.reload(); }
+        }
+        scene.remove(b); return false;
+      }
+    });
+    return true;
+  });
+
+  if(hp<=0){ alert("💀 ELIMINATED!"); location.reload(); }
+  renderer.render(scene,camera);
+}
+loop();
+
+let joyEl=document.getElementById('joy'), stick=document.getElementById('stick');
+joyEl.addEventListener('touchmove',e=>{
+  e.preventDefault(); let r=joyEl.getBoundingClientRect(), t=e.touches[0];
+  let dx=t.clientX-(r.left+67), dy=t.clientY-(r.top+67), d=Math.hypot(dx,dy);
+  if(d>50){ dx=dx/d*50; dy=dy/d*50; } stick.style.transform=`translate(${dx}px,${dy}px)`;
+  joy.x=dx/50; joy.y=dy/50; isSprinting=d>45;
+},{passive:false});
+joyEl.addEventListener('touchend',()=>{ stick.style.transform='translate(0,0)'; joy.x=0; joy.y=0; isSprinting=false; });
+document.addEventListener('keydown',e=>keys[e.key.toLowerCase()]=true);
+document.addEventListener('keyup',e=>keys[e.key.toLowerCase()]=false);
+function shoot(){
+  if(ammo<=0){ if(reserve>0){ ammo=30; reserve-=30; updateUI(); } return; }
+  ammo--; updateUI();
+  let b=new THREE.Mesh(new THREE.SphereGeometry(0.18), new THREE.MeshStandardMaterial({color:0xffff00, emissive:0xffff00, emissiveIntensity:2}));
+  b.position.copy(player.position); b.position.y+=1.7;
+  let dir=new THREE.Vector3(0,0,-1).applyQuaternion(player.quaternion);
+  let closest=null, minD=999; enemies.forEach(e=>{ let d=e.position.distanceTo(player.position); if(d<minD&&d<120){ minD=d; closest=e; } });
+  if(closest){ dir=new THREE.Vector3().subVectors(closest.position, player.position).normalize(); dir.y+=0.05; }
+  b.velocity=dir.multiplyScalar(3.5); bullets.push(b); scene.add(b);
+}
+document.getElementById('fire').addEventListener('touchstart',e=>{ e.preventDefault(); shoot(); });
+document.getElementById('gloo').addEventListener('touchstart',e=>{
+  e.preventDefault();
+  let wall=new THREE.Mesh(new THREE.BoxGeometry(6,4.5,1.2), new THREE.MeshStandardMaterial({color:0x22aaff, roughness:0.3, metalness:0.2, transparent:true, opacity:0.85}));
+  wall.position.copy(player.position); wall.position.add(new THREE.Vector3(0,2.2,-5).applyQuaternion(player.quaternion));
+  wall.rotation.y=player.rotation.y; wall.castShadow=true; scene.add(wall); glooWalls.push(wall);
+  setTimeout(()=>{ scene.remove(wall); glooWalls=glooWalls.filter(w=>w!==wall); },8000);
+});
+addEventListener('resize',()=>{ renderer.setSize(innerWidth,innerHeight); camera.aspect=innerWidth/innerHeight; camera.updateProjectionMatrix(); });
+updateUI();
+</script>
+</body>
+</html>
