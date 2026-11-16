@@ -2,27 +2,60 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BPR TV - Netflix Style</title>
+<title>BPR TV</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
-body{background:#000;color:#fff;overflow-x:hidden}
-header{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:12px 15px;background:linear-gradient(#000,transparent)}
-#logo{color:#e50914;font-size:30px;font-weight:900;letter-spacing:-1px}
-#logo span{color:#fff;font-size:12px}
-nav{display:flex;gap:12px;font-size:13px}
-nav b{color:#fff}
-#search{width:140px;padding:7px 10px;border-radius:20px;border:none;background:#222;color:#fff;outline:none}
-#hero{height:72vh;background:linear-gradient(180deg,transparent 40%,#000 100%),linear-gradient(90deg,#b71c1c,#ff6b00);display:flex;flex-direction:column;justify-content:flex-end;padding:20px;position:relative}
-#hero h3{color:#e50914;letter-spacing:3px;font-size:13px}
-#hero h1{font-size:48px;line-height:1;margin:8px 0}
-#hero p{font-size:14px;color:#ddd;max-width:90%;line-height:1.5}
-.btns{display:flex;gap:10px;margin-top:15px}
-.btns button{padding:12px 22px;border:none;border-radius:5px;font-weight:900;font-size:15px}
-#play{background:#fff;color:#000}
-#info{background:rgba(255,255,255,.3);color:#fff}
+body{background:#000;color:#fff}
+header{position:fixed;top:0;left:0;right:0;z-index:9;display:flex;justify-content:space-between;padding:12px;background:linear-gradient(#000,transparent)}
+#logo{color:#e50914;font-size:28px;font-weight:900}
+#hero{height:65vh;background:linear-gradient(180deg,transparent,#000),linear-gradient(90deg,#b71c1c,#ff6b00);display:flex;flex-direction:column;justify-content:flex-end;padding:20px}
+#hero h1{font-size:42px}
+#hero p{font-size:13px;color:#ddd;margin:8px 0}
+button{padding:12px 22px;border:none;border-radius:5px;font-weight:900}
+#play{background:#fff}
+#info{background:#555;color:#fff}
 .row{padding:12px 0 0 15px}
-.row h2{font-size:18px;margin-bottom:10px}
-.posters{display:flex;gap:10px;overflow-x:auto;padding-bottom:10px;scrollbar-width:none}
-.posters::-webkit-scrollbar{display:none}
-.poster{min-width:130px;height:185px;border-radius:10px;display:flex;flex-direction:column;justify-content:flex-end;padding:10px;cursor:pointer;transition:.2s;position:relative}
-.poster:active
+.posters{display:flex;gap:10px;overflow-x:auto;padding-bottom:10px}
+.poster{min-width:130px;height:180px;border-radius:10px;padding:10px;display:flex;flex-direction:column;justify-content:flex-end;cursor:pointer}
+.poster b{font-size:15px}
+.poster span{font-size:11px;color:#ddd}
+</style>
+</head>
+<body>
+<header><div id="logo">BPR TV</div><div>🏠 Home &nbsp; 🔍 Search</div></header>
+<div id="hero">
+<h3 style="color:#e50914">BPR ORIGINAL</h3>
+<h1>BOOYAH KING</h1>
+<p>Orphan payyan world champion aagura kathai. Action, Mass, Emotion!</p>
+<div><button id="play" onclick="alert('Playing BOOYAH KING ▶')">▶ Play</button> <button id="info" onclick="alert('BOOYAH KING - 2026')">ⓘ Info</button></div>
+</div>
+<div class="row"><h2>🔥 Trending Now</h2><div class="posters" id="r1"></div></div>
+<div class="row"><h2>🎬 Action</h2><div class="posters" id="r2"></div></div>
+<div class="row"><h2>😂 Comedy</h2><div class="posters" id="r3"></div></div>
+<script>
+let m=[
+{t:"BOOYAH KING",c:"Action",g:"linear-gradient(#e50914,#ff6b00)",e:"🔫"},
+{t:"JAILER 2",c:"Action",g:"linear-gradient(#111,#555)",e:"🦁"},
+{t:"LEO RETURNS",c:"Action",g:"linear-gradient(#0d47a1,#00e5ff)",e:"🦁"},
+{t:"GHOST HOUSE",c:"Horror",g:"linear-gradient(#000,#333)",e:"👻"},
+{t:"COMEDY KING",c:"Comedy",g:"linear-gradient(#ff9800,#ffeb3b)",e:"😂"},
+{t:"LOVE TODAY 2",c:"Love",g:"linear-gradient(#e91e63,#ff80ab)",e:"❤️"},
+{t:"KGF 3",c:"Action",g:"linear-gradient(#3e2723,#ffab00)",e:"⛏️"},
+{t:"PUSHPA 3",c:"Action",g:"linear-gradient(#1b5e20,#76ff03)",e:"🔥"},
+];
+function show(id,list){
+let box=document.getElementById(id);
+list.forEach(x=>{
+let d=document.createElement("div");
+d.className="poster";d.style.background=x.g;
+d.innerHTML="<div style='font-size:35px'>"+x.e+"</div><b>"+x.t+"</b><span>"+x.c+"</span>";
+d.onclick=function(){alert("Playing "+x.t+" ▶")};
+box.appendChild(d);
+});
+}
+show("r1",m.slice(0,4));
+show("r2",m.slice(4,6));
+show("r3",m.slice(6,8));
+</script>
+</body>
+</html>
