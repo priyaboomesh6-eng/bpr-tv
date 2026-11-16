@@ -1,209 +1,53 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
-<title>BPR - REAL GAMEPLAY</title>
-<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}</script>
-<style>
-*{margin:0;padding:0;touch-action:none;font-family:Arial Black;box-sizing:border-box}
-body{background:#000;overflow:hidden;height:100dvh}
-#top{position:fixed;top:0;left:0;right:0;padding:8px;display:flex;gap:5px;z-index:20;flex-wrap:wrap}
-.badge{background:rgba(0,0,0,0.8);backdrop-filter:blur(8px);color:#fff;padding:5px 10px;border-radius:20px;font-size:10px;border:1px solid #555}
-#killfeed{position:fixed;top:60px;right:10px;z-index:20;color:#ff0;font-size:11px;text-align:right}
-#joyMove{position:fixed;bottom:20px;left:15px;width:130px;height:130px;background:rgba(255,255,255,0.12);border-radius:50%;border:2px solid rgba(255,255,255,0.3);z-index:20}
-#joyLook{position:fixed;bottom:20px;right:140px;width:110px;height:110px;background:rgba(255,255,255,0.08);border-radius:50%;border:2px dashed rgba(255,255,255,0.2);z-index:20}
-#stick,#stick2{position:absolute;left:40px;top:40px;width:48px;height:48px;background:#fff;border-radius:50%;box-shadow:0 4px 15px #0008}
-#stick2{left:30px;top:30px;width:44px;height:44px;background:rgba(255,255,255,0.6)}
-.btn{position:fixed;z-index:20;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;border:3px solid #fff;box-shadow:0 0 15px #000}
-#fire{bottom:30px;right:15px;width:90px;height:90px;background:radial-gradient(#ff3333,#990000);font-size:14px}
-#gloo{bottom:145px;right:15px;width:68px;height:68px;background:radial-gradient(#33aaff,#0044aa);font-size:9px}
-#scope{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:5;pointer-events:none;color:#fff;font-size:22px;text-shadow:0 0 8px #000}
-#hit{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:15;color:#ff0000;font-size:32px;font-weight:900;display:none;text-shadow:0 0 20px #fff}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Netflix Clone</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
+    body { background-color: #111; color: #fff; }
+    .navbar { display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; position: fixed; width: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent); z-index: 10; }
+    .logo { color: #e50914; font-size: 28px; font-weight: bold; letter-spacing: 2px; }
+    .signin-btn { background: #e50914; color: #fff; border: none; padding: 8px 16px; border-radius: 4px; font-weight: bold; cursor: pointer; }
+    .hero { height: 75vh; background: linear-gradient(to top, #111 10%, rgba(0,0,0,0.4) 90%), url('https://unsplash.com') center/cover; display: flex; flex-direction: column; justify-content: center; padding: 0 40px; }
+    .hero h1 { font-size: 48px; max-width: 600px; margin-bottom: 16px; }
+    .hero p { font-size: 18px; max-width: 500px; margin-bottom: 24px; color: #ddd; }
+    .hero-buttons button { padding: 10px 24px; font-size: 16px; font-weight: bold; border: none; border-radius: 4px; margin-right: 12px; cursor: pointer; }
+    .play-btn { background: #fff; color: #000; }
+    .info-btn { background: rgba(109, 109, 110, 0.7); color: #fff; }
+    .row { padding: 20px 40px; }
+    .row h2 { margin-bottom: 12px; font-size: 20px; }
+    .posters { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 10px; }
+    .poster { min-width: 160px; height: 240px; background: #222; border-radius: 6px; display: flex; align-items: flex-end; padding: 12px; font-weight: bold; transition: transform 0.3s; cursor: pointer; }
+    .poster:hover { transform: scale(1.08); background: #333; }
+  </style>
 </head>
 <body>
-<div id="top">
-<div class="badge">🔥 ALIVE <span id="alive">8</span></div>
-<div class="badge">💀 <span id="kill">0</span></div>
-<div class="badge">❤️ <span id="hp">200</span></div>
-<div class="badge">🔫 <span id="ammo">30</span>/90</div>
-<div class="badge">🎯 REAL GAMEPLAY</div>
-</div>
-<div id="killfeed"></div>
-<div id="scope">+</div>
-<div id="hit">HEADSHOT!</div>
-<div id="joyMove"><div id="stick"></div></div>
-<div id="joyLook"><div id="stick2"></div></div>
-<div id="fire" class="btn">FIRE</div>
-<div id="gloo" class="btn">GLOO</div>
+  <div class="navbar">
+    <div class="logo">NETFLIX</div>
+    <button class="signin-btn">Sign In</button>
+  </div>
 
-<script type="module">
-import * as THREE from 'three';
-let scene=new THREE.Scene(); scene.fog=new THREE.Fog(0x87CEEB,40,320);
-let camera=new THREE.PerspectiveCamera(70, innerWidth/innerHeight,0.1,1000);
-let renderer=new THREE.WebGLRenderer({antialias:true});
-renderer.setSize(innerWidth,innerHeight); renderer.shadowMap.enabled=true;
-renderer.shadowMap.type=THREE.PCFSoftShadowMap; document.body.appendChild(renderer.domElement);
-scene.background=new THREE.Color(0x87CEEB);
-let sun=new THREE.DirectionalLight(0xfff0cc,1.5); sun.position.set(100,160,80); sun.castShadow=true; sun.shadow.mapSize.set(2048,2048); scene.add(sun);
-scene.add(new THREE.HemisphereLight(0x87CEEB,0x2e8b2e,0.7));
+  <div class="hero">
+    <h1>Featured Title</h1>
+    <p>Stream unlimited movies and TV shows on your phone, tablet, laptop, and TV.</p>
+    <div class="hero-buttons">
+      <button class="play-btn">▶ Play</button>
+      <button class="info-btn">ⓘ More Info</button>
+    </div>
+  </div>
 
-// SOUND - REAL
-let audioCtx;
-function playSound(freq,vol,type,dur){
-  try{
-    if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)();
-    let o=audioCtx.createOscillator(), g=audioCtx.createGain();
-    o.type=type||'square'; o.frequency.value=freq; g.gain.setValueAtTime(vol, audioCtx.currentTime);
-    g.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime+dur); o.connect(g); g.connect(audioCtx.destination); o.start(); o.stop(audioCtx.currentTime+dur);
-  }catch(e){}
-}
-
-// GROUND REAL GRASS
-let loader=new THREE.TextureLoader();
-let grassTex=loader.load('https://threejs.org/examples/textures/terrain/grasslight-big.jpg');
-grassTex.wrapS=grassTex.wrapT=THREE.RepeatWrapping; grassTex.repeat.set(30,30);
-let ground=new THREE.Mesh(new THREE.PlaneGeometry(800,800), new THREE.MeshStandardMaterial({map:grassTex, roughness:0.9}));
-ground.rotation.x=-Math.PI/2; ground.receiveShadow=true; scene.add(ground);
-
-// TEMPLE REAL COLORFUL
-let templeGroup=new THREE.Group();
-let tColors=[0x8B4513,0xff6600,0x0066ff,0xffcc00,0xcc3366];
-for(let i=0;i<5;i++){
-  let size=28-i*4.5; let h= i==0?12:7;
-  let box=new THREE.Mesh(new THREE.BoxGeometry(size,h,size), new THREE.MeshStandardMaterial({color:tColors[i], roughness:0.6}));
-  box.position.y=(i==0?6:12+i*7); box.castShadow=true; box.receiveShadow=true; templeGroup.add(box);
-}
-let gold=new THREE.Mesh(new THREE.CylinderGeometry(0.5,1.3,3.5), new THREE.MeshStandardMaterial({color:0xffd700, metalness:0.8, roughness:0.2}));
-gold.position.y=40; templeGroup.add(gold); scene.add(templeGroup);
-
-// HOUSES + TREES
-for(let i=0;i<28;i++){ let x=Math.random()*600-300,z=Math.random()*600-300; if(Math.hypot(x,z)<35) continue;
-  let h=new THREE.Mesh(new THREE.BoxGeometry(10,6,9), new THREE.MeshStandardMaterial({color:0xe8d5b5})); h.position.set(x,3,z); h.castShadow=true; scene.add(h);
-  let r=new THREE.Mesh(new THREE.ConeGeometry(7.5,5,4), new THREE.MeshStandardMaterial({color:0x8B0000})); r.position.set(x,8.5,z); r.rotation.y=Math.PI/4; r.castShadow=true; scene.add(r);
-}
-for(let i=0;i<60;i++){ let x=Math.random()*600-300,z=Math.random()*600-300;
-  let trunk=new THREE.Mesh(new THREE.CylinderGeometry(0.4,0.7,12), new THREE.MeshStandardMaterial({color:0x4a2c17})); trunk.position.set(x,6,z); trunk.castShadow=true; scene.add(trunk);
-  let leaf=new THREE.Mesh(new THREE.SphereGeometry(3.8,8,6), new THREE.MeshStandardMaterial({color:0x1a5a1a})); leaf.position.set(x,13,z); leaf.castShadow=true; scene.add(leaf);
-}
-
-// PLAYER + REAL GUN MODEL
-let player=new THREE.Group();
-let pBody=new THREE.Mesh(new THREE.CapsuleGeometry(0.55,1.5,4,8), new THREE.MeshStandardMaterial({color:0x0066ff})); pBody.position.y=1.7; pBody.castShadow=true; player.add(pBody);
-let pHead=new THREE.Mesh(new THREE.SphereGeometry(0.5,12,12), new THREE.MeshStandardMaterial({color:0xffdbac})); pHead.position.y=3.2; player.add(pHead);
-// GUN - Real AK model in hand
-let gunGroup=new THREE.Group();
-let gunBody=new THREE.Mesh(new THREE.BoxGeometry(0.15,0.12,1.2), new THREE.MeshStandardMaterial({color:0x111111})); gunBody.position.set(0.5,1.2,0.6); gunGroup.add(gunBody);
-let gunBarrel=new THREE.Mesh(new THREE.CylinderGeometry(0.04,0.04,0.8), new THREE.MeshStandardMaterial({color:0x333333})); gunBarrel.rotation.x=Math.PI/2; gunBarrel.position.set(0.5,1.2,1.2); gunGroup.add(gunBarrel);
-player.add(gunGroup);
-player.position.set(50,0,50); scene.add(player);
-
-let enemies=[];
-for(let i=0;i<8;i++){ let e=new THREE.Group(); let eBody=new THREE.Mesh(new THREE.CapsuleGeometry(0.55,1.5,4,8), new THREE.MeshStandardMaterial({color:0xcc1111})); eBody.position.y=1.7; eBody.castShadow=true; e.add(eBody);
-  e.position.set(Math.random()*300-150,0,Math.random()*300-150); if(e.position.distanceTo(player.position)<45) e.position.x+=80;
-  e.userData={hp:100, speed:0.8}; scene.add(e); enemies.push(e);
-}
-
-let hp=200,kills=0,ammo=30,reserve=90,alive=8, joyMove={x:0,y:0}, joyLook={x:0,y:0}, bullets=[], glooWalls=[], keys={}, yaw=0, pitch=0, isSprinting=false;
-let cameraOffset=new THREE.Vector3(0,4,8);
-
-function updateUI(){ document.getElementById('hp').innerText=Math.floor(hp); document.getElementById('kill').innerText=kills; document.getElementById('alive').innerText=alive; document.getElementById('ammo').innerText=ammo; }
-function addKillFeed(txt){ let f=document.getElementById('killfeed'); let d=document.createElement('div'); d.innerText=txt; f.prepend(d); setTimeout(()=>d.remove(),3000); }
-
-function loop(){
-  requestAnimationFrame(loop);
-  let speed=isSprinting?0.85:0.45;
-  let move=new THREE.Vector3(joyMove.x*speed,0,joyMove.y*speed);
-  // Camera relative move
-  let forward=new THREE.Vector3(0,0,-1).applyAxisAngle(new THREE.Vector3(0,1,0), yaw);
-  let right=new THREE.Vector3().crossVectors(forward, new THREE.Vector3(0,1,0)).negate();
-  // Footstep sound
-  if(move.length()>0.1 && Math.random()>0.85){ playSound(80,0.15,'sine',0.08); }
-  
-  if(keys['w']) move.z-=speed; if(keys['s']) move.z+=speed; if(keys['a']) move.x-=speed; if(keys['d']) move.x+=speed;
-  // Apply yaw to move
-  let moveWorld=new THREE.Vector3(); moveWorld.addScaledVector(forward, -move.z); moveWorld.addScaledVector(right, move.x);
-  player.position.add(moveWorld);
-  if(move.length()>0.01) player.rotation.y=yaw;
-
-  // LOOK joystick - REAL GAME CAMERA CONTROL
-  yaw-=joyLook.x*0.06; pitch+=joyLook.y*0.04; pitch=Math.max(-0.6,Math.min(0.8,pitch));
-  
-  // CAMERA - REAL THIRD PERSON SHOOTER
-  let camPos=new THREE.Vector3(0,4+pitch*2,8).applyAxisAngle(new THREE.Vector3(0,1,0), yaw);
-  camPos.add(player.position); camera.position.lerp(camPos,0.15);
-  camera.lookAt(player.position.clone().add(new THREE.Vector3(0,2.5,0)));
-
-  // Gun recoil anim
-  gunGroup.position.z=THREE.MathUtils.lerp(gunGroup.position.z,0,0.2);
-
-  enemies.forEach(e=>{ let dir=new THREE.Vector3().subVectors(player.position,e.position); dir.y=0; dir.normalize().multiplyScalar(e.userData.speed*0.05); e.position.add(dir); e.lookAt(player.position);
-    if(e.position.distanceTo(player.position)<2.6){ hp-=0.5; updateUI(); if(hp<50) document.body.style.background="#ff000011"; }
-  });
-
-  bullets=bullets.filter(b=>{ b.position.add(b.velocity); if(b.position.length()>800){ scene.remove(b); return false; }
-    for(let w of glooWalls){ if(b.position.distanceTo(w.position)<3.2){ scene.remove(b); return false; } }
-    enemies.forEach((e,idx)=>{ if(b.position.distanceTo(e.position)<2.8){
-        let isHead=b.position.y > e.position.y+2.6;
-        let dmg=isHead?75:35;
-        if(isHead){ document.getElementById('hit').style.display='block'; setTimeout(()=>document.getElementById('hit').style.display='none',400); playSound(600,0.4,'square',0.15); }
-        e.userData.hp-=dmg;
-        if(e.userData.hp<=0){ scene.remove(e); enemies.splice(idx,1); kills++; alive--; updateUI(); addKillFeed(isHead?`🎯 HEADSHOT! Enemy Down`:`💀 Enemy Eliminated`); playSound(200,0.5,'sawtooth',0.4);
-          if(alive<=0){ alert("🏆 BOOYAH! REAL CHAMPION DA K!"); location.reload(); }
-        }
-        scene.remove(b); return false;
-      }});
-    return true;
-  });
-
-  if(hp<=0){ alert("💀 ELIMINATED!"); location.reload(); }
-  renderer.render(scene,camera);
-}
-loop();
-
-// JOYSTICKS - 2 JOSTICK REAL GAME MAATHIRI
-function setupJoy(elId, stickId, target){
-  let el=document.getElementById(elId), stick=document.getElementById(stickId);
-  el.addEventListener('touchmove',e=>{
-    e.preventDefault(); let r=el.getBoundingClientRect(), t=e.touches[0];
-    let dx=t.clientX-(r.left+r.width/2), dy=t.clientY-(r.top+r.height/2), d=Math.hypot(dx,dy), max=elId=='joyMove'?45:35;
-    if(d>max){ dx=dx/d*max; dy=dy/d*max; } stick.style.transform=`translate(${dx}px,${dy}px)`; target.x=dx/max; target.y=dy/max;
-    if(elId=='joyMove' && d>38) isSprinting=true;
-  },{passive:false});
-  el.addEventListener('touchend',()=>{ stick.style.transform='translate(0,0)'; target.x=0; target.y=0; if(elId=='joyMove') isSprinting=false; });
-}
-setupJoy('joyMove','stick',joyMove); setupJoy('joyLook','stick2',joyLook);
-
-document.addEventListener('keydown',e=>keys[e.key.toLowerCase()]=true);
-document.addEventListener('keyup',e=>keys[e.key.toLowerCase()]=false);
-
-function shoot(){
-  if(ammo<=0){ if(reserve>0){ ammo=30; reserve-=30; updateUI(); playSound(300,0.3,'sine',0.5); addKillFeed("🔄 Reloading..."); } return; }
-  ammo--; updateUI();
-  // REAL RECOIL + MUZZLE FLASH + SOUND + SHAKE
-  gunGroup.position.z=0.35; camera.position.y+=0.08; // recoil
-  playSound(150+Math.random()*80,0.6,'square',0.12); // gun sound
-  let flash=new THREE.Mesh(new THREE.SphereGeometry(0.25), new THREE.MeshBasicMaterial({color:0xffff55}));
-  flash.position.copy(player.position); flash.position.y+=1.2; flash.position.add(new THREE.Vector3(0.5,0,1.2).applyQuaternion(player.quaternion));
-  scene.add(flash); setTimeout(()=>scene.remove(flash),50);
-  let b=new THREE.Mesh(new THREE.SphereGeometry(0.16), new THREE.MeshStandardMaterial({color:0xffff00, emissive:0xffff00, emissiveIntensity:3}));
-  b.position.copy(player.position); b.position.y+=1.2;
-  let dir=new THREE.Vector3(0,0,-1).applyAxisAngle(new THREE.Vector3(0,1,0), yaw);
-  dir.y+=pitch*0.5;
-  // AUTO AIM
-  let closest=null,minD=999; enemies.forEach(e=>{ let d=e.position.distanceTo(player.position); if(d<minD&&d<130){ minD=d; closest=e; } });
-  if(closest && minD<100){ dir=new THREE.Vector3().subVectors(closest.position, b.position).normalize(); }
-  b.velocity=dir.multiplyScalar(4); bullets.push(b); scene.add(b);
-  document.getElementById('scope').style.transform='translate(-50%,-50%) scale(1.4)'; setTimeout(()=>document.getElementById('scope').style.transform='translate(-50%,-50%) scale(1)',80);
-}
-document.getElementById('fire').addEventListener('touchstart',e=>{ e.preventDefault(); shoot(); });
-document.getElementById('gloo').addEventListener('touchstart',e=>{
-  e.preventDefault(); playSound(100,0.4,'sine',0.2);
-  let wall=new THREE.Mesh(new THREE.BoxGeometry(6,4.5,1.2), new THREE.MeshStandardMaterial({color:0x22aaff, transparent:true, opacity:0.85})); wall.position.copy(player.position); wall.position.add(new THREE.Vector3(0,2.2,-5).applyAxisAngle(new THREE.Vector3(0,1,0), yaw)); wall.rotation.y=yaw; wall.castShadow=true; scene.add(wall); glooWalls.push(wall); addKillFeed("🛡️ Gloo Wall Deployed"); setTimeout(()=>{ scene.remove(wall); glooWalls=glooWalls.filter(w=>w!==wall); },8000);
-});
-addEventListener('resize',()=>{ renderer.setSize(innerWidth,innerHeight); camera.aspect=innerWidth/innerHeight; camera.updateProjectionMatrix(); });
-updateUI();
-</script>
+  <div class="row">
+    <h2>Trending Now</h2>
+    <div class="posters">
+      <div class="poster">Movie 1</div>
+      <div class="poster">Movie 2</div>
+      <div class="poster">Movie 3</div>
+      <div class="poster">Movie 4</div>
+      <div class="poster">Movie 5</div>
+      <div class="poster">Movie 6</div>
+    </div>
+  </div>
 </body>
 </html>
