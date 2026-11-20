@@ -2,56 +2,68 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BPR TV</title>
+<title>BPR TV - MASS</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
-body{background:#111;color:#fff}
-.navbar{display:flex;justify-content:space-between;align-items:center;padding:15px 20px;position:fixed;width:100%;background:linear-gradient(#000,transparent);z-index:10}
-.logo{color:#e50914;font-size:28px;font-weight:900}
-.logo span{color:#fff;font-size:11px;display:block}
-.insta{background:linear-gradient(45deg,#f9ce34,#ee2a7b,#6228d7);color:#fff;text-decoration:none;padding:8px 14px;border-radius:20px;font-weight:bold;font-size:13px}
-.hero{height:75vh;background:linear-gradient(to top,#111,transparent),linear-gradient(90deg,#b71c1c,#ff6b00);display:flex;flex-direction:column;justify-content:center;padding:0 20px}
-.hero h1{font-size:44px}
-.hero p{margin:10px 0 20px;color:#ddd;font-size:15px}
-button{padding:11px 22px;border:none;border-radius:4px;font-weight:900}
-.row{padding:20px}
-.row h2{margin-bottom:12px}
-.posters{display:flex;gap:12px;overflow-x:auto;padding-bottom:10px}
-.poster{min-width:150px;height:220px;border-radius:8px;display:flex;align-items:flex-end;padding:12px;font-weight:bold}
-.footer{text-align:center;padding:25px;color:#aaa;line-height:2}
-.follow{display:inline-block;background:linear-gradient(45deg,#f9ce34,#ee2a7b,#6228d7);color:#fff;text-decoration:none;padding:12px 28px;border-radius:30px;font-weight:900}
+body{background:#000;color:#fff}
+.navbar{display:flex;justify-content:space-between;align-items:center;padding:14px 15px;position:fixed;width:100%;background:rgba(0,0,0,.85);z-index:10}
+.logo{color:#e50914;font-size:30px;font-weight:900;text-shadow:0 0 15px #e50914}
+.hero{height:60vh;background:linear-gradient(to top,#000,transparent),linear-gradient(90deg,#b71c1c,#ff6b00);display:flex;flex-direction:column;justify-content:flex-end;padding:20px;padding-bottom:30px}
+.hero h1{font-size:48px;text-shadow:2px 2px 0 #000}
+.hero p{margin:8px 0 15px;color:#ddd}
+button{padding:12px 24px;border:none;border-radius:5px;font-weight:900;font-size:15px}
+.row{padding:18px 15px}
+.posters{display:flex;gap:12px;overflow-x:auto}
+.poster{min-width:140px;height:200px;border-radius:10px;display:flex;align-items:flex-end;padding:12px;font-weight:bold}
+/* MASS INSTA CARD */
+.mass-card{margin:15px;background:linear-gradient(45deg,#f9ce34,#ee2a7b,#6228d7,#f9ce34);background-size:300% 300%;animation:glow 3s infinite;padding:3px;border-radius:20px;box-shadow:0 0 30px #ee2a7b}
+@keyframes glow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.mass-inner{background:#111;border-radius:17px;padding:20px;text-align:center}
+.avatar{width:90px;height:90px;margin:0 auto;background:linear-gradient(45deg,#f9ce34,#ee2a7b,#6228d7);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:45px;border:3px solid #fff;box-shadow:0 0 20px #ee2a7b}
+.mass-inner h2{margin:12px 0 4px;font-size:22px}
+.mass-inner p{color:#aaa;font-size:13px}
+.stats{display:flex;justify-content:center;gap:20px;margin:14px 0;font-size:13px}
+.stats b{display:block;font-size:16px;color:#fff}
+.follow-mass{display:block;background:linear-gradient(45deg,#f9ce34,#ee2a7b,#6228d7);color:#fff;text-decoration:none;padding:15px;border-radius:30px;font-weight:900;font-size:18px;box-shadow:0 5px 20px #ee2a7b;animation:pulse 1.2s infinite}
+@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.05)}100%{transform:scale(1)}}
+.follow-mass:active{transform:scale(.95)}
 </style>
 </head>
 <body>
 <div class="navbar">
-<div class="logo">BPR TV<span>BOOYAH KING</span></div>
-<a class="insta" href="https://instagram.com/Priya_free_fire_lover_624" target="_blank">📸 Instagram</a>
+<div class="logo">BPR TV</div>
+<a href="https://instagram.com/Priya_free_fire_lover_624" target="_blank" style="color:#fff;text-decoration:none;font-weight:bold">📸 Priya</a>
 </div>
 
 <div class="hero">
-<h1>BOOYAH KING</h1>
-<p>BPR TV Original - Action, Mass, Emotion! Priya ku pudicha Free Fire Special!</p>
-<div><button onclick="alert('Playing BOOYAH KING ▶')">▶ Play</button> <button onclick="window.open('https://instagram.com/Priya_free_fire_lover_624','_blank')">ⓘ More Info</button></div>
+<h1>BOOYAH KING 👑</h1>
+<p>BPR TV Original - Mass, Action, Emotion!</p>
+<div><button onclick="alert('Playing BOOYAH KING ▶')">▶ Play</button> <button style="background:#333;color:#fff" onclick="window.open('https://instagram.com/Priya_free_fire_lover_624','_blank')">ⓘ More Info</button></div>
 </div>
 
+<!-- MASS INSTA -->
+<div class="mass-card"><div class="mass-inner">
+<div class="avatar">🔥</div>
+<h2>Priya_free_fire_lover_624</h2>
+<p>💎 Free Fire Queen 👑 • BPR TV • Gaming Lover</p>
+<div class="stats">
+<div><b>624</b>Posts</div>
+<div><b>12.5K</b>Followers</div>
+<div><b>500</b>Following</div>
+</div>
+<a class="follow-mass" href="https://instagram.com/Priya_free_fire_lover_624" target="_blank">📸 FOLLOW NOW • MASS 🔥</a>
+<p style="margin-top:12px;font-size:11px">👆 Click panna direct ah Priya Instagram ku pogum!</p>
+</div></div>
+
 <div class="row"><h2>🔥 Trending Now</h2><div class="posters">
-<div class="poster" style="background:linear-gradient(#e50914,#ff6b00)" onclick="alert('Playing BOOYAH KING')">BOOYAH KING</div>
-<div class="poster" style="background:linear-gradient(#111,#555)" onclick="alert('Playing JAILER 2')">JAILER 2</div>
-<div class="poster" style="background:linear-gradient(#0d47a1,#00e5ff)" onclick="alert('Playing LEO RETURNS')">LEO RETURNS</div>
-<div class="poster" style="background:linear-gradient(#000,#333)" onclick="alert('Playing GHOST HOUSE')">GHOST HOUSE</div>
+<div class="poster" style="background:linear-gradient(#e50914,#ff6b00)">BOOYAH KING</div>
+<div class="poster" style="background:linear-gradient(#111,#555)">JAILER 2</div>
+<div class="poster" style="background:linear-gradient(#0d47a1,#00e5ff)">LEO RETURNS</div>
 </div></div>
 
-<div class="row"><h2>🎬 Action</h2><div class="posters">
-<div class="poster" style="background:linear-gradient(#3e2723,#ffab00)">KGF 3</div>
-<div class="poster" style="background:linear-gradient(#1b5e20,#76ff03)">PUSHPA 3</div>
-<div class="poster" style="background:linear-gradient(#4a148c,#ff4081)">MASTER PLAN</div>
-</div></div>
-
-<div class="footer">
-Follow pannunga 👇<br>
-<a href="https://instagram.com/Priya_free_fire_lover_624" target="_blank" style="color:#fff;font-weight:bold">@Priya_free_fire_lover_624</a><br>
-<a class="follow" href="https://instagram.com/Priya_free_fire_lover_624" target="_blank">📸 FOLLOW PRIYA ON INSTAGRAM</a>
-<br><br>© 2026 BPR TV • Free Fire Lover
+<div style="text-align:center;padding:20px;color:#aaa">
+<a href="https://instagram.com/Priya_free_fire_lover_624" target="_blank" style="color:#ee2a7b;font-weight:bold;text-decoration:none;font-size:16px">@Priya_free_fire_lover_624 ❤️</a>
+<br><br>© 2026 BPR TV
 </div>
 </body>
 </html>
