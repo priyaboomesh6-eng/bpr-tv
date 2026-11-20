@@ -5,96 +5,75 @@
 <title>BPR FLIX</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
-body{background:#000;color:#fff;padding-bottom:20px}
-.navbar{display:flex;justify-content:space-between;align-items:center;padding:14px 15px;position:fixed;width:100%;background:rgba(0,0,0,.9);z-index:10}
-.logo{color:#e50914;font-size:30px;font-weight:900;text-shadow:0 0 15px #e50914}
-.logo span{color:#fff;font-size:10px;display:block;letter-spacing:3px}
-.hero{height:58vh;background:linear-gradient(to top,#000,transparent),linear-gradient(90deg,#b71c1c,#ff6b00);display:flex;flex-direction:column;justify-content:flex-end;padding:20px;padding-bottom:25px}
-.hero h1{font-size:46px}
-.hero p{margin:8px 0 15px;color:#ddd;font-size:14px}
+body{background:#000;color:#fff}
+.navbar{display:flex;justify-content:space-between;padding:14px 15px;position:fixed;width:100%;background:#000;z-index:10}
+.logo{color:#e50914;font-size:30px;font-weight:900}
+.hero{height:55vh;background:linear-gradient(to top,#000,transparent),linear-gradient(90deg,#b71c1c,#ff6b00);display:flex;flex-direction:column;justify-content:flex-end;padding:20px}
+.hero h1{font-size:44px}
 button{padding:11px 20px;border:none;border-radius:5px;font-weight:900}
-.mybtn{background:#e50914;color:#fff}
 .row{padding:15px}
-.posters{display:flex;gap:12px;overflow-x:auto;padding-bottom:5px}
-.poster{min-width:145px;height:210px;border-radius:10px;padding:10px;display:flex;flex-direction:column;justify-content:flex-end;position:relative}
-.poster b{font-size:15px}
-.poster span{font-size:11px;color:#ddd}
-.add{position:absolute;top:8px;right:8px;width:32px;height:32px;border-radius:50%;background:#fff;color:#000;font-size:20px;border:none;padding:0;display:flex;align-items:center;justify-content:center}
-.add.added{background:#e50914;color:#fff}
-.mass-card{margin:15px;background:linear-gradient(45deg,#f9ce34,#ee2a7b,#6228d7);padding:3px;border-radius:20px}
-.mass-inner{background:#111;border-radius:17px;padding:18px;text-align:center}
-.avatar{width:80px;height:80px;margin:0 auto;background:linear-gradient(45deg,#f9ce34,#ee2a7b);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:40px;border:3px solid #fff}
-.follow{display:block;background:linear-gradient(45deg,#f9ce34,#ee2a7b,#6228d7);color:#fff;text-decoration:none;padding:13px;border-radius:30px;font-weight:900;margin-top:12px}
+.posters{display:flex;gap:12px;overflow-x:auto}
+.poster{min-width:145px;height:200px;border-radius:10px;padding:10px;display:flex;flex-direction:column;justify-content:flex-end;position:relative}
+.addbtn{position:absolute;top:8px;right:8px;width:32px;height:32px;border-radius:50%;background:#fff;color:#000;font-size:20px;padding:0}
+.my-card{background:#1a1a1a;border:1px solid #e50914;border-radius:10px;padding:12px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
 </style>
 </head>
 <body>
-<div class="navbar"><div class="logo">BPR FLIX<span>BOOYAH KING</span></div><a href="https://instagram.com/Priya_free_fire_lover_624" target="_blank" style="color:#fff;text-decoration:none;font-weight:bold">📸 Priya</a></div>
+<div class="navbar"><div class="logo">BPR FLIX</div><a href="https://instagram.com/Priya_free_fire_lover_624" target="_blank" style="color:#fff;text-decoration:none;font-weight:bold">📸 Priya</a></div>
 
 <div class="hero">
 <h1>BOOYAH KING 👑</h1>
-<p>BPR FLIX Original - Mass, Action, Emotion!</p>
-<div><button onclick="alert('Playing BOOYAH KING ▶')">▶ Play</button> <button class="mybtn" onclick="toggleList('BOOYAH KING',this)">+ My List</button></div>
+<p style="margin:8px 0 12px">BPR FLIX Original!</p>
+<div><button onclick="alert('Playing BOOYAH KING')">▶ Play</button> <button style="background:#e50914;color:#fff" onclick="addToList('BOOYAH KING')">+ My List</button></div>
 </div>
 
-<div class="row" id="myListRow" style="display:none"><h2>❤️ My List - Nee Save Pannadhu</h2><div class="posters" id="myList"></div></div>
+<!-- MY LIST - INGATHAN VARUM -->
+<div class="row" id="listBox" style="display:none;background:#111;border-bottom:2px solid #e50914">
+<h2>❤️ My List (<span id="count">0</span>)</h2>
+<p style="color:#aaa;font-size:12px;margin:5px 0">Nee Add panna movies inge irukku 👇</p>
+<div id="myListArea"></div>
+<button onclick="clearList()" style="background:#333;color:#fff;margin-top:10px">Clear All</button>
+</div>
 
-<div class="mass-card"><div class="mass-inner">
-<div class="avatar">🔥</div>
-<h2 style="margin-top:10px">Priya_free_fire_lover_624</h2>
-<p style="color:#aaa;font-size:13px">💎 Free Fire Queen 👑 • BPR FLIX • Gaming Lover</p>
-<a class="follow" href="https://instagram.com/Priya_free_fire_lover_624" target="_blank">📸 FOLLOW NOW • MASS 🔥</a>
+<div style="margin:15px;background:linear-gradient(45deg,#f9ce34,#ee2a7b,#6228d7);padding:3px;border-radius:18px"><div style="background:#111;border-radius:15px;padding:18px;text-align:center"><div style="font-size:40px">🔥</div><h2>Priya_free_fire_lover_624</h2><a href="https://instagram.com/Priya_free_fire_lover_624" target="_blank" style="display:block;background:linear-gradient(45deg,#f9ce34,#ee2a7b);color:#fff;text-decoration:none;padding:12px;border-radius:30px;font-weight:900;margin-top:10px">📸 FOLLOW NOW</a></div></div>
+
+<div class="row"><h2>🔥 Trending Now</h2><div class="posters">
+<div class="poster" style="background:linear-gradient(#e50914,#ff6b00)" onclick="alert('Playing BOOYAH KING')"><button class="addbtn" onclick="event.stopPropagation();addToList('BOOYAH KING')">+</button><div style="font-size:35px">🔫</div><b>BOOYAH KING</b></div>
+<div class="poster" style="background:linear-gradient(#111,#555)" onclick="alert('Playing JAILER 2')"><button class="addbtn" onclick="event.stopPropagation();addToList('JAILER 2')">+</button><div style="font-size:35px">🦁</div><b>JAILER 2</b></div>
+<div class="poster" style="background:linear-gradient(#0d47a1,#00e5ff)" onclick="alert('Playing LEO RETURNS')"><button class="addbtn" onclick="event.stopPropagation();addToList('LEO RETURNS')">+</button><div style="font-size:35px">🦁</div><b>LEO RETURNS</b></div>
+<div class="poster" style="background:linear-gradient(#000,#333)" onclick="alert('Playing GHOST HOUSE')"><button class="addbtn" onclick="event.stopPropagation();addToList('GHOST HOUSE')">+</button><div style="font-size:35px">👻</div><b>GHOST HOUSE</b></div>
 </div></div>
 
-<div class="row"><h2>🔥 Trending Now</h2><div class="posters" id="r1"></div></div>
-<div class="row"><h2>🎬 Action</h2><div class="posters" id="r2"></div></div>
+<div class="row"><h2>🎬 Action</h2><div class="posters">
+<div class="poster" style="background:linear-gradient(#3e2723,#ffab00)" onclick="alert('Playing KGF 3')"><button class="addbtn" onclick="event.stopPropagation();addToList('KGF 3')">+</button><b>KGF 3</b></div>
+<div class="poster" style="background:linear-gradient(#1b5e20,#76ff03)" onclick="alert('Playing PUSHPA 3')"><button class="addbtn" onclick="event.stopPropagation();addToList('PUSHPA 3')">+</button><b>PUSHPA 3</b></div>
+</div></div>
 
 <script>
-let movies=[
-{t:"BOOYAH KING",c:"Action",g:"linear-gradient(#e50914,#ff6b00)",e:"🔫"},
-{t:"JAILER 2",c:"Action",g:"linear-gradient(#111,#555)",e:"🦁"},
-{t:"LEO RETURNS",c:"Action",g:"linear-gradient(#0d47a1,#00e5ff)",e:"🦁"},
-{t:"GHOST HOUSE",c:"Horror",g:"linear-gradient(#000,#333)",e:"👻"},
-{t:"KGF 3",c:"Action",g:"linear-gradient(#3e2723,#ffab00)",e:"⛏️"},
-{t:"PUSHPA 3",c:"Action",g:"linear-gradient(#1b5e20,#76ff03)",e:"🔥"},
-];
-let myList = JSON.parse(localStorage.getItem("bprList")||"[]");
-function render(){
-let r1=document.getElementById("r1"), r2=document.getElementById("r2");
-r1.innerHTML=""; r2.innerHTML="";
-movies.forEach((m,i)=>{
-let d=document.createElement("div");
-d.className="poster"; d.style.background=m.g;
-let isIn = myList.includes(m.t);
-d.innerHTML="<button class='add "+(isIn?"added":"")+"' onclick='event.stopPropagation();toggleList(\""+m.t+"\",this)'>"+(isIn?"✓":"+")+"</button><div style='font-size:35px'>"+m.e+"</div><b>"+m.t+"</b><span>"+m.c+"</span>";
-d.onclick=()=>alert("Playing "+m.t+" ▶");
-if(i<3) r1.appendChild(d); else r2.appendChild(d);
-});
-renderMyList();
-}
-function renderMyList(){
-let box=document.getElementById("myList"), row=document.getElementById("myListRow");
-if(myList.length==0){row.style.display="none"; return;}
-row.style.display="block"; box.innerHTML="";
-myList.forEach(name=>{
-let m=movies.find(x=>x.t==name); if(!m) return;
-let d=document.createElement("div"); d.className="poster"; d.style.background=m.g;
-d.innerHTML="<button class='add added' onclick='event.stopPropagation();toggleList(\""+m.t+"\",this)'>✕</button><div style='font-size:35px'>"+m.e+"</div><b>"+m.t+"</b><span>"+m.c+"</span>";
-d.onclick=()=>alert("Playing "+m.t+" ▶");
-box.appendChild(d);
-});
-}
-function toggleList(name,btn){
-if(myList.includes(name)){
-myList=myList.filter(x=>x!=name);
-alert(name+" Removed from My List ❌");
-}else{
+let myList = [];
+function addToList(name){
+if(myList.includes(name)){ alert(name+" Already in My List da!"); return; }
 myList.push(name);
 alert(name+" Added to My List ❤️");
+showList();
 }
-localStorage.setItem("bprList",JSON.stringify(myList));
-render();
+function showList(){
+let box=document.getElementById("listBox");
+let area=document.getElementById("myListArea");
+document.getElementById("count").textContent=myList.length;
+if(myList.length==0){ box.style.display="none"; return; }
+box.style.display="block";
+area.innerHTML="";
+myList.forEach(n=>{
+area.innerHTML += "<div class='my-card'><b>🎬 "+n+"</b><button onclick=\"removeOne('"+n+"')\" style='background:#e50914;color:#fff;padding:6px 12px'>Remove ✕</button></div>";
+});
+window.scrollTo({top:0,behavior:'smooth'});
 }
-render();
+function removeOne(name){
+myList=myList.filter(x=>x!=name);
+showList();
+}
+function clearList(){ myList=[]; showList(); }
 </script>
 </body>
 </html>
