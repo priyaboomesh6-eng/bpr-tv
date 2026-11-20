@@ -15,65 +15,53 @@ button{padding:11px 20px;border:none;border-radius:5px;font-weight:900}
 .posters{display:flex;gap:12px;overflow-x:auto}
 .poster{min-width:145px;height:200px;border-radius:10px;padding:10px;display:flex;flex-direction:column;justify-content:flex-end;position:relative}
 .addbtn{position:absolute;top:8px;right:8px;width:32px;height:32px;border-radius:50%;background:#fff;color:#000;font-size:20px;padding:0}
-.my-card{background:#1a1a1a;border:1px solid #e50914;border-radius:10px;padding:12px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
+.my-card{background:#1a1a1a;border:1px solid #e50914;border-radius:10px;padding:12px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
 </style>
 </head>
 <body>
-<div class="navbar"><div class="logo">BPR FLIX</div><a href="https://instagram.com/Priya_free_fire_lover_624" target="_blank" style="color:#fff;text-decoration:none;font-weight:bold">📸 Priya</a></div>
+<div class="navbar"><div class="logo">BPR FLIX</div><a href="https://instagram.com/bpr_flix" target="_blank" style="color:#fff;text-decoration:none;font-weight:bold">📸 BPR FLIX</a></div>
 
 <div class="hero">
 <h1>BOOYAH KING 👑</h1>
 <p style="margin:8px 0 12px">BPR FLIX Original!</p>
-<div><button onclick="alert('Playing BOOYAH KING')">▶ Play</button> <button style="background:#e50914;color:#fff" onclick="addToList('BOOYAH KING')">+ My List</button></div>
+<div><button onclick="alert('Playing BOOYAH KING ▶')">▶ Play</button> <button style="background:#e50914;color:#fff" onclick="addToList('BOOYAH KING')">+ My List</button></div>
 </div>
 
-<!-- MY LIST - INGATHAN VARUM -->
 <div class="row" id="listBox" style="display:none;background:#111;border-bottom:2px solid #e50914">
 <h2>❤️ My List (<span id="count">0</span>)</h2>
-<p style="color:#aaa;font-size:12px;margin:5px 0">Nee Add panna movies inge irukku 👇</p>
 <div id="myListArea"></div>
-<button onclick="clearList()" style="background:#333;color:#fff;margin-top:10px">Clear All</button>
 </div>
 
-<div style="margin:15px;background:linear-gradient(45deg,#f9ce34,#ee2a7b,#6228d7);padding:3px;border-radius:18px"><div style="background:#111;border-radius:15px;padding:18px;text-align:center"><div style="font-size:40px">🔥</div><h2>Priya_free_fire_lover_624</h2><a href="https://instagram.com/Priya_free_fire_lover_624" target="_blank" style="display:block;background:linear-gradient(45deg,#f9ce34,#ee2a7b);color:#fff;text-decoration:none;padding:12px;border-radius:30px;font-weight:900;margin-top:10px">📸 FOLLOW NOW</a></div></div>
-
-<div class="row"><h2>🔥 Trending Now</h2><div class="posters">
-<div class="poster" style="background:linear-gradient(#e50914,#ff6b00)" onclick="alert('Playing BOOYAH KING')"><button class="addbtn" onclick="event.stopPropagation();addToList('BOOYAH KING')">+</button><div style="font-size:35px">🔫</div><b>BOOYAH KING</b></div>
-<div class="poster" style="background:linear-gradient(#111,#555)" onclick="alert('Playing JAILER 2')"><button class="addbtn" onclick="event.stopPropagation();addToList('JAILER 2')">+</button><div style="font-size:35px">🦁</div><b>JAILER 2</b></div>
-<div class="poster" style="background:linear-gradient(#0d47a1,#00e5ff)" onclick="alert('Playing LEO RETURNS')"><button class="addbtn" onclick="event.stopPropagation();addToList('LEO RETURNS')">+</button><div style="font-size:35px">🦁</div><b>LEO RETURNS</b></div>
-<div class="poster" style="background:linear-gradient(#000,#333)" onclick="alert('Playing GHOST HOUSE')"><button class="addbtn" onclick="event.stopPropagation();addToList('GHOST HOUSE')">+</button><div style="font-size:35px">👻</div><b>GHOST HOUSE</b></div>
+<!-- BPR FLIX INSTAGRAM - IDHU MATTUM INSTAGRAM KU POGUM -->
+<div style="margin:15px;background:linear-gradient(45deg,#f9ce34,#ee2a7b,#6228d7);padding:3px;border-radius:18px"><div style="background:#111;border-radius:15px;padding:18px;text-align:center">
+<div style="width:80px;height:80px;margin:0 auto;background:#e50914;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:35px;border:3px solid #fff">📺</div>
+<h2 style="margin-top:10px">BPR FLIX</h2>
+<p style="color:#aaa;font-size:13px">@bpr_flix • Movies • Mass • Booyah King</p>
+<a href="https://instagram.com/bpr_flix" target="_blank" style="display:block;background:linear-gradient(45deg,#f9ce34,#ee2a7b);color:#fff;text-decoration:none;padding:13px;border-radius:30px;font-weight:900;margin-top:12px">📸 FOLLOW BPR FLIX</a>
+<p style="font-size:11px;color:#888;margin-top:8px">Idha click panna mattum Instagram ku pogum</p>
 </div></div>
 
-<div class="row"><h2>🎬 Action</h2><div class="posters">
-<div class="poster" style="background:linear-gradient(#3e2723,#ffab00)" onclick="alert('Playing KGF 3')"><button class="addbtn" onclick="event.stopPropagation();addToList('KGF 3')">+</button><b>KGF 3</b></div>
-<div class="poster" style="background:linear-gradient(#1b5e20,#76ff03)" onclick="alert('Playing PUSHPA 3')"><button class="addbtn" onclick="event.stopPropagation();addToList('PUSHPA 3')">+</button><b>PUSHPA 3</b></div>
+<div class="row"><h2>🔥 Trending Now</h2><div class="posters">
+<div class="poster" style="background:linear-gradient(#e50914,#ff6b00)" onclick="alert('Playing BOOYAH KING')"><button class="addbtn" onclick="event.stopPropagation();addToList('BOOYAH KING')">+</button><b>BOOYAH KING</b></div>
+<div class="poster" style="background:linear-gradient(#111,#555)" onclick="alert('Playing JAILER 2')"><button class="addbtn" onclick="event.stopPropagation();addToList('JAILER 2')">+</button><b>JAILER 2</b></div>
+<div class="poster" style="background:linear-gradient(#0d47a1,#00e5ff)" onclick="alert('Playing LEO RETURNS')"><button class="addbtn" onclick="event.stopPropagation();addToList('LEO RETURNS')">+</button><b>LEO RETURNS</b></div>
 </div></div>
 
 <script>
-let myList = [];
+let myList=[];
 function addToList(name){
-if(myList.includes(name)){ alert(name+" Already in My List da!"); return; }
-myList.push(name);
-alert(name+" Added to My List ❤️");
-showList();
+if(myList.includes(name)){alert(name+" Already in My List");return;}
+myList.push(name); alert(name+" Added to My List ❤️"); showList();
 }
 function showList(){
-let box=document.getElementById("listBox");
-let area=document.getElementById("myListArea");
+let box=document.getElementById("listBox"), area=document.getElementById("myListArea");
 document.getElementById("count").textContent=myList.length;
-if(myList.length==0){ box.style.display="none"; return; }
-box.style.display="block";
-area.innerHTML="";
-myList.forEach(n=>{
-area.innerHTML += "<div class='my-card'><b>🎬 "+n+"</b><button onclick=\"removeOne('"+n+"')\" style='background:#e50914;color:#fff;padding:6px 12px'>Remove ✕</button></div>";
-});
+if(myList.length==0){box.style.display="none";return;}
+box.style.display="block"; area.innerHTML="";
+myList.forEach(n=>{ area.innerHTML+="<div class='my-card'><b>🎬 "+n+"</b><button onclick=\"removeOne('"+n+"')\" style='background:#e50914;color:#fff;padding:6px 12px'>Remove ✕</button></div>"; });
 window.scrollTo({top:0,behavior:'smooth'});
 }
-function removeOne(name){
-myList=myList.filter(x=>x!=name);
-showList();
-}
-function clearList(){ myList=[]; showList(); }
+function removeOne(n){ myList=myList.filter(x=>x!=n); showList(); }
 </script>
 </body>
 </html>
