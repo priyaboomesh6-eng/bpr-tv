@@ -6,37 +6,114 @@
 <title>BPR FLIX</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
-body{background:#000;color:#fff;padding-bottom:30px}
-.navbar{display:flex;justify-content:space-between;align-items:center;padding:14px 15px;position:fixed;top:0;width:100%;background:rgba(0,0,0,.95);z-index:10}
-.logo{color:#e50914;font-size:30px;font-weight:900;letter-spacing:1px}
+body{background:#111;color:#fff;padding-bottom:30px}
+.navbar{display:flex;justify-content:space-between;align-items:center;padding:14px 15px;background:#000;position:sticky;top:0;z-index:10}
+.logo{color:#e50914;font-size:30px;font-weight:900}
 .logo span{color:#fff;font-size:10px;display:block;letter-spacing:3px}
-.insta-top{color:#fff;text-decoration:none;font-weight:bold;font-size:14px}
-.hero{height:62vh;background:linear-gradient(to top,#000 5%,transparent 60%),linear-gradient(90deg,#b71c1c,#ff6b00);display:flex;flex-direction:column;justify-content:flex-end;padding:20px;padding-top:70px}
-.hero h1{font-size:46px;text-shadow:2px 2px 0 #000}
-.hero p{margin:8px 0 15px;color:#ddd;font-size:14px}
-button{padding:12px 22px;border:none;border-radius:5px;font-weight:900;font-size:14px;cursor:pointer}
+.hero{background:linear-gradient(90deg,#b71c1c,#ff6b00);padding:25px 20px}
+.hero h1{font-size:44px}
+.hero p{margin:8px 0 15px;color:#eee}
+button{padding:12px 22px;border:none;border-radius:5px;font-weight:900;cursor:pointer}
 .play{background:#fff;color:#000}
 .mylistbtn{background:#e50914;color:#fff}
 .row{padding:15px}
-.row h2{margin-bottom:12px;font-size:19px}
-.posters{display:flex;gap:12px;overflow-x:auto;padding-bottom:5px}
-.poster{min-width:150px;height:220px;border-radius:10px;padding:10px;display:flex;flex-direction:column;justify-content:flex-end;position:relative;cursor:pointer}
-.poster b{font-size:15px}
-.poster span{font-size:11px;color:#ddd}
-.addbtn{position:absolute;top:8px;right:8px;width:34px;height:34px;border-radius:50%;background:#fff;color:#000;font-size:22px;padding:0;display:flex;align-items:center;justify-content:center}
-.addbtn.added{background:#e50914;color:#fff}
+.posters{display:flex;gap:12px;overflow-x:auto}
+.poster{min-width:150px;height:220px;border-radius:10px;padding:10px;display:flex;flex-direction:column;justify-content:flex-end;position:relative}
+.addbtn{position:absolute;top:8px;right:8px;width:34px;height:34px;border-radius:50%;background:#fff;color:#000;font-size:22px;padding:0}
 .my-card{background:#1a1a1a;border:1px solid #e50914;border-radius:10px;padding:12px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
 .mass-card{margin:15px;background:linear-gradient(45deg,#f9ce34,#ee2a7b,#6228d7);padding:3px;border-radius:20px}
 .mass-inner{background:#111;border-radius:17px;padding:20px;text-align:center}
-.avatar{width:80px;height:80px;margin:0 auto;background:#e50914;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:35px;border:3px solid #fff}
-.follow{display:block;background:linear-gradient(45deg,#f9ce34,#ee2a7b,#6228d7);color:#fff;text-decoration:none;padding:14px;border-radius:30px;font-weight:900;margin-top:12px}
-/* VIDEO PLAYER */
+.follow{display:block;background:linear-gradient(45deg,#f9ce34,#ee2a7b);color:#fff;text-decoration:none;padding:14px;border-radius:30px;font-weight:900;margin-top:12px}
 #player{display:none;position:fixed;inset:0;background:#000;z-index:99;flex-direction:column;align-items:center;justify-content:center;padding:15px}
-#player video{width:100%;max-width:600px;border-radius:10px}
-.close{position:absolute;top:15px;right:15px;background:#e50914;color:#fff;border:none;width:40px;height:40px;border-radius:50%;font-size:18px;padding:0}
+#player video{width:100%;max-width:600px;border-radius:10px;background:#000}
+.close{position:absolute;top:15px;right:15px;background:#e50914;color:#fff;width:40px;height:40px;border-radius:50%;font-size:18px;padding:0}
 </style>
 </head>
 <body>
 
 <div class="navbar">
-<div class="logo">BPR FLIX<span>BOOYAH KING</span></div
+<div class="logo">BPR FLIX<span>BOOYAH KING</span></div>
+<a href="https://instagram.com/bpr_flix" target="_blank" style="color:#fff;text-decoration:none;font-weight:bold">📸 BPR FLIX</a>
+</div>
+
+<div class="hero">
+<h1>BOOYAH KING 👑</h1>
+<p>BPR FLIX Original - Mass, Action, Emotion!</p>
+<button class="play" onclick="playMovie('BOOYAH KING','https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4')">▶ Play</button>
+<button class="mylistbtn" onclick="addToList('BOOYAH KING')">+ My List</button>
+</div>
+
+<div class="row" id="listBox" style="display:none;background:#222;border-bottom:2px solid #e50914">
+<h2>❤️ My List (<span id="count">0</span>)</h2>
+<div id="myListArea"></div>
+<button onclick="clearList()" style="background:#333;color:#fff;margin-top:10px">Clear All</button>
+</div>
+
+<div class="mass-card"><div class="mass-inner">
+<div style="width:80px;height:80px;margin:0 auto;background:#e50914;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:35px;border:3px solid #fff">📺</div>
+<h2 style="margin-top:10px">BPR FLIX</h2>
+<p style="color:#aaa;font-size:13px">@bpr_flix • Movies • Mass</p>
+<a class="follow" href="https://instagram.com/bpr_flix" target="_blank">📸 FOLLOW BPR FLIX</a>
+</div></div>
+
+<div class="row"><h2>🔥 Trending Now</h2><div class="posters">
+<div class="poster" style="background:linear-gradient(#e50914,#ff6b00)" onclick="playMovie('BOOYAH KING','https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4')"><button class="addbtn" onclick="event.stopPropagation();addToList('BOOYAH KING')">+</button><div style="font-size:35px">🔫</div><b>BOOYAH KING</b><span>Action</span></div>
+<div class="poster" style="background:linear-gradient(#111,#555)" onclick="playMovie('JAILER 2','https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4')"><button class="addbtn" onclick="event.stopPropagation();addToList('JAILER 2')">+</button><div style="font-size:35px">🦁</div><b>JAILER 2</b><span>Action</span></div>
+<div class="poster" style="background:linear-gradient(#0d47a1,#00e5ff)" onclick="playMovie('LEO RETURNS','https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4')"><button class="addbtn" onclick="event.stopPropagation();addToList('LEO RETURNS')">+</button><div style="font-size:35px">🦁</div><b>LEO RETURNS</b><span>Action</span></div>
+<div class="poster" style="background:linear-gradient(#000,#333)" onclick="playMovie('GHOST HOUSE','https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4')"><button class="addbtn" onclick="event.stopPropagation();addToList('GHOST HOUSE')">+</button><div style="font-size:35px">👻</div><b>GHOST HOUSE</b><span>Horror</span></div>
+</div></div>
+
+<div class="row"><h2>🎬 Action</h2><div class="posters">
+<div class="poster" style="background:linear-gradient(#3e2723,#ffab00)" onclick="playMovie('KGF 3','https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4')"><button class="addbtn" onclick="event.stopPropagation();addToList('KGF 3')">+</button><b>KGF 3</b><span>Action</span></div>
+<div class="poster" style="background:linear-gradient(#1b5e20,#76ff03)" onclick="playMovie('PUSHPA 3','https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4')"><button class="addbtn" onclick="event.stopPropagation();addToList('PUSHPA 3')">+</button><b>PUSHPA 3</b><span>Action</span></div>
+</div></div>
+
+<div id="player">
+<button class="close" onclick="closePlayer()">✕</button>
+<h2 id="pTitle" style="margin-bottom:12px">Movie</h2>
+<video id="myVideo" controls autoplay playsinline></video>
+<p style="margin-top:10px;color:#aaa">BPR FLIX • HD • Now Playing</p>
+</div>
+
+<script>
+var myList = [];
+try{ myList = JSON.parse(localStorage.getItem("bprList")||"[]"); }catch(e){ myList=[]; }
+function playMovie(t,u){
+document.getElementById("pTitle").textContent=t;
+var v=document.getElementById("myVideo");
+v.src=u;
+document.getElementById("player").style.display="flex";
+v.play();
+}
+function closePlayer(){
+document.getElementById("player").style.display="none";
+var v=document.getElementById("myVideo"); v.pause(); v.src="";
+}
+function addToList(name){
+if(myList.indexOf(name)!==-1){
+myList=myList.filter(function(x){return x!==name;});
+alert(name+" Removed ❌");
+}else{
+myList.push(name);
+alert(name+" Added to My List ❤️");
+}
+try{ localStorage.setItem("bprList",JSON.stringify(myList)); }catch(e){}
+showList();
+window.scrollTo({top:0,behavior:'smooth'});
+}
+function showList(){
+var box=document.getElementById("listBox");
+document.getElementById("count").textContent=myList.length;
+if(myList.length==0){box.style.display="none";return;}
+box.style.display="block";
+var area=document.getElementById("myListArea");
+area.innerHTML="";
+myList.forEach(function(n){
+area.innerHTML+="<div class='my-card'><b>🎬 "+n+"</b><button onclick=\"addToList('"+n+"')\" style='background:#e50914;color:#fff;padding:6px 12px'>Remove ✕</button></div>";
+});
+}
+function clearList(){ myList=[]; try{localStorage.setItem("bprList","[]");}catch(e){} showList(); }
+showList();
+</script>
+</body>
+</html>
