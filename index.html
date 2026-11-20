@@ -1,174 +1,42 @@
-dependencies:
-  flutter:
-    sdk: flutter
-  video_player: ^2.9.2
-  chewie: ^1.8.5
-import 'package:flutter/material.dart';
-import 'package:video_player/video_player.dart';
-import 'package:chewie/chewie.dart';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BPR FLIX</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
+body{background:#000;color:#fff;padding-bottom:30px}
+.navbar{display:flex;justify-content:space-between;align-items:center;padding:14px 15px;position:fixed;top:0;width:100%;background:rgba(0,0,0,.95);z-index:10}
+.logo{color:#e50914;font-size:30px;font-weight:900;letter-spacing:1px}
+.logo span{color:#fff;font-size:10px;display:block;letter-spacing:3px}
+.insta-top{color:#fff;text-decoration:none;font-weight:bold;font-size:14px}
+.hero{height:62vh;background:linear-gradient(to top,#000 5%,transparent 60%),linear-gradient(90deg,#b71c1c,#ff6b00);display:flex;flex-direction:column;justify-content:flex-end;padding:20px;padding-top:70px}
+.hero h1{font-size:46px;text-shadow:2px 2px 0 #000}
+.hero p{margin:8px 0 15px;color:#ddd;font-size:14px}
+button{padding:12px 22px;border:none;border-radius:5px;font-weight:900;font-size:14px;cursor:pointer}
+.play{background:#fff;color:#000}
+.mylistbtn{background:#e50914;color:#fff}
+.row{padding:15px}
+.row h2{margin-bottom:12px;font-size:19px}
+.posters{display:flex;gap:12px;overflow-x:auto;padding-bottom:5px}
+.poster{min-width:150px;height:220px;border-radius:10px;padding:10px;display:flex;flex-direction:column;justify-content:flex-end;position:relative;cursor:pointer}
+.poster b{font-size:15px}
+.poster span{font-size:11px;color:#ddd}
+.addbtn{position:absolute;top:8px;right:8px;width:34px;height:34px;border-radius:50%;background:#fff;color:#000;font-size:22px;padding:0;display:flex;align-items:center;justify-content:center}
+.addbtn.added{background:#e50914;color:#fff}
+.my-card{background:#1a1a1a;border:1px solid #e50914;border-radius:10px;padding:12px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
+.mass-card{margin:15px;background:linear-gradient(45deg,#f9ce34,#ee2a7b,#6228d7);padding:3px;border-radius:20px}
+.mass-inner{background:#111;border-radius:17px;padding:20px;text-align:center}
+.avatar{width:80px;height:80px;margin:0 auto;background:#e50914;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:35px;border:3px solid #fff}
+.follow{display:block;background:linear-gradient(45deg,#f9ce34,#ee2a7b,#6228d7);color:#fff;text-decoration:none;padding:14px;border-radius:30px;font-weight:900;margin-top:12px}
+/* VIDEO PLAYER */
+#player{display:none;position:fixed;inset:0;background:#000;z-index:99;flex-direction:column;align-items:center;justify-content:center;padding:15px}
+#player video{width:100%;max-width:600px;border-radius:10px}
+.close{position:absolute;top:15px;right:15px;background:#e50914;color:#fff;border:none;width:40px;height:40px;border-radius:50%;font-size:18px;padding:0}
+</style>
+</head>
+<body>
 
-void main() {
-  runApp(const BrpTvApp());
-}
-
-class BrpTvApp extends StatelessWidget {
-  const BrpTvApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'BRP TV',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: const Color(0xFF0F1014),
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Color(0xFF181920),
-          elevation: 0,
-        ),
-      ),
-      home: const HomeScreen(),
-    );
-  }
-}
-
-class MediaItem {
-  final String title;
-  final String category;
-  final String thumbnail;
-  final String streamUrl;
-
-  MediaItem({
-    required this.title,
-    required this.category,
-    required this.thumbnail,
-    required this.streamUrl,
-  });
-}
-
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
-  // Ungaludaiya own MP4 alladhu .m3u8 (HLS) stream links-a inga mathikonga
-  List<MediaItem> get channels => [
-        MediaItem(
-          title: 'BRP Live Channel 1',
-          category: 'Live TV',
-          thumbnail: 'https://picsum.photos',
-          streamUrl: 'https://mux.dev',
-        ),
-        MediaItem(
-          title: 'Tamil Classic Movie',
-          category: 'Movies',
-          thumbnail: 'https://picsum.photos',
-          streamUrl: 'https://googleapis.com',
-        ),
-        MediaItem(
-          title: 'Evening Mega Serial',
-          category: 'Serials',
-          thumbnail: 'https://picsum.photos',
-          streamUrl: 'https://googleapis.com',
-        ),
-      ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Row(
-          children: [
-            Icon(Icons.live_tv, color: Colors.amber),
-            SizedBox(width: 8),
-            Text(
-              'BRP TV',
-              style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 1.2),
-            ),
-          ],
-        ),
-      ),
-      body: ListView(
-        padding: const EdgeInsets.all(16),
-        children: [
-          const Text(
-            'Featured & Live Channels',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 12),
-          ...channels.map((item) => Card(
-                color: const Color(0xFF1C1E26),
-                margin: const EdgeInsets.only(bottom: 14),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                child: ListTile(
-                  contentPadding: const EdgeInsets.all(10),
-                  leading: ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: Image.network(item.thumbnail, width: 100, height: 60, fit: BoxFit.cover),
-                  ),
-                  title: Text(item.title, style: const TextStyle(fontWeight: FontWeight.w600)),
-                  subtitle: Text(item.category, style: const TextStyle(color: Colors.amber)),
-                  trailing: const Icon(Icons.play_circle_fill, color: Colors.amber, size: 32),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (_) => PlayerScreen(item: item)),
-                    );
-                  },
-                ),
-              )),
-        ],
-      ),
-    );
-  }
-}
-
-class PlayerScreen extends StatefulWidget {
-  final MediaItem item;
-  const PlayerScreen({super.key, required this.item});
-
-  @override
-  State<PlayerScreen> createState() => _PlayerScreenState();
-}
-
-class _PlayerScreenState extends State<PlayerScreen> {
-  late VideoPlayerController _videoController;
-  ChewieController? _chewieController;
-
-  @override
-  void initState() {
-    super.initState();
-    _initPlayer();
-  }
-
-  Future<void> _initPlayer() async {
-    _videoController = VideoPlayerController.networkUrl(Uri.parse(widget.item.streamUrl));
-    await _videoController.initialize();
-    _chewieController = ChewieController(
-      videoPlayerController: _videoController,
-      autoPlay: true,
-      looping: false,
-      allowFullScreen: true,
-    );
-    setState(() {});
-  }
-
-  @override
-  void dispose() {
-    _chewieController?.dispose();
-    _videoController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(widget.item.title)),
-      body: Center(
-        child: _chewieController != null && _videoController.value.isInitialized
-            ? AspectRatio(
-                aspectRatio: _videoController.value.aspectRatio,
-                child: Chewie(controller: _chewieController!),
-              )
-            : const CircularProgressIndicator(color: Colors.amber),
-      ),
-    );
-  }
-}
+<div class="navbar">
+<div class="logo">BPR FLIX<span>BOOYAH KING</span></div
