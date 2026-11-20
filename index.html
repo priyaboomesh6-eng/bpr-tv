@@ -1,61 +1,53 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BPR TV</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
-body{background:#000;color:#fff}
-header{position:fixed;top:0;left:0;right:0;z-index:9;display:flex;justify-content:space-between;padding:12px;background:linear-gradient(#000,transparent)}
-#logo{color:#e50914;font-size:28px;font-weight:900}
-#hero{height:65vh;background:linear-gradient(180deg,transparent,#000),linear-gradient(90deg,#b71c1c,#ff6b00);display:flex;flex-direction:column;justify-content:flex-end;padding:20px}
-#hero h1{font-size:42px}
-#hero p{font-size:13px;color:#ddd;margin:8px 0}
-button{padding:12px 22px;border:none;border-radius:5px;font-weight:900}
-#play{background:#fff}
-#info{background:#555;color:#fff}
-.row{padding:12px 0 0 15px}
-.posters{display:flex;gap:10px;overflow-x:auto;padding-bottom:10px}
-.poster{min-width:130px;height:180px;border-radius:10px;padding:10px;display:flex;flex-direction:column;justify-content:flex-end;cursor:pointer}
-.poster b{font-size:15px}
-.poster span{font-size:11px;color:#ddd}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Netflix Clone</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
+    body { background-color: #111; color: #fff; }
+    .navbar { display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; position: fixed; width: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent); z-index: 10; }
+    .logo { color: #e50914; font-size: 28px; font-weight: bold; letter-spacing: 2px; }
+    .signin-btn { background: #e50914; color: #fff; border: none; padding: 8px 16px; border-radius: 4px; font-weight: bold; cursor: pointer; }
+    .hero { height: 75vh; background: linear-gradient(to top, #111 10%, rgba(0,0,0,0.4) 90%), url('https://unsplash.com') center/cover; display: flex; flex-direction: column; justify-content: center; padding: 0 40px; }
+    .hero h1 { font-size: 48px; max-width: 600px; margin-bottom: 16px; }
+    .hero p { font-size: 18px; max-width: 500px; margin-bottom: 24px; color: #ddd; }
+    .hero-buttons button { padding: 10px 24px; font-size: 16px; font-weight: bold; border: none; border-radius: 4px; margin-right: 12px; cursor: pointer; }
+    .play-btn { background: #fff; color: #000; }
+    .info-btn { background: rgba(109, 109, 110, 0.7); color: #fff; }
+    .row { padding: 20px 40px; }
+    .row h2 { margin-bottom: 12px; font-size: 20px; }
+    .posters { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 10px; }
+    .poster { min-width: 160px; height: 240px; background: #222; border-radius: 6px; display: flex; align-items: flex-end; padding: 12px; font-weight: bold; transition: transform 0.3s; cursor: pointer; }
+    .poster:hover { transform: scale(1.08); background: #333; }
+  </style>
 </head>
 <body>
-<header><div id="logo">BPR TV</div><div>🏠 Home &nbsp; 🔍 Search</div></header>
-<div id="hero">
-<h3 style="color:#e50914">BPR ORIGINAL</h3>
-<h1>BOOYAH KING</h1>
-<p>Orphan payyan world champion aagura kathai. Action, Mass, Emotion!</p>
-<div><button id="play" onclick="alert('Playing BOOYAH KING ▶')">▶ Play</button> <button id="info" onclick="alert('BOOYAH KING - 2026')">ⓘ Info</button></div>
-</div>
-<div class="row"><h2>🔥 Trending Now</h2><div class="posters" id="r1"></div></div>
-<div class="row"><h2>🎬 Action</h2><div class="posters" id="r2"></div></div>
-<div class="row"><h2>😂 Comedy</h2><div class="posters" id="r3"></div></div>
-<script>
-let m=[
-{t:"BOOYAH KING",c:"Action",g:"linear-gradient(#e50914,#ff6b00)",e:"🔫"},
-{t:"JAILER 2",c:"Action",g:"linear-gradient(#111,#555)",e:"🦁"},
-{t:"LEO RETURNS",c:"Action",g:"linear-gradient(#0d47a1,#00e5ff)",e:"🦁"},
-{t:"GHOST HOUSE",c:"Horror",g:"linear-gradient(#000,#333)",e:"👻"},
-{t:"COMEDY KING",c:"Comedy",g:"linear-gradient(#ff9800,#ffeb3b)",e:"😂"},
-{t:"LOVE TODAY 2",c:"Love",g:"linear-gradient(#e91e63,#ff80ab)",e:"❤️"},
-{t:"KGF 3",c:"Action",g:"linear-gradient(#3e2723,#ffab00)",e:"⛏️"},
-{t:"PUSHPA 3",c:"Action",g:"linear-gradient(#1b5e20,#76ff03)",e:"🔥"},
-];
-function show(id,list){
-let box=document.getElementById(id);
-list.forEach(x=>{
-let d=document.createElement("div");
-d.className="poster";d.style.background=x.g;
-d.innerHTML="<div style='font-size:35px'>"+x.e+"</div><b>"+x.t+"</b><span>"+x.c+"</span>";
-d.onclick=function(){alert("Playing "+x.t+" ▶")};
-box.appendChild(d);
-});
-}
-show("r1",m.slice(0,4));
-show("r2",m.slice(4,6));
-show("r3",m.slice(6,8));
-</script>
+  <div class="navbar">
+    <div class="logo">NETFLIX</div>
+    <button class="signin-btn">Sign In</button>
+  </div>
+
+  <div class="hero">
+    <h1>Featured Title</h1>
+    <p>Stream unlimited movies and TV shows on your phone, tablet, laptop, and TV.</p>
+    <div class="hero-buttons">
+      <button class="play-btn">▶ Play</button>
+      <button class="info-btn">ⓘ More Info</button>
+    </div>
+  </div>
+
+  <div class="row">
+    <h2>Trending Now</h2>
+    <div class="posters">
+      <div class="poster">Movie 1</div>
+      <div class="poster">Movie 2</div>
+      <div class="poster">Movie 3</div>
+      <div class="poster">Movie 4</div>
+      <div class="poster">Movie 5</div>
+      <div class="poster">Movie 6</div>
+    </div>
+  </div>
 </body>
 </html>
