@@ -6,183 +6,79 @@
 <title>BPR - PRIYADHARSINI</title>
 <meta name="theme-color" content="#000000">
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:'Arial Black',Arial,sans-serif;-webkit-tap-highlight-color:transparent}
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif;-webkit-tap-highlight-color:transparent}
 body{background:#000;color:#fff;overflow-x:hidden;padding-bottom:75px}
-/* 🔥 SPLASH - NETFLIX MASS */
-#splash{position:fixed;inset:0;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;text-align:center}
-.bpr-mass{font-size:120px;font-weight:900;letter-spacing:-2px;line-height:1;color:#E50914;text-shadow:0 10px 40px rgba(229,9,20,.6);animation:netflixIn 1s ease}
-@keyframes netflixIn{0%{transform:scale(.8);opacity:0}100%{transform:scale(1);opacity:1}}
-.priya-mass{margin-top:10px;font-size:22px;font-weight:700;letter-spacing:8px;color:#fff;animation:fadeIn 1.2s ease}
-@keyframes fadeIn{0%{opacity:0}100%{opacity:1}}
-.load{width:160px;height:3px;background:#333;margin-top:30px;overflow:hidden;border-radius:10px}
-.load div{height:100%;width:50%;background:#E50914;animation:load 1s infinite}
-@keyframes load{0%{transform:translateX(-100%)}100%{transform:translateX(400%)}}
-
-/* TOP - NETFLIX */
-.top{position:sticky;top:0;z-index:100;background:linear-gradient(180deg,#000,#000000cc 80%,transparent);padding:12px 14px;display:flex;justify-content:space-between;align-items:center}
-.top-logo{line-height:1}
-.top-logo b{font-size:30px;color:#E50914;letter-spacing:-1px}
-.top-logo small{display:block;font-size:9px;letter-spacing:4px;color:#fff;font-weight:700;margin-top:2px}
+/* SPLASH - CLICK PANNA OPEN AAGUM */
+#splash{position:fixed;inset:0;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;text-align:center;cursor:pointer}
+.bpr-mass{font-size:110px;font-weight:900;letter-spacing:-2px;line-height:1;color:#E50914;text-shadow:0 10px 40px rgba(229,9,20,.6)}
+.priya-mass{margin-top:10px;font-size:22px;font-weight:700;letter-spacing:8px;color:#fff}
+.tap{margin-top:28px;background:#E50914;color:#fff;padding:14px 35px;border-radius:30px;font-weight:900;font-size:17px;animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+.top{position:sticky;top:0;z-index:100;background:#000;padding:12px 14px;display:flex;justify-content:space-between;align-items:center}
+.top-logo{line-height:1}.top-logo b{font-size:30px;color:#E50914}.top-logo small{display:block;font-size:9px;letter-spacing:4px;color:#fff;font-weight:700;margin-top:2px}
 .top-right{display:flex;gap:14px;align-items:center;font-size:20px}
 .avatar{width:32px;height:32px;background:#E50914;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900}
-
-/* HERO - NETFLIX / SUN NXT */
-.hero{margin:6px 14px;border-radius:8px;overflow:hidden;position:relative;height:320px;background:linear-gradient(180deg,transparent 30%,#000 95%),linear-gradient(135deg,#1a0000,#000);display:flex;align-items:flex-end;padding:18px}
-.hero-content{position:relative;z-index:2;width:100%}
-.hero-logo{font-size:62px;font-weight:900;color:#E50914;letter-spacing:-2px;line-height:1;text-shadow:0 4px 20px #000}
+.hero{margin:6px 14px;border-radius:8px;overflow:hidden;position:relative;height:300px;background:linear-gradient(180deg,transparent 30%,#000 95%),linear-gradient(135deg,#1a0000,#000);display:flex;align-items:flex-end;padding:18px}
+.hero-logo{font-size:60px;font-weight:900;color:#E50914;line-height:1}
 .hero-priya{font-size:18px;font-weight:700;letter-spacing:5px;color:#fff;margin:6px 0}
-.hero-meta{font-size:12px;color:#aaa}
 .hero-btns{display:flex;gap:10px;margin-top:14px}
 .h-btn{flex:1;padding:12px;border:none;border-radius:4px;font-weight:900;font-size:14px;cursor:pointer}
-.h-btn.play{background:#fff;color:#000}
-.h-btn.list{background:#2a2a2a;color:#fff}
-.h-btn.share{background:#2a2a2a;color:#fff}
-
-/* PILLS - SUN NXT */
-.pills{display:flex;gap:8px;overflow-x:auto;padding:12px 14px}
-.pills::-webkit-scrollbar{display:none}
+.h-btn.play{background:#fff;color:#000}.h-btn.list{background:#2a2a2a;color:#fff}.h-btn.share{background:#2a2a2a;color:#fff}
+.pills{display:flex;gap:8px;overflow-x:auto;padding:12px 14px}.pills::-webkit-scrollbar{display:none}
 .pill{padding:8px 16px;background:#1a1a1a;border-radius:20px;font-size:13px;white-space:nowrap;cursor:pointer;border:1px solid #333;color:#ddd}
 .pill.active{background:#fff;color:#000;font-weight:900}
-
-/* ROWS - NETFLIX */
-.sec{padding:0 14px}
-.sec-title{font-size:17px;font-weight:900;margin:18px 0 10px}
-.row{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px}
-.row::-webkit-scrollbar{display:none}
-.card{min-width:150px;height:215px;border-radius:6px;cursor:pointer;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:10px;flex-shrink:0;transition:.2s}
-.card:active{transform:scale(.97)}
-.card b{font-size:14px;text-shadow:0 2px 8px #000;z-index:2}
-.card span{font-size:11px;color:#ddd;z-index:2}
+.sec{padding:0 14px}.sec-title{font-size:17px;font-weight:900;margin:18px 0 10px}
+.row{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px}.row::-webkit-scrollbar{display:none}
+.card{min-width:150px;height:215px;border-radius:6px;cursor:pointer;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:10px;flex-shrink:0}
+.card b{font-size:14px;text-shadow:0 2px 8px #000;z-index:2}.card span{font-size:11px;color:#ddd;z-index:2}
 .card .tag{position:absolute;top:8px;left:8px;background:#E50914;padding:3px 6px;border-radius:3px;font-size:10px;font-weight:900;z-index:2}
 .card .plus{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.7);width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;border:1px solid #fff;z-index:2}
-.card .num{position:absolute;bottom:0;right:6px;font-size:90px;font-weight:900;color:rgba(255,255,255,.15);line-height:1}
-
-/* BOTTOM NAV - APP */
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#000;border-top:1px solid #222;display:flex;justify-content:space-around;padding:10px 0 14px;z-index:200}
-.nav-item{display:flex;flex-direction:column;align-items:center;font-size:11px;color:#888;cursor:pointer;gap:3px}
-.nav-item.active{color:#fff}
-.nav-item .ico{font-size:22px}
-.center-btn{width:54px;height:54px;background:#E50914;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;margin-top:-30px;border:4px solid #000;box-shadow:0 0 20px rgba(229,9,20,.7)}
-
-/* PLAYER */
+.nav-item{display:flex;flex-direction:column;align-items:center;font-size:11px;color:#888;cursor:pointer;gap:3px}.nav-item.active{color:#fff}.nav-item .ico{font-size:22px}
+.center-btn{width:54px;height:54px;background:#E50914;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;margin-top:-30px;border:4px solid #000}
 #playerBox{display:none;position:fixed;inset:0;background:#000;z-index:999;flex-direction:column}
 #playerBox .p-top{padding:12px;display:flex;justify-content:space-between;align-items:center}
 #playerBox iframe{flex:1;width:100%;border:none}
 .wm{position:absolute;top:60px;right:12px;z-index:1000;text-align:center;background:rgba(0,0,0,.85);padding:6px 12px;border-radius:6px;pointer-events:none}
-.wm b{font-size:22px;color:#E50914}
-.wm div{font-size:10px;letter-spacing:3px;color:#fff;font-weight:700}
+.wm b{font-size:22px;color:#E50914}.wm div{font-size:10px;letter-spacing:3px;color:#fff;font-weight:700}
 .page{display:none}.page.active{display:block}
 .profile-card{margin:14px;background:#111;padding:22px;border-radius:12px;text-align:center}
-.search-input{margin:12px 14px;width:calc(100% - 28px);padding:13px;background:#1a1a1a;border:1px solid #333;color:#fff;border-radius:6px;outline:none;font-size:14px}
+.search-input{margin:12px 14px;width:calc(100% - 28px);padding:13px;background:#1a1a1a;border:1px solid #333;color:#fff;border-radius:6px;outline:none}
 </style>
 </head>
 <body>
 
-<!-- SPLASH - MASS -->
-<div id="splash">
+<!-- SPLASH - CLICK PANNA OPEN -->
+<div id="splash" onclick="openApp()">
 <div style="font-size:13px;letter-spacing:6px;color:#E50914;font-weight:900">BPR ORIGINAL</div>
 <div class="bpr-mass">BPR</div>
 <div class="priya-mass">PRIYADHARSINI</div>
-<div style="font-size:18px;margin-top:10px">❤️</div>
-<div class="load"><div></div></div>
+<div style="font-size:20px;margin-top:10px">❤️</div>
+<div class="tap">▶ TAP TO OPEN</div>
+<div style="color:#888;font-size:12px;margin-top:10px">Tap pannu - Loading illa!</div>
 </div>
 
-<!-- APP -->
 <div id="app" style="display:none">
-<div class="top">
-<div class="top-logo"><b>BPR</b><small>PRIYADHARSINI</small></div>
-<div class="top-right"><span onclick="showPage('search')">🔍</span><span onclick="shareApp()">🔗</span><div class="avatar">P</div></div>
-</div>
+<div class="top"><div class="top-logo"><b>BPR</b><small>PRIYADHARSINI</small></div><div class="top-right"><span onclick="showPage('search')">🔍</span><span onclick="shareApp()">🔗</span><div class="avatar">P</div></div></div>
 
-<!-- HOME -->
 <div id="page-home" class="page active">
-<div class="hero">
-<div class="hero-content">
-<div style="font-size:11px;color:#E50914;font-weight:900;letter-spacing:2px">● BPR ORIGINAL • LIVE</div>
-<div class="hero-logo">BPR</div>
-<div class="hero-priya">PRIYADHARSINI</div>
-<div class="hero-meta">2026 • Mass • For Priyadharsini ❤️</div>
-<div class="hero-btns">
-<button class="h-btn play" onclick="playCh(0)">▶ Play</button>
-<button class="h-btn list" onclick="addToList(0)">＋ My List</button>
-<button class="h-btn share" onclick="shareApp()">🔗 Share</button>
-</div>
-</div>
+<div class="hero"><div><div style="font-size:11px;color:#E50914;font-weight:900">● BPR ORIGINAL • LIVE</div><div class="hero-logo">BPR</div><div class="hero-priya">PRIYADHARSINI</div><div style="font-size:12px;color:#aaa">2026 • Mass • For Priyadharsini ❤️</div><div class="hero-btns"><button class="h-btn play" onclick="playCh(0)">▶ Play</button><button class="h-btn list" onclick="addToList(0)">＋ My List</button><button class="h-btn share" onclick="shareApp()">🔗 Share</button></div></div></div>
+<div class="pills"><div class="pill active" onclick="filterCat('All',this)">All</div><div class="pill" onclick="filterCat('Movies',this)">Movies</div><div class="pill" onclick="filterCat('Music',this)">Music</div><div class="pill" onclick="filterCat('Live',this)">Live TV</div><div class="pill" onclick="filterCat('Horror',this)">Horror</div></div>
+<div class="sec"><div class="sec-title">Trending Now</div><div class="row" id="trendRow"></div><div class="sec-title">🔴 Live TV</div><div class="row" id="liveRow"></div><div class="sec-title">Top 10 in BPR Today</div><div class="row" id="topRow"></div><div class="sec-title">My List - <span id="myCount">0</span></div><div id="myListHome" style="color:#888;font-size:13px">Innum illa</div></div>
 </div>
 
-<div class="pills" id="pills">
-<div class="pill active" onclick="filterCat('All',this)">All</div>
-<div class="pill" onclick="filterCat('Movies',this)">Movies</div>
-<div class="pill" onclick="filterCat('Music',this)">Music</div>
-<div class="pill" onclick="filterCat('Live',this)">Live TV</div>
-<div class="pill" onclick="filterCat('Horror',this)">Horror</div>
+<div id="page-live" class="page"><div style="padding:14px"><h3>Live TV</h3><p style="color:#888;font-size:13px">Ava paakkuradha mathavanga paakkuranga</p></div><div id="liveList" style="padding:0 14px"></div></div>
+<div id="page-search" class="page"><input class="search-input" id="searchInput" placeholder="Search..." onkeyup="renderAll()"><div id="searchResult" style="padding:0 14px"></div></div>
+<div id="page-mylist" class="page"><div style="padding:14px"><h3>My List</h3></div><div id="myListPage" style="padding:0 14px"></div></div>
+<div id="page-profile" class="page"><div class="profile-card"><div style="font-size:70px;font-weight:900;color:#E50914;line-height:1">BPR</div><div style="font-size:18px;letter-spacing:6px;font-weight:700;margin-top:8px">PRIYADHARSINI</div><div style="margin-top:10px">❤️</div><p style="color:#888;font-size:13px;margin-top:10px">BPR App • For Priyadharsini</p><button onclick="shareApp()" style="margin-top:16px;background:#E50914;color:#fff;border:none;padding:13px;width:100%;border-radius:4px;font-weight:900">Share App</button><button onclick="addChannel()" style="margin-top:10px;background:#222;color:#fff;border:1px solid #333;padding:13px;width:100%;border-radius:4px;font-weight:900">+ Add Channel</button></div></div>
+
+<div class="bottom-nav"><div class="nav-item active" onclick="showPage('home',this)"><span class="ico">🏠</span><span>Home</span></div><div class="nav-item" onclick="showPage('live',this)"><span class="ico">📺</span><span>Live TV</span></div><div class="center-btn" onclick="playCh(0)">▶</div><div class="nav-item" onclick="showPage('mylist',this)"><span class="ico">❤️</span><span>My List</span></div><div class="nav-item" onclick="showPage('profile',this)"><span class="ico">👤</span><span>Profile</span></div></div>
 </div>
 
-<div class="sec">
-<div class="sec-title">Trending Now</div>
-<div class="row" id="trendRow"></div>
-<div class="sec-title">🔴 Live TV - Watch Now</div>
-<div class="row" id="liveRow"></div>
-<div class="sec-title">Top 10 in BPR Today</div>
-<div class="row" id="topRow"></div>
-<div class="sec-title">My List - <span id="myCount">0</span></div>
-<div id="myListHome" style="color:#888;font-size:13px">Innum illa - Card la ＋ ah click pannu</div>
-</div>
-</div>
-
-<!-- LIVE -->
-<div id="page-live" class="page">
-<div style="padding:14px"><h3>Live TV</h3><p style="color:#888;font-size:13px">Ava paakkuradha mathavanga paakkuranga</p></div>
-<div id="liveList" style="padding:0 14px"></div>
-</div>
-
-<!-- SEARCH -->
-<div id="page-search" class="page">
-<input class="search-input" id="searchInput" placeholder="Search Movies, Music, Live..." onkeyup="renderAll()">
-<div id="searchResult" style="padding:0 14px"></div>
-</div>
-
-<!-- MY LIST -->
-<div id="page-mylist" class="page">
-<div style="padding:14px"><h3>My List</h3></div>
-<div id="myListPage" style="padding:0 14px"></div>
-</div>
-
-<!-- PROFILE -->
-<div id="page-profile" class="page">
-<div class="profile-card">
-<div style="font-size:70px;font-weight:900;color:#E50914;line-height:1">BPR</div>
-<div style="font-size:18px;letter-spacing:6px;font-weight:700;margin-top:8px">PRIYADHARSINI</div>
-<div style="margin-top:10px">❤️</div>
-<p style="color:#888;font-size:13px;margin-top:10px">BPR App • For Priyadharsini</p>
-<button onclick="shareApp()" style="margin-top:16px;background:#E50914;color:#fff;border:none;padding:13px;width:100%;border-radius:4px;font-weight:900">Share App - Mathavanga Install Panna</button>
-<button onclick="addChannel()" style="margin-top:10px;background:#222;color:#fff;border:1px solid #333;padding:13px;width:100%;border-radius:4px;font-weight:900">+ Add Channel</button>
-<p style="color:#555;font-size:12px;margin-top:14px">Version 1.0 • BPR</p>
-</div>
-</div>
-
-<!-- BOTTOM NAV -->
-<div class="bottom-nav">
-<div class="nav-item active" onclick="showPage('home',this)"><span class="ico">🏠</span><span>Home</span></div>
-<div class="nav-item" onclick="showPage('live',this)"><span class="ico">📺</span><span>Live TV</span></div>
-<div class="center-btn" onclick="playCh(0)">▶</div>
-<div class="nav-item" onclick="showPage('mylist',this)"><span class="ico">❤️</span><span>My List</span></div>
-<div class="nav-item" onclick="showPage('profile',this)"><span class="ico">👤</span><span>Profile</span></div>
-</div>
-</div>
-
-<!-- PLAYER -->
-<div id="playerBox">
-<div class="p-top">
-<div><b style="font-size:22px;color:#E50914">BPR</b><div style="font-size:9px;letter-spacing:3px">PRIYADHARSINI</div></div>
-<div style="display:flex;gap:8px"><button onclick="toggleFS()" style="background:#222;color:#fff;padding:9px 12px;border:none;border-radius:4px">⛶</button><button onclick="closePlayer()" style="background:#E50914;color:#fff;padding:9px 14px;border:none;border-radius:4px">✕</button></div>
-</div>
-<div style="position:relative;flex:1;display:flex"><div class="wm"><b>BPR</b><div>PRIYADHARSINI</div></div><iframe id="player" allow="autoplay; fullscreen; encrypted-media" allowfullscreen></iframe></div>
-<div style="padding:12px;display:flex;gap:8px"><b id="pTitle" style="flex:1">Movie</b><button onclick="shareApp()" style="background:#222;color:#fff;padding:9px 12px;border:none;border-radius:4px">🔗 Share</button><button onclick="addToList(curIdx)" style="background:#E50914;color:#fff;padding:9px 12px;border:none;border-radius:4px">＋ List</button></div>
-</div>
+<div id="playerBox"><div class="p-top"><div><b style="font-size:22px;color:#E50914">BPR</b><div style="font-size:9px;letter-spacing:3px">PRIYADHARSINI</div></div><div style="display:flex;gap:8px"><button onclick="toggleFS()" style="background:#222;color:#fff;padding:9px 12px;border:none;border-radius:4px">⛶</button><button onclick="closePlayer()" style="background:#E50914;color:#fff;padding:9px 14px;border:none;border-radius:4px">✕</button></div></div><div style="position:relative;flex:1;display:flex"><div class="wm"><b>BPR</b><div>PRIYADHARSINI</div></div><iframe id="player" allow="autoplay; fullscreen; encrypted-media" allowfullscreen></iframe></div><div style="padding:12px;display:flex;gap:8px"><b id="pTitle" style="flex:1">Movie</b><button onclick="shareApp()" style="background:#222;color:#fff;padding:9px 12px;border:none;border-radius:4px">🔗 Share</button><button onclick="addToList(curIdx)" style="background:#E50914;color:#fff;padding:9px 12px;border:none;border-radius:4px">＋ List</button></div></div>
 
 <script>
-var channels=JSON.parse(localStorage.getItem("bpr_chs")||"null")||[
+var channels=[
 {no:101,name:"BPR Movies HD",cat:"Movies",g:"linear-gradient(135deg,#3a0000,#000)",yt:"aqz-KE-bpKQ"},
 {no:102,name:"BPR Music 24x7",cat:"Music",g:"linear-gradient(135deg,#111,#333)",yt:"jfKfPfyJRdk"},
 {no:103,name:"BPR Live TV",cat:"Live",g:"linear-gradient(135deg,#0a1a3a,#000)",yt:"21X5lGlDOfg"},
@@ -190,18 +86,42 @@ var channels=JSON.parse(localStorage.getItem("bpr_chs")||"null")||[
 {no:105,name:"BPR Horror",cat:"Horror",g:"linear-gradient(135deg,#000,#200)",yt:"Sintel"},
 {no:106,name:"Priyadharsini Love",cat:"Music",g:"linear-gradient(135deg,#2a0000,#000)",yt:"jfKfPfyJRdk"}
 ];
-var myList=JSON.parse(localStorage.getItem("bprList")||"[]");
-var curIdx=0, curCat="All";
-setTimeout(()=>{document.getElementById("splash").style.display="none";document.getElementById("app").style.display="block";var ch=new URLSearchParams(location.search).get("ch"); if(ch){var f=channels.findIndex(c=>c.no==ch); if(f!==-1) playCh(f);} renderAll();},1600);
+try{var s=localStorage.getItem("bpr_chs"); if(s) channels=JSON.parse(s);}catch(e){}
+var myList=[]; try{myList=JSON.parse(localStorage.getItem("bprList")||"[]");}catch(e){}
+var curIdx=0, curCat="All", opened=false;
+function openApp(){
+if(opened) return; opened=true;
+document.getElementById("splash").style.display="none";
+document.getElementById("app").style.display="block";
+try{renderAll();}catch(e){console.log(e);}
+var ch=new URLSearchParams(location.search).get("ch");
+if(ch){var f=channels.findIndex(c=>c.no==ch); if(f!==-1) playCh(f);}
+}
+// Auto open - 1.5 sec la thana open aagum, click panna odane open aagum
+setTimeout(openApp,1500);
 function showPage(p,el){document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));document.getElementById("page-"+p).classList.add("active");document.querySelectorAll(".nav-item").forEach(x=>x.classList.remove("active"));if(el)el.classList.add("active");window.scrollTo({top:0,behavior:'smooth'});renderAll();}
 function filterCat(cat,el){curCat=cat;document.querySelectorAll(".pill").forEach(x=>x.classList.remove("active"));el.classList.add("active");renderAll();}
 function cardHTML(c,i){return "<div class='card' style='background:"+c.g+"' onclick='playCh("+i+")'><span class='tag'>BPR</span><span class='plus' onclick='event.stopPropagation();addToList("+i+")'>"+(myList.includes(i)?"✓":"＋")+"</span><b>"+c.name+"</b><span>CH "+c.no+" • "+c.cat+"</span></div>";}
 function renderAll(){
-var q=(document.getElementById("searchInput")?document.getElementById("searchInput").value:"")||"";q=q.toLowerCase();
+var q=""; var inp=document.getElementById("searchInput"); if(inp) q=inp.value||""; q=q.toLowerCase();
 var filt=channels.filter((c)=>(curCat==="All"||c.cat===curCat)&&(!q||c.name.toLowerCase().includes(q)));
 document.getElementById("trendRow").innerHTML=filt.map((c)=>cardHTML(c,channels.indexOf(c))).join("");
 document.getElementById("liveRow").innerHTML=channels.filter(c=>c.cat==="Live").map((c)=>cardHTML(c,channels.indexOf(c))).join("");
-document.getElementById("topRow").innerHTML=channels.map((c,i)=>"<div class='card' style='background:"+c.g+"' onclick='playCh("+i+")'><div class='num'>"+(i+1)+"</div><b>"+c.name+"</b><span>CH "+c.no+"</span></div>").join("");
+document.getElementById("topRow").innerHTML=channels.map((c,i)=>"<div class='card' style='background:"+c.g+"' onclick='playCh("+i+")'><b>"+c.name+"</b><span>CH "+c.no+"</span></div>").join("");
 document.getElementById("searchResult").innerHTML=filt.length?filt.map((c)=>cardHTML(c,channels.indexOf(c))).join(""):"<p style='color:#888'>Onnum illa</p>";
 document.getElementById("liveList").innerHTML=channels.map((c,i)=>"<div style='background:#111;padding:14px;border-radius:8px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center' onclick='playCh("+i+")'><div><b>CH "+c.no+" - "+c.name+"</b><div style='color:#888;font-size:12px'>● LIVE • "+c.cat+"</div></div><button style='background:#E50914;color:#fff;border:none;padding:8px 14px;border-radius:4px;font-weight:900'>▶ Play</button></div>").join("");
-document.get
+document.getElementById("myCount").textContent=myList.length;
+var myHTML=myList.length?myList.map(i=>"<div style='background:#111;padding:12px;border-radius:8px;margin-bottom:8px;display:flex;justify-content:space-between'>"+channels[i].name+" <button onclick='addToList("+i+")' style='background:#E50914;color:#fff;border:none;padding:5px 10px;border-radius:4px'>Remove</button></div>").join(""):"Innum illa";
+document.getElementById("myListHome").innerHTML=myHTML;document.getElementById("myListPage").innerHTML=myHTML;
+}
+function playCh(i){curIdx=i;var c=channels[i];document.getElementById("pTitle").textContent="CH "+c.no+" - "+c.name+" • LIVE";document.getElementById("player").src="https://www.youtube.com/embed/"+c.yt+"?autoplay=1&rel=0";document.getElementById("playerBox").style.display="flex";try{history.replaceState(null,"","?ch="+c.no);localStorage.setItem("bpr_live_ch",c.no);}catch(e){}}
+function closePlayer(){document.getElementById("playerBox").style.display="none";document.getElementById("player").src="";}
+function toggleFS(){var el=document.getElementById("playerBox");if(!document.fullscreenElement)el.requestFullscreen&&el.requestFullscreen();else document.exitFullscreen&&document.exitFullscreen();}
+function addToList(i){if(myList.includes(i))myList=myList.filter(x=>x!==i);else myList.push(i);try{localStorage.setItem("bprList",JSON.stringify(myList));}catch(e){}renderAll();}
+function getId(url){url=url.trim();if(url.includes("youtu.be/"))return url.split("youtu.be/")[1].split("?")[0].substring(0,11);if(url.includes("v="))return url.split("v=")[1].split("&")[0].substring(0,11);if(url.includes("/live/"))return url.split("/live/")[1].split("?")[0].substring(0,11);if(url.length===11)return url;return null;}
+function addChannel(){var name=prompt("Channel Name?");if(!name)return;var link=prompt("YouTube Link?");if(!link)return;var id=getId(link);if(!id){alert("Link thappu");return;}var no=channels.length?Math.max(...channels.map(c=>c.no))+1:101;channels.push({no:no,name:name,cat:"Live",g:"linear-gradient(135deg,#111,#000)",yt:id});try{localStorage.setItem("bpr_chs",JSON.stringify(channels));}catch(e){}renderAll();alert("Channel Added! CH "+no);}
+function shareApp(){var link=location.origin+location.pathname+"?ch="+channels[curIdx].no;try{navigator.clipboard.writeText(link).then(()=>alert("Link Copied!\n"+link));}catch(e){alert(link);}}
+renderAll();
+</script>
+</body>
+</html>
