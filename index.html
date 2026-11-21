@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BRP TV - Cable Network</title>
+<title>BRP TV</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
   body { background: #0b0b0e; color: #fff; }
@@ -18,16 +18,16 @@
   }
   .logo { text-align: center; font-size: 26px; font-weight: 900; color: #e50914; margin-bottom: 18px; letter-spacing: 2px; }
   input {
-    width: 100%; padding: 11px; margin-bottom: 12px; background: #0f0f14;
-    border: 1px solid #333; color: #fff; border-radius: 5px; font-size: 14px;
+    width: 100%; padding: 12px; margin-bottom: 12px; background: #0f0f14;
+    border: 1px solid #333; color: #fff; border-radius: 5px; font-size: 15px;
   }
   .btn {
-    width: 100%; padding: 11px; background: #e50914; color: #fff; border: none;
-    border-radius: 5px; font-size: 15px; font-weight: bold; cursor: pointer;
+    width: 100%; padding: 12px; background: #e50914; color: #fff; border: none;
+    border-radius: 5px; font-size: 16px; font-weight: bold; cursor: pointer;
   }
-  .links { display: flex; justify-content: space-between; margin-top: 14px; font-size: 13px; }
+  .links { display: flex; justify-content: space-between; margin-top: 15px; font-size: 13px; }
   .links span { color: #ffb703; cursor: pointer; }
-  #msg { text-align: center; font-size: 13px; margin-bottom: 10px; color: #ff6b6b; }
+  #msg { text-align: center; font-size: 13px; margin-bottom: 10px; color: #ff6b6b; font-weight: bold; }
 
   #tvBox { display: none; padding-bottom: 30px; }
   header {
@@ -73,26 +73,26 @@
       <div id="fLogin">
         <input type="text" id="uIn" placeholder="Username (brp)">
         <input type="password" id="pIn" placeholder="Password (1234)">
-        <button class="btn" onclick="doLogin()">Login</button>
+        <button type="button" class="btn" id="loginBtn">Login</button>
         <div class="links">
-          <span onclick="showForm('fForgot')">Forgot Password?</span>
-          <span onclick="showForm('fReg')">New Account</span>
+          <span id="toForgot">Forgot Password?</span>
+          <span id="toReg">New Account</span>
         </div>
       </div>
 
       <div id="fReg" style="display:none;">
         <input type="text" id="rUser" placeholder="New Username">
         <input type="password" id="rPass" placeholder="New Password">
-        <button class="btn" onclick="doReg()">Create Account</button>
-        <div class="links"><span onclick="showForm('fLogin')">← Back to Login</span></div>
+        <button type="button" class="btn" id="regBtn">Create Account</button>
+        <div class="links"><span id="backLogin1">← Back to Login</span></div>
       </div>
 
       <div id="fForgot" style="display:none;">
         <input type="text" id="fUser" placeholder="Enter Username">
         <input type="password" id="fPin" placeholder="Master PIN (9999)">
         <input type="password" id="fNewPass" placeholder="New Password">
-        <button class="btn" onclick="doForgot()">Reset Password</button>
-        <div class="links"><span onclick="showForm('fLogin')">← Back to Login</span></div>
+        <button type="button" class="btn" id="forgotBtn">Reset Password</button>
+        <div class="links"><span id="backLogin2">← Back to Login</span></div>
       </div>
     </div>
   </div>
@@ -102,7 +102,7 @@
       <div class="hdr-title">BRP TV CABLE</div>
       <div>
         <span id="userLabel" style="font-size:13px; color:#46d369; margin-right:10px;"></span>
-        <button class="logout" onclick="doLogout()">Logout</button>
+        <button type="button" class="logout" id="logoutBtn">Logout</button>
       </div>
     </header>
 
@@ -116,10 +116,10 @@
       <marquee class="ticker" id="tickerText">★ BRP TV நண்பர்கள் கேபிள் நெட்வொர்க்கிற்கு நல்வரவு! ★ உங்களுக்குப் பிடித்த சேனலைத் தேர்ந்தெடுத்துப் பாருங்கள்! ★</marquee>
 
       <div class="controls">
-        <button class="c-btn" onclick="changeCh(-1)">◄ CH -</button>
-        <button class="c-btn" onclick="changeCh(1)">CH + ►</button>
-        <button class="c-btn" onclick="editNews()">✎ Scroll Text</button>
-        <button class="c-btn gold" onclick="addNewCh()">+ Add YouTube Channel</button>
+        <button type="button" class="c-btn" id="prevBtn">◄ CH -</button>
+        <button type="button" class="c-btn" id="nextBtn">CH + ►</button>
+        <button type="button" class="c-btn" id="newsBtn">✎ Scroll Text</button>
+        <button type="button" class="c-btn gold" id="addChBtn">+ Add YouTube Channel</button>
       </div>
 
       <h3 style="margin-top:10px; font-size:16px;">📺 Channels List</h3>
@@ -128,25 +128,32 @@
   </div>
 
 <script>
-  let users = JSON.parse(localStorage.getItem("brp_users")) || { "brp": "1234", "bpr": "1234" };
-  let channels = JSON.parse(localStorage.getItem("brp_chs")) || [
+  var users = JSON.parse(localStorage.getItem("brp_users") || "null") || { "brp": "1234", "bpr": "1234" };
+  var channels = JSON.parse(localStorage.getItem("brp_chs") || "null") || [
     { no: 101, name: "BRP Movies HD", yt: "aqz-KE-bpKQ" },
     { no: 102, name: "BRP Sci-Fi TV", yt: "R6MlUcmOul8" },
     { no: 103, name: "BRP Music 24x7", yt: "jfKfPfyJRdk" },
     { no: 104, name: "BRP World Live", yt: "21X5lGlDOfg" }
   ];
-  let idx = 0;
+  var idx = 0;
 
   function showForm(id) {
     document.getElementById("msg").innerText = "";
-    ["fLogin", "fReg", "fForgot"].forEach(f => document.getElementById(f).style.display = "none");
+    document.getElementById("fLogin").style.display = "none";
+    document.getElementById("fReg").style.display = "none";
+    document.getElementById("fForgot").style.display = "none";
     document.getElementById(id).style.display = "block";
   }
 
-  function doLogin() {
-    let u = document.getElementById("uIn").value.trim().toLowerCase();
-    let p = document.getElementById("pIn").value.trim();
-    if (users[u] && users[u] === p) {
+  document.getElementById("toForgot").onclick = function() { showForm("fForgot"); };
+  document.getElementById("toReg").onclick = function() { showForm("fReg"); };
+  document.getElementById("backLogin1").onclick = function() { showForm("fLogin"); };
+  document.getElementById("backLogin2").onclick = function() { showForm("fLogin"); };
+
+  document.getElementById("loginBtn").onclick = function() {
+    var u = document.getElementById("uIn").value.trim().toLowerCase();
+    var p = document.getElementById("pIn").value.trim();
+    if ((u === "brp" && p === "1234") || (users[u] && users[u] === p)) {
       document.getElementById("loginBox").style.display = "none";
       document.getElementById("tvBox").style.display = "block";
       document.getElementById("userLabel").innerText = "👤 " + u.toUpperCase();
@@ -155,23 +162,23 @@
       document.getElementById("msg").style.color = "#ff6b6b";
       document.getElementById("msg").innerText = "தவறான Username அல்லது Password!";
     }
-  }
+  };
 
-  function doReg() {
-    let u = document.getElementById("rUser").value.trim().toLowerCase();
-    let p = document.getElementById("rPass").value.trim();
+  document.getElementById("regBtn").onclick = function() {
+    var u = document.getElementById("rUser").value.trim().toLowerCase();
+    var p = document.getElementById("rPass").value.trim();
     if (!u || !p) { document.getElementById("msg").innerText = "எல்லாவற்றையும் நிரப்பவும்!"; return; }
     users[u] = p;
     localStorage.setItem("brp_users", JSON.stringify(users));
     showForm("fLogin");
     document.getElementById("msg").style.color = "#46d369";
     document.getElementById("msg").innerText = "Account Ready! இப்போது Login செய்யவும்.";
-  }
+  };
 
-  function doForgot() {
-    let u = document.getElementById("fUser").value.trim().toLowerCase();
-    let pin = document.getElementById("fPin").value.trim();
-    let np = document.getElementById("fNewPass").value.trim();
+  document.getElementById("forgotBtn").onclick = function() {
+    var u = document.getElementById("fUser").value.trim().toLowerCase();
+    var pin = document.getElementById("fPin").value.trim();
+    var np = document.getElementById("fNewPass").value.trim();
     if (!users[u]) { document.getElementById("msg").innerText = "Username இல்லை!"; return; }
     if (pin !== "9999") { document.getElementById("msg").innerText = "தவறான Master PIN (9999)!"; return; }
     if (!np) { document.getElementById("msg").innerText = "புதிய Password போடவும்!"; return; }
@@ -180,56 +187,34 @@
     showForm("fLogin");
     document.getElementById("msg").style.color = "#46d369";
     document.getElementById("msg").innerText = "Password மாற்றப்பட்டது!";
-  }
+  };
 
-  function doLogout() {
+  document.getElementById("logoutBtn").onclick = function() {
     document.getElementById("player").src = "";
     document.getElementById("tvBox").style.display = "none";
     document.getElementById("loginBox").style.display = "flex";
-  }
+  };
 
   function getYtId(url) {
-    let m = url.match(/(?:youtu\.be\/|v=|embed\/|live\/|shorts\/)([a-zA-Z0-9_-]{11})/);
-    if (m && m) return m;
+    if (!url) return null;
+    if (url.indexOf("youtu.be/") !== -1) {
+      return url.split("youtu.be/").substring(0, 11);
+    }
+    if (url.indexOf("v=") !== -1) {
+      return url.split("v=").substring(0, 11);
+    }
+    if (url.indexOf("/live/") !== -1) {
+      return url.split("/live/").substring(0, 11);
+    }
+    if (url.indexOf("/shorts/") !== -1) {
+      return url.split("/shorts/").substring(0, 11);
+    }
     if (url.length === 11) return url;
     return null;
   }
 
   function playCh(i) {
     idx = i;
-    let c = channels[i];
+    var c = channels[i];
     document.getElementById("osdText").innerText = "CH " + c.no + " - " + c.name;
     document.getElementById("player").src = "https://youtube.com" + c.yt + "?autoplay=1&rel=0";
-    renderList();
-  }
-
-  function changeCh(step) {
-    idx = (idx + step + channels.length) % channels.length;
-    playCh(idx);
-  }
-
-  function renderList() {
-    let box = document.getElementById("chList");
-    box.innerHTML = "";
-    channels.forEach((c, i) => {
-      box.innerHTML += `<div class="ch-card ${i===idx?'active':''}" onclick="playCh(${i})">
-        <div class="ch-no">${c.no}</div>
-        <div><b>${c.name}</b></div>
-      </div>`;
-    });
-  }
-
-  function addNewCh() {
-    let no = prompt("Channel Number (எ.கா: 105):");
-    let name = prompt("Channel Name (எ.கா: BRP Comedy):");
-    let link = prompt("YouTube Link பேஸ்ட் செய்யவும்:");
-    let id = getYtId(link || "");
-    if (no && name && id) {
-      channels.push({ no: parseInt(no), name: name, yt: id });
-      localStorage.setItem("brp_chs", JSON.stringify(channels));
-      playCh(channels.length - 1);
-    } else {
-      alert("சரியான YouTube Link கொடுக்கவும்!");
-    }
-  }
-
