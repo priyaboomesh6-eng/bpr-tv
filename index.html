@@ -3,85 +3,88 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BPR TV - PRIYADHARSINI K ❤️</title>
+<title>BPR ❤️ PRIYADHARSINI</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:Arial}
 body{background:#0b0b0e;color:#fff;overflow-x:hidden}
-#loginBox{min-height:100vh;display:flex;justify-content:center;align-items:center;padding:20px;background:radial-gradient(circle,#3a0a1a 0%,#0b0b0e 70%);position:relative;overflow:hidden}
-.card{background:rgba(22,22,29,.95);padding:28px;border-radius:20px;width:100%;max-width:390px;border-top:4px solid #e50914;text-align:center;box-shadow:0 0 50px rgba(229,9,20,.5);position:relative;z-index:2}
-input{width:100%;padding:12px;margin-bottom:12px;background:#0f0f14;border:1px solid #333;color:#fff;border-radius:8px}
-.btn{width:100%;padding:12px;background:#e50914;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer}
+#loginBox{min-height:100vh;display:flex;justify-content:center;align-items:center;padding:20px;background:radial-gradient(circle,#1a0a0a 0%,#0a1a0a 50%,#0b0b0e 100%);position:relative;overflow:hidden}
+.card{background:rgba(22,22,29,.96);padding:28px;border-radius:20px;width:100%;max-width:390px;border-top:4px solid #ff0000;text-align:center;box-shadow:0 0 50px rgba(255,0,0,.4),0 0 50px rgba(0,255,0,.2);position:relative;z-index:2}
+input{width:100%;padding:12px;margin-bottom:12px;background:#0f0f14;border:1px solid #444;color:#fff;border-radius:8px}
+.btn{width:100%;padding:12px;background:linear-gradient(90deg,#ff0000,#00c853);color:#fff;border:none;border-radius:8px;font-weight:900;cursor:pointer}
 .links{display:flex;justify-content:space-between;margin-top:15px;font-size:13px}.links span{color:#ffb703;cursor:pointer}
 #msg{text-align:center;font-size:13px;color:#ff6b6b;font-weight:bold;margin-bottom:10px}
 #tvBox{display:none;padding-bottom:30px}
-header{background:#16161d;padding:10px 4%;display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #e50914;position:sticky;top:0;z-index:10}
+header{background:#16161d;padding:10px 4%;display:flex;justify-content:space-between;align-items:center;border-bottom:3px solid #ff0000;border-image:linear-gradient(90deg,#ff0000,#00c853) 1;position:sticky;top:0;z-index:10}
 .logout{background:#333;color:#fff;border:none;padding:6px 12px;border-radius:4px;cursor:pointer}
 .main{max-width:900px;margin:15px auto;padding:0 12px}
-.screen{position:relative;width:100%;aspect-ratio:16/9;background:#000;border:2px solid #222;border-radius:10px;overflow:hidden}
+.screen{position:relative;width:100%;aspect-ratio:16/9;background:#000;border:2px solid #333;border-radius:10px;overflow:hidden}
 .screen:fullscreen{border:none;border-radius:0;width:100%;height:100%;aspect-ratio:auto}
 iframe{width:100%;height:100%;border:none}
 
 /* ❤️ FLYING HEARTS */
 .heart{position:absolute;bottom:-30px;font-size:22px;animation:flyUp linear infinite;opacity:.9;pointer-events:none;z-index:1}
-@keyframes flyUp{0%{transform:translateY(0) translateX(0) rotate(0deg);opacity:0}10%{opacity:1}100%{transform:translateY(-110vh) translateX(40px) rotate(40deg);opacity:0}}
-.heart2{position:absolute;top:12px;animation:floatHeart 1.5s ease-in-out infinite;pointer-events:none}
-@keyframes floatHeart{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-8px) scale(1.2)}}
+@keyframes flyUp{0%{transform:translateY(0) rotate(0deg);opacity:0}10%{opacity:1}100%{transform:translateY(-110vh) rotate(40deg);opacity:0}}
 
-/* 🔥 MASS BPR LOGO */
-.mass-logo{font-size:78px;font-weight:900;letter-spacing:4px;line-height:1;
-background:linear-gradient(180deg,#ffffff 0%,#ff1744 25%,#e50914 45%,#ff6b00 65%,#ffb703 85%,#fff 100%);
--webkit-background-clip:text;-webkit-text-fill-color:transparent;
-filter:drop-shadow(0 0 20px rgba(255,0,60,.9)) drop-shadow(0 5px 0 #000);
-animation:massPulse 1.2s infinite}
+/* 🔥 BPR - SIVAPPU PACCHAI MASS */
+.mass-logo{font-size:82px;font-weight:900;letter-spacing:6px;line-height:1;display:flex;justify-content:center;animation:massPulse 1.2s infinite}
+.mass-logo span:nth-child(1){color:#ff0000;text-shadow:0 0 20px #ff0000,0 4px 0 #000}
+.mass-logo span:nth-child(2){color:#00e676;text-shadow:0 0 20px #00e676,0 4px 0 #000}
+.mass-logo span:nth-child(3){color:#ff0000;text-shadow:0 0 20px #ff0000,0 4px 0 #000}
 @keyframes massPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
-.mass-sub{font-size:13px;letter-spacing:5px;color:#ffb703;font-weight:900;margin-top:2px;text-shadow:0 0 12px #ffb703}
-.priya-name{margin:14px 0 6px;background:linear-gradient(90deg,#ff1744,#ff6b00,#ffb703,#ff1744,#ff6b00);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:26px;font-weight:900;letter-spacing:1px;animation:shine 2s linear infinite;filter:drop-shadow(0 0 10px rgba(255,23,68,.6))}
+.mass-sub{font-size:13px;letter-spacing:5px;font-weight:900;margin-top:4px}
+.mass-sub .r{color:#ff1744}.mass-sub .g{color:#00e676}
+/* PRIYADHARSINI KEEZHA */
+.priya-name{margin:12px 0 2px;background:linear-gradient(90deg,#ff1744,#ff6b00,#00e676,#ffb703,#ff1744);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:26px;font-weight:900;letter-spacing:1px;animation:shine 2s linear infinite;filter:drop-shadow(0 0 10px rgba(255,255,255,.3))}
 @keyframes shine{to{background-position:300% center}}
-.priya-sub{font-size:16px;letter-spacing:2px;color:#fff;font-weight:700;margin-bottom:16px}
-.priya-sub span{color:#ff1744}
+.priya-sub{font-size:15px;letter-spacing:2px;color:#fff;font-weight:700;margin-bottom:16px}
 
-/* VIDEO MELA MASS LOGO */
-.watermark{position:absolute;top:12px;right:12px;z-index:999;pointer-events:none;text-align:center;background:linear-gradient(135deg,rgba(0,0,0,.9),rgba(229,9,20,.95));padding:8px 14px 6px;border:2px solid #ffb703;border-radius:12px;box-shadow:0 0 25px rgba(255,0,60,.9)}
-.watermark .big{font-size:34px;font-weight:900;letter-spacing:3px;line-height:1;background:linear-gradient(180deg,#fff,#ffb703,#ff1744);-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 10px #ff0000);animation:massPulse 1s infinite}
-.watermark .priya{font-size:12px;font-weight:900;letter-spacing:1px;color:#fff;margin-top:3px;background:#000;padding:3px 7px;border-radius:5px;border:1px solid #ff1744}
-.watermark .hearts{font-size:12px;margin-top:3px;letter-spacing:2px}
-.osd{position:absolute;top:12px;left:12px;background:rgba(0,0,0,.8);padding:6px 10px;border-left:3px solid #ffb703;font-size:13px;z-index:999;pointer-events:none}
-.bottom-mass{position:absolute;bottom:12px;left:12px;z-index:999;pointer-events:none;background:rgba(0,0,0,.75);padding:7px 11px;border-radius:10px;border-left:3px solid #ff1744}
-.bottom-mass b{font-size:16px;color:#ffb703;letter-spacing:2px}
+/* VIDEO MELA */
+.watermark{position:absolute;top:12px;right:12px;z-index:999;pointer-events:none;text-align:center;background:rgba(0,0,0,.85);padding:8px 14px 6px;border:2px solid #00e676;border-radius:12px;box-shadow:0 0 25px rgba(255,0,0,.8)}
+.watermark .big{display:flex;justify-content:center;font-size:34px;font-weight:900;letter-spacing:3px;line-height:1}
+.watermark .big span:nth-child(1){color:#ff0000;text-shadow:0 0 12px #ff0000}
+.watermark .big span:nth-child(2){color:#00e676;text-shadow:0 0 12px #00e676}
+.watermark .big span:nth-child(3){color:#ff0000;text-shadow:0 0 12px #ff0000}
+.watermark .priya{font-size:12px;font-weight:900;letter-spacing:1px;color:#fff;margin-top:4px;background:#111;padding:3px 7px;border-radius:5px;border:1px solid #ff1744}
+.watermark .hearts{font-size:12px;margin-top:3px}
+.osd{position:absolute;top:12px;left:12px;background:rgba(0,0,0,.8);padding:6px 10px;border-left:3px solid #00e676;font-size:13px;z-index:999;pointer-events:none}
+.bottom-mass{position:absolute;bottom:12px;left:12px;z-index:999;pointer-events:none;background:rgba(0,0,0,.75);padding:7px 11px;border-radius:10px;border-left:3px solid #ff0000}
+.bottom-mass b{font-size:16px;letter-spacing:2px}.bottom-mass b .r{color:#ff1744}.bottom-mass b .g{color:#00e676}
 .bottom-mass span{display:block;font-size:12px;color:#fff;font-weight:800}
-.full-btn{position:absolute;bottom:12px;right:12px;background:#e50914;color:#fff;border:none;padding:8px 14px;border-radius:5px;font-weight:bold;cursor:pointer;z-index:1000}
-.ticker{background:#e50914;padding:7px 10px;font-size:13px;font-weight:bold;margin-top:6px;border-radius:4px}
+.full-btn{position:absolute;bottom:12px;right:12px;background:linear-gradient(90deg,#ff0000,#00c853);color:#fff;border:none;padding:8px 14px;border-radius:5px;font-weight:bold;cursor:pointer;z-index:1000}
+.ticker{background:linear-gradient(90deg,#ff0000,#00c853);padding:7px 10px;font-size:13px;font-weight:bold;margin-top:6px;border-radius:4px}
 .controls{display:flex;gap:8px;margin:12px 0;flex-wrap:wrap}
 .c-btn{background:#222;color:#fff;border:1px solid #444;padding:8px 14px;border-radius:5px;cursor:pointer;font-weight:bold}
-.c-btn.gold{background:#ffb703;color:#000;border:none}
+.c-btn.gold{background:#00c853;color:#fff;border:none}
 .ch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-top:12px}
-.ch-card{background:#16161d;padding:12px;border-radius:6px;cursor:pointer;border-left:4px solid #333;display:flex;align-items:center;gap:10px}
-.ch-card.active{border-left-color:#ffb703;background:#22222c}
-.ch-no{background:#e50914;padding:4px 8px;border-radius:4px;font-weight:bold;font-size:13px}
+.ch-card{background:#16161d;padding:12px;border-radius:6px;cursor:pointer;border-left:4px solid #ff0000;display:flex;align-items:center;gap:10px}
+.ch-card.active{border-left-color:#00e676;background:#22222c}
+.ch-no{background:linear-gradient(90deg,#ff0000,#00c853);padding:4px 8px;border-radius:4px;font-weight:bold;font-size:13px}
 .hdr-logo{line-height:1;text-align:center}
-.hdr-logo b{font-size:30px;font-weight:900;background:linear-gradient(180deg,#fff,#ffb703,#e50914);-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 10px #e50914)}
-.hdr-logo span{display:block;font-size:9px;letter-spacing:2px;color:#fff;font-weight:900;margin-top:1px}
+.hdr-logo .bpr{display:flex;justify-content:center;font-size:30px;font-weight:900;letter-spacing:2px}
+.hdr-logo .bpr span:nth-child(1){color:#ff0000;text-shadow:0 0 10px #ff0000}
+.hdr-logo .bpr span:nth-child(2){color:#00e676;text-shadow:0 0 10px #00e676}
+.hdr-logo .bpr span:nth-child(3){color:#ff0000;text-shadow:0 0 10px #ff0000}
+.hdr-logo span.priya{font-size:9px;letter-spacing:2px;color:#fff;font-weight:900;margin-top:2px;display:block}
 </style>
 </head>
 <body>
 
 <div id="loginBox">
-<!-- FLYING HEARTS BACKGROUND -->
-<div class="heart" style="left:10%;animation-duration:4s;font-size:24px">❤️</div>
-<div class="heart" style="left:25%;animation-duration:5s;animation-delay:.5s;font-size:18px">❤️</div>
-<div class="heart" style="left:45%;animation-duration:3.5s;animation-delay:1s;font-size:28px">❤️</div>
-<div class="heart" style="left:65%;animation-duration:4.5s;animation-delay:.2s;font-size:20px">❤️</div>
-<div class="heart" style="left:85%;animation-duration:5.5s;animation-delay:1.2s;font-size:26px">❤️</div>
-<div class="heart" style="left:35%;animation-duration:4s;animation-delay:1.5s;font-size:16px">💖</div>
-<div class="heart" style="left:75%;animation-duration:3s;animation-delay:.8s;font-size:18px">💖</div>
+<div class="heart" style="left:10%;animation-duration:4s">❤️</div>
+<div class="heart" style="left:25%;animation-duration:5s;animation-delay:.5s">❤️</div>
+<div class="heart" style="left:45%;animation-duration:3.5s;animation-delay:1s">❤️</div>
+<div class="heart" style="left:65%;animation-duration:4.5s;animation-delay:.2s">💚</div>
+<div class="heart" style="left:85%;animation-duration:5.5s;animation-delay:1.2s">❤️</div>
+<div class="heart" style="left:35%;animation-duration:4s;animation-delay:1.5s">💚</div>
 
 <div class="card">
-<div style="font-size:20px;letter-spacing:4px">❤️ ❤️ ❤️ ❤️</div>
-<!-- BPR MELLA -->
-<div class="mass-logo">BPR</div>
-<div class="mass-sub">★ BPR TV ★</div>
+<div style="font-size:18px;letter-spacing:4px">❤️ 💚 ❤️ 💚</div>
+<!-- BPR SIVAPPU PACCHAI -->
+<div class="mass-logo"><span>B</span><span>P</span><span>R</span></div>
+<div class="mass-sub"><span class="r">BPR</span> <span class="g">TV</span></div>
+<!-- PRIYADHARSINI KEEZHA -->
 <div class="priya-name">PRIYADHARSINI K</div>
-<div class="priya-sub">❤️ <span>For You</span> ❤️</div>
+<div class="priya-sub">❤️ For You 💚</div>
 <div id="msg"></div>
 <div id="fLogin">
 <input id="uIn" placeholder="Username (bpr)">
@@ -100,31 +103,30 @@ animation:massPulse 1.2s infinite}
 <button class="btn" id="forgotBtn">Reset Password</button>
 <div class="links"><span id="backLogin2">← Back</span></div>
 </div>
-<div style="margin-top:12px;font-size:18px">❤️❤️❤️❤️</div>
+<div style="margin-top:12px;font-size:18px">❤️💚❤️💚</div>
 </div>
 </div>
 
 <div id="tvBox">
 <header>
-<div class="hdr-logo"><b>BPR</b><span>PRIYADHARSINI K ❤️</span></div>
+<div class="hdr-logo"><div class="bpr"><span>B</span><span>P</span><span>R</span></div><span class="priya">PRIYADHARSINI K ❤️</span></div>
 <div><span id="userLabel" style="font-size:13px;color:#46d369;margin-right:10px"></span><button class="logout" id="logoutBtn">Logout</button></div>
 </header>
 
 <div class="main">
 <div class="screen" id="screenBox">
-<!-- MASS LOGO VIDEO MELA -->
 <div class="watermark">
-<div class="big">BPR</div>
+<div class="big"><span>B</span><span>P</span><span>R</span></div>
 <div class="priya">PRIYADHARSINI K</div>
-<div class="hearts">❤️❤️❤️❤️</div>
+<div class="hearts">❤️💚❤️💚</div>
 </div>
 <div class="osd" id="osdText">CH 101 - BPR Movies</div>
-<div class="bottom-mass"><b>BPR ❤️</b><span>PRIYADHARSINI K</span></div>
+<div class="bottom-mass"><b><span class="r">B</span><span class="g">P</span><span class="r">R</span> ❤️</b><span>PRIYADHARSINI K</span></div>
 <iframe id="player" allow="autoplay; fullscreen; encrypted-media" allowfullscreen></iframe>
 <button class="full-btn" id="fsBtn" onclick="toggleFS()">⛶ FULL SCREEN</button>
 </div>
 
-<div class="ticker"><marquee>❤️ BPR TV - PRIYADHARSINI K ❤️ Welcome! ❤️❤️❤️❤️ ❤️</marquee></div>
+<div class="ticker"><marquee>❤️ BPR - PRIYADHARSINI K 💚 Welcome! ❤️💚❤️💚 ❤️</marquee></div>
 <div class="controls">
 <button class="c-btn" id="prevBtn">◄ CH -</button>
 <button class="c-btn" id="nextBtn">CH + ►</button>
@@ -136,15 +138,12 @@ animation:massPulse 1.2s infinite}
 <h3 style="margin-top:14px">📺 Channels List</h3>
 <div class="ch-grid" id="chList"></div>
 
-<!-- KEEZHA MASS BANNER -->
-<div style="margin-top:20px;background:linear-gradient(90deg,#ff1744,#ff6b00,#ffb703,#ff1744);padding:3px;border-radius:18px;position:relative;overflow:hidden">
-<div style="background:#111;padding:22px;border-radius:15px;text-align:center;position:relative">
-<div class="heart2" style="left:15%;top:8px">❤️</div>
-<div class="heart2" style="right:15%;top:8px;animation-delay:.5s">❤️</div>
-<div style="font-size:44px;font-weight:900;background:linear-gradient(180deg,#fff,#ffb703,#ff1744);-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 12px #ff1744)">BPR</div>
-<div style="font-size:22px;font-weight:900;color:#fff;letter-spacing:1px;margin-top:4px">PRIYADHARSINI K</div>
-<div style="font-size:20px;margin-top:6px;letter-spacing:4px">❤️❤️❤️❤️</div>
-<p style="color:#aaa;font-size:13px;margin-top:6px">For Priyadharsini K - With Love ❤️</p>
+<div style="margin-top:20px;background:linear-gradient(90deg,#ff0000,#00e676,#ff0000);padding:3px;border-radius:18px">
+<div style="background:#111;padding:22px;border-radius:15px;text-align:center">
+<div style="display:flex;justify-content:center;font-size:44px;font-weight:900;letter-spacing:4px"><span style="color:#ff0000;text-shadow:0 0 12px #ff0000">B</span><span style="color:#00e676;text-shadow:0 0 12px #00e676">P</span><span style="color:#ff0000;text-shadow:0 0 12px #ff0000">R</span></div>
+<div style="font-size:22px;font-weight:900;color:#fff;margin-top:4px">PRIYADHARSINI K</div>
+<div style="font-size:20px;margin-top:6px">❤️💚❤️💚</div>
+<p style="color:#aaa;font-size:13px;margin-top:6px">For Priyadharsini K - With Love ❤️💚</p>
 </div>
 </div>
 
@@ -177,7 +176,7 @@ function playCh(i){idx=i;var c=channels[i];document.getElementById("osdText").in
 function renderCh(){var q=(document.getElementById("searchCh").value||"").toLowerCase();var list=document.getElementById("chList");list.innerHTML="";channels.forEach((c,i)=>{if(q&&!c.name.toLowerCase().includes(q))return;var d=document.createElement("div");d.className="ch-card"+(i===idx?" active":"");d.innerHTML="<span class='ch-no'>"+c.no+"</span><div><b>"+c.name+"</b><div style='font-size:12px;color:#aaa'>"+c.cat+"</div></div>";d.onclick=()=>playCh(i);list.appendChild(d);});}
 document.getElementById("prevBtn").onclick=()=>{idx=(idx-1+channels.length)%channels.length;playCh(idx);};
 document.getElementById("nextBtn").onclick=()=>{idx=(idx+1)%channels.length;playCh(idx);};
-document.getElementById("newsBtn").onclick=()=>{var t=prompt("Scroll Text?","BPR - PRIYADHARSINI K ❤️");if(t)document.querySelector("marquee").innerText="❤️ "+t+" ❤️";};
+document.getElementById("newsBtn").onclick=()=>{var t=prompt("Scroll Text?","BPR - PRIYADHARSINI K ❤️");if(t)document.querySelector("marquee").innerText="❤️ "+t+" 💚";};
 document.getElementById("addChBtn").onclick=()=>{var name=prompt("Channel Name?");if(!name)return;var link=prompt("YouTube Link?");if(!link)return;var id=getYtId(link);if(!id){alert("Link thappu!");return;}var no=channels.length?Math.max(...channels.map(c=>c.no))+1:101;channels.push({no:no,name:name,yt:id,cat:"User"});localStorage.setItem("brp_chs",JSON.stringify(channels));renderCh();playCh(channels.length-1);};
 var saved=localStorage.getItem("brp_login");if(saved)enterTV(saved);
 </script>
