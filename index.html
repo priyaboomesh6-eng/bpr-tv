@@ -8,7 +8,6 @@
   * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
   body { background: #0b0b0e; color: #fff; }
 
-  /* LOGIN PAGE */
   #loginBox {
     min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px;
     background: radial-gradient(circle, #240b0e 0%, #0b0b0e 100%);
@@ -30,7 +29,6 @@
   .links span { color: #ffb703; cursor: pointer; }
   #msg { text-align: center; font-size: 13px; margin-bottom: 10px; color: #ff6b6b; }
 
-  /* TV PAGE */
   #tvBox { display: none; padding-bottom: 30px; }
   header {
     background: #16161d; padding: 12px 4%; display: flex; justify-content: space-between;
@@ -67,13 +65,11 @@
 </head>
 <body>
 
-  <!-- 1. LOGIN / REGISTER / FORGOT -->
   <div id="loginBox">
     <div class="card">
       <div class="logo">BRP TV</div>
       <div id="msg"></div>
 
-      <!-- Login -->
       <div id="fLogin">
         <input type="text" id="uIn" placeholder="Username (brp)">
         <input type="password" id="pIn" placeholder="Password (1234)">
@@ -84,7 +80,6 @@
         </div>
       </div>
 
-      <!-- Register -->
       <div id="fReg" style="display:none;">
         <input type="text" id="rUser" placeholder="New Username">
         <input type="password" id="rPass" placeholder="New Password">
@@ -92,7 +87,6 @@
         <div class="links"><span onclick="showForm('fLogin')">← Back to Login</span></div>
       </div>
 
-      <!-- Forgot Password -->
       <div id="fForgot" style="display:none;">
         <input type="text" id="fUser" placeholder="Enter Username">
         <input type="password" id="fPin" placeholder="Master PIN (9999)">
@@ -103,7 +97,6 @@
     </div>
   </div>
 
-  <!-- 2. CABLE TV SCREEN -->
   <div id="tvBox">
     <header>
       <div class="hdr-title">BRP TV CABLE</div>
@@ -135,7 +128,7 @@
   </div>
 
 <script>
-  let users = JSON.parse(localStorage.getItem("brp_users")) || { "brp": "1234" };
+  let users = JSON.parse(localStorage.getItem("brp_users")) || { "brp": "1234", "bpr": "1234" };
   let channels = JSON.parse(localStorage.getItem("brp_chs")) || [
     { no: 101, name: "BRP Movies HD", yt: "aqz-KE-bpKQ" },
     { no: 102, name: "BRP Sci-Fi TV", yt: "R6MlUcmOul8" },
@@ -151,20 +144,21 @@
   }
 
   function doLogin() {
-    let u = document.getElementById("uIn").value.trim();
+    let u = document.getElementById("uIn").value.trim().toLowerCase();
     let p = document.getElementById("pIn").value.trim();
     if (users[u] && users[u] === p) {
       document.getElementById("loginBox").style.display = "none";
       document.getElementById("tvBox").style.display = "block";
-      document.getElementById("userLabel").innerText = "👤 " + u;
+      document.getElementById("userLabel").innerText = "👤 " + u.toUpperCase();
       playCh(0);
     } else {
+      document.getElementById("msg").style.color = "#ff6b6b";
       document.getElementById("msg").innerText = "தவறான Username அல்லது Password!";
     }
   }
 
   function doReg() {
-    let u = document.getElementById("rUser").value.trim();
+    let u = document.getElementById("rUser").value.trim().toLowerCase();
     let p = document.getElementById("rPass").value.trim();
     if (!u || !p) { document.getElementById("msg").innerText = "எல்லாவற்றையும் நிரப்பவும்!"; return; }
     users[u] = p;
@@ -175,7 +169,7 @@
   }
 
   function doForgot() {
-    let u = document.getElementById("fUser").value.trim();
+    let u = document.getElementById("fUser").value.trim().toLowerCase();
     let pin = document.getElementById("fPin").value.trim();
     let np = document.getElementById("fNewPass").value.trim();
     if (!users[u]) { document.getElementById("msg").innerText = "Username இல்லை!"; return; }
@@ -196,7 +190,9 @@
 
   function getYtId(url) {
     let m = url.match(/(?:youtu\.be\/|v=|embed\/|live\/|shorts\/)([a-zA-Z0-9_-]{11})/);
-    return m ? m : (url.length === 11 ? url : null);
+    if (m && m) return m;
+    if (url.length === 11) return url;
+    return null;
   }
 
   function playCh(i) {
@@ -231,3 +227,9 @@
     if (no && name && id) {
       channels.push({ no: parseInt(no), name: name, yt: id });
       localStorage.setItem("brp_chs", JSON.stringify(channels));
+      playCh(channels.length - 1);
+    } else {
+      alert("சரியான YouTube Link கொடுக்கவும்!");
+    }
+  }
+
