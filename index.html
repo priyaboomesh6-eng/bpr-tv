@@ -1,457 +1,233 @@
 <!DOCTYPE html>
 <html lang="ta">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BRP TV - Login & Local Cable Network</title>
-  <script src="https://jsdelivr.net"></script>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BRP TV - Cable Network</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
+  body { background: #0b0b0e; color: #fff; }
 
-    body {
-      background-color: #0a0a0c;
-      color: #ffffff;
-      min-height: 100vh;
-    }
+  /* LOGIN PAGE */
+  #loginBox {
+    min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px;
+    background: radial-gradient(circle, #240b0e 0%, #0b0b0e 100%);
+  }
+  .card {
+    background: #16161d; padding: 28px; border-radius: 10px; width: 100%; max-width: 360px;
+    border-top: 4px solid #e50914; box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+  }
+  .logo { text-align: center; font-size: 26px; font-weight: 900; color: #e50914; margin-bottom: 18px; letter-spacing: 2px; }
+  input {
+    width: 100%; padding: 11px; margin-bottom: 12px; background: #0f0f14;
+    border: 1px solid #333; color: #fff; border-radius: 5px; font-size: 14px;
+  }
+  .btn {
+    width: 100%; padding: 11px; background: #e50914; color: #fff; border: none;
+    border-radius: 5px; font-size: 15px; font-weight: bold; cursor: pointer;
+  }
+  .links { display: flex; justify-content: space-between; margin-top: 14px; font-size: 13px; }
+  .links span { color: #ffb703; cursor: pointer; }
+  #msg { text-align: center; font-size: 13px; margin-bottom: 10px; color: #ff6b6b; }
 
-    /* ================= LOGIN SCREEN STYLES ================= */
-    #authScreen {
-      position: fixed;
-      inset: 0;
-      background: linear-gradient(rgba(0, 0, 0, 0.78), rgba(0, 0, 0, 0.88)),
-                  url('https://ytimg.com') center/cover no-repeat;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 2000;
-      padding: 20px;
-    }
+  /* TV PAGE */
+  #tvBox { display: none; padding-bottom: 30px; }
+  header {
+    background: #16161d; padding: 12px 4%; display: flex; justify-content: space-between;
+    align-items: center; border-bottom: 2px solid #e50914;
+  }
+  .hdr-title { font-size: 20px; font-weight: 900; color: #e50914; }
+  .logout { background: #333; color: #fff; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; }
 
-    .auth-box {
-      background: rgba(20, 20, 24, 0.95);
-      border: 1px solid #333;
-      border-top: 4px solid #e50914;
-      padding: 32px 28px;
-      border-radius: 10px;
-      width: 100%;
-      max-width: 390px;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9);
-    }
+  .main { max-width: 900px; margin: 15px auto; padding: 0 12px; }
+  .screen { position: relative; width: 100%; aspect-ratio: 16/9; background: #000; border: 2px solid #222; border-radius: 8px; overflow: hidden; }
+  iframe { width: 100%; height: 100%; border: none; }
+  .watermark {
+    position: absolute; top: 10px; right: 12px; background: rgba(229,9,20,0.85);
+    padding: 3px 8px; font-size: 12px; font-weight: bold; border-radius: 3px; pointer-events: none;
+  }
+  .osd {
+    position: absolute; top: 10px; left: 12px; background: rgba(0,0,0,0.75);
+    padding: 5px 10px; border-left: 3px solid #ffb703; font-size: 13px; pointer-events: none;
+  }
 
-    .auth-logo {
-      text-align: center;
-      margin-bottom: 22px;
-    }
+  .ticker { background: #e50914; padding: 7px 10px; font-size: 13px; font-weight: bold; margin-top: 6px; border-radius: 4px; }
+  .controls { display: flex; gap: 8px; margin: 12px 0; flex-wrap: wrap; }
+  .c-btn { background: #222; color: #fff; border: 1px solid #444; padding: 8px 14px; border-radius: 5px; cursor: pointer; font-weight: bold; }
+  .c-btn.gold { background: #ffb703; color: #000; border: none; }
 
-    .auth-logo span {
-      background: #e50914;
-      color: #fff;
-      font-size: 26px;
-      font-weight: 900;
-      padding: 5px 14px;
-      border-radius: 5px;
-      letter-spacing: 2px;
-    }
-
-    .auth-box h2 {
-      font-size: 20px;
-      margin-bottom: 16px;
-      text-align: center;
-      color: #f3f4f6;
-    }
-
-    .input-group {
-      margin-bottom: 14px;
-    }
-
-    .input-group label {
-      display: block;
-      font-size: 13px;
-      color: #9ca3af;
-      margin-bottom: 5px;
-    }
-
-    .input-group input {
-      width: 100%;
-      padding: 11px 12px;
-      background: #121216;
-      border: 1px solid #3f3f46;
-      color: #fff;
-      border-radius: 6px;
-      font-size: 14px;
-      outline: none;
-    }
-
-    .input-group input:focus {
-      border-color: #e50914;
-    }
-
-    .auth-btn {
-      width: 100%;
-      padding: 12px;
-      background: #e50914;
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-      margin-top: 6px;
-      transition: 0.2s;
-    }
-
-    .auth-btn:hover {
-      background: #b90912;
-    }
-
-    .auth-links {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 14px;
-      font-size: 13px;
-    }
-
-    .auth-links a {
-      color: #ffb703;
-      text-decoration: none;
-      cursor: pointer;
-    }
-
-    .auth-links a:hover {
-      text-decoration: underline;
-    }
-
-    .msg-box {
-      font-size: 13px;
-      text-align: center;
-      margin-bottom: 12px;
-      color: #f87171;
-      min-height: 18px;
-    }
-
-    /* ================= CABLE TV SCREEN STYLES ================= */
-    #tvApp {
-      display: none;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-
-    header {
-      background: linear-gradient(90deg, #141414, #1f1111, #141414);
-      padding: 12px 4%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 2px solid #e50914;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .brand-logo {
-      background: #e50914;
-      color: #fff;
-      font-weight: 900;
-      font-size: 22px;
-      padding: 4px 12px;
-      border-radius: 4px;
-      letter-spacing: 1.5px;
-    }
-
-    .live-badge {
-      background: #ffb703;
-      color: #000;
-      font-size: 11px;
-      font-weight: 800;
-      padding: 3px 8px;
-      border-radius: 4px;
-    }
-
-    .header-right {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .user-badge {
-      font-size: 13px;
-      color: #46d369;
-      font-weight: bold;
-    }
-
-    .logout-btn {
-      background: #27272a;
-      color: #fff;
-      border: 1px solid #444;
-      padding: 6px 12px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 12px;
-      font-weight: bold;
-    }
-
-    .logout-btn:hover {
-      background: #e50914;
-    }
-
-    .tv-layout {
-      display: grid;
-      grid-template-columns: 1fr 340px;
-      gap: 16px;
-      padding: 16px 4%;
-      flex: 1;
-    }
-
-    .screen-container {
-      background: #000;
-      border-radius: 10px;
-      overflow: hidden;
-      border: 2px solid #262626;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .video-box {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      background: #000;
-    }
-
-    iframe, video {
-      width: 100%;
-      height: 100%;
-      border: none;
-      display: block;
-    }
-
-    .tv-watermark {
-      position: absolute;
-      top: 14px;
-      right: 18px;
-      background: rgba(229, 9, 20, 0.85);
-      color: #fff;
-      font-weight: 900;
-      font-size: 13px;
-      padding: 4px 10px;
-      border-radius: 4px;
-      pointer-events: none;
-      z-index: 10;
-    }
-
-    .channel-osd {
-      position: absolute;
-      top: 14px;
-      left: 18px;
-      background: rgba(0, 0, 0, 0.8);
-      border-left: 4px solid #ffb703;
-      padding: 6px 12px;
-      border-radius: 4px;
-      z-index: 10;
-    }
-
-    .osd-num {
-      color: #ffb703;
-      font-size: 18px;
-      font-weight: 900;
-    }
-
-    .osd-name {
-      font-size: 13px;
-      font-weight: 600;
-    }
-
-    .cable-ticker {
-      background: #e50914;
-      color: #fff;
-      padding: 8px 0;
-      font-weight: 700;
-      font-size: 14px;
-      overflow: hidden;
-      white-space: nowrap;
-    }
-
-    .ticker-text {
-      display: inline-block;
-      padding-left: 100%;
-      animation: scrollText 22s linear infinite;
-    }
-
-    @keyframes scrollText {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-100%); }
-    }
-
-    .remote-bar {
-      background: #16161a;
-      padding: 12px 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .remote-btns {
-      display: flex;
-      gap: 10px;
-    }
-
-    .btn {
-      background: #27272a;
-      color: #fff;
-      border: 1px solid #3f3f46;
-      padding: 8px 14px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: 700;
-    }
-
-    .btn:hover {
-      background: #e50914;
-    }
-
-    .btn-gold {
-      background: #ffb703;
-      color: #000;
-      border: none;
-    }
-
-    .guide-panel {
-      background: #141418;
-      border-radius: 10px;
-      border: 1px solid #262626;
-      padding: 14px;
-      display: flex;
-      flex-direction: column;
-      max-height: 540px;
-    }
-
-    .guide-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid #27272a;
-    }
-
-    .channel-list {
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .ch-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 10px;
-      background: #1c1c22;
-      border-radius: 6px;
-      cursor: pointer;
-      border-left: 4px solid transparent;
-    }
-
-    .ch-item:hover, .ch-item.active {
-      background: #282832;
-      border-left-color: #ffb703;
-    }
-
-    .ch-num {
-      background: #e50914;
-      color: #fff;
-      font-weight: 900;
-      padding: 4px 8px;
-      border-radius: 4px;
-      font-size: 13px;
-    }
-
-    .ch-title { font-size: 14px; font-weight: 700; }
-    .ch-prog { font-size: 12px; color: #9ca3af; }
-
-    /* Add Channel Modal */
-    .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.88);
-      z-index: 999;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .modal-box {
-      background: #18181b;
-      padding: 22px;
-      border-radius: 8px;
-      width: 90%;
-      max-width: 400px;
-      border: 1px solid #333;
-    }
-
-    .modal-box h3 { margin-bottom: 14px; color: #ffb703; }
-    .modal-box input {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 12px;
-      background: #09090b;
-      border: 1px solid #3f3f46;
-      color: #fff;
-      border-radius: 4px;
-    }
-
-    @media (max-width: 850px) {
-      .tv-layout { grid-template-columns: 1fr; }
-    }
-  </style>
+  .ch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; margin-top: 12px; }
+  .ch-card {
+    background: #16161d; padding: 12px; border-radius: 6px; cursor: pointer;
+    border-left: 4px solid #333; display: flex; align-items: center; gap: 10px;
+  }
+  .ch-card.active { border-left-color: #ffb703; background: #22222c; }
+  .ch-no { background: #e50914; padding: 4px 8px; border-radius: 4px; font-weight: bold; font-size: 13px; }
+</style>
 </head>
 <body>
 
-  <!-- ================= 1. LOGIN / REGISTER / FORGOT PASSWORD SCREEN ================= -->
-  <div id="authScreen">
-    <div class="auth-box">
-      <div class="auth-logo"><span>BRP TV</span></div>
-      <div class="msg-box" id="authMsg"></div>
+  <!-- 1. LOGIN / REGISTER / FORGOT -->
+  <div id="loginBox">
+    <div class="card">
+      <div class="logo">BRP TV</div>
+      <div id="msg"></div>
 
-      <!-- Login Form -->
-      <div id="loginForm">
-        <h2>Sign In to Cable TV</h2>
-        <div class="input-group">
-          <label>Username</label>
-          <input type="text" id="loginUser" placeholder="Enter username (Default: brp)" />
-        </div>
-        <div class="input-group">
-          <label>Password</label>
-          <input type="password" id="loginPass" placeholder="Enter password (Default: 1234)" />
-        </div>
-        <button class="auth-btn" onclick="handleLogin()">Login</button>
-        <div class="auth-links">
-          <a onclick="switchForm('forgotForm')">Forgot Password?</a>
-          <a onclick="switchForm('registerForm')">Create New Account</a>
+      <!-- Login -->
+      <div id="fLogin">
+        <input type="text" id="uIn" placeholder="Username (brp)">
+        <input type="password" id="pIn" placeholder="Password (1234)">
+        <button class="btn" onclick="doLogin()">Login</button>
+        <div class="links">
+          <span onclick="showForm('fForgot')">Forgot Password?</span>
+          <span onclick="showForm('fReg')">New Account</span>
         </div>
       </div>
 
-      <!-- Register Form -->
-      <div id="registerForm" style="display:none;">
-        <h2>New Friend Account</h2>
-        <div class="input-group">
-          <label>New Username</label>
-          <input type="text" id="regUser" placeholder="Choose username" />
-        </div>
-        <div class="input-group">
-          <label>New Password</label>
-          <input type="password" id="regPass" placeholder="Create password" />
-        </div>
-        <button class="auth-btn" onclick="handleRegister()">Register</button>
+      <!-- Register -->
+      <div id="fReg" style="display:none;">
+        <input type="text" id="rUser" placeholder="New Username">
+        <input type="password" id="rPass" placeholder="New Password">
+        <button class="btn" onclick="doReg()">Create Account</button>
+        <div class="links"><span onclick="showForm('fLogin')">← Back to Login</span></div>
+      </div>
+
+      <!-- Forgot Password -->
+      <div id="fForgot" style="display:none;">
+        <input type="text" id="fUser" placeholder="Enter Username">
+        <input type="password" id="fPin" placeholder="Master PIN (9999)">
+        <input type="password" id="fNewPass" placeholder="New Password">
+        <button class="btn" onclick="doForgot()">Reset Password</button>
+        <div class="links"><span onclick="showForm('fLogin')">← Back to Login</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. CABLE TV SCREEN -->
+  <div id="tvBox">
+    <header>
+      <div class="hdr-title">BRP TV CABLE</div>
+      <div>
+        <span id="userLabel" style="font-size:13px; color:#46d369; margin-right:10px;"></span>
+        <button class="logout" onclick="doLogout()">Logout</button>
+      </div>
+    </header>
+
+    <div class="main">
+      <div class="screen">
+        <div class="watermark">BRP TV</div>
+        <div class="osd" id="osdText">CH 101 - BRP Movies</div>
+        <iframe id="player" allow="autoplay; fullscreen" allowfullscreen></iframe>
+      </div>
+
+      <marquee class="ticker" id="tickerText">★ BRP TV நண்பர்கள் கேபிள் நெட்வொர்க்கிற்கு நல்வரவு! ★ உங்களுக்குப் பிடித்த சேனலைத் தேர்ந்தெடுத்துப் பாருங்கள்! ★</marquee>
+
+      <div class="controls">
+        <button class="c-btn" onclick="changeCh(-1)">◄ CH -</button>
+        <button class="c-btn" onclick="changeCh(1)">CH + ►</button>
+        <button class="c-btn" onclick="editNews()">✎ Scroll Text</button>
+        <button class="c-btn gold" onclick="addNewCh()">+ Add YouTube Channel</button>
+      </div>
+
+      <h3 style="margin-top:10px; font-size:16px;">📺 Channels List</h3>
+      <div class="ch-grid" id="chList"></div>
+    </div>
+  </div>
+
+<script>
+  let users = JSON.parse(localStorage.getItem("brp_users")) || { "brp": "1234" };
+  let channels = JSON.parse(localStorage.getItem("brp_chs")) || [
+    { no: 101, name: "BRP Movies HD", yt: "aqz-KE-bpKQ" },
+    { no: 102, name: "BRP Sci-Fi TV", yt: "R6MlUcmOul8" },
+    { no: 103, name: "BRP Music 24x7", yt: "jfKfPfyJRdk" },
+    { no: 104, name: "BRP World Live", yt: "21X5lGlDOfg" }
+  ];
+  let idx = 0;
+
+  function showForm(id) {
+    document.getElementById("msg").innerText = "";
+    ["fLogin", "fReg", "fForgot"].forEach(f => document.getElementById(f).style.display = "none");
+    document.getElementById(id).style.display = "block";
+  }
+
+  function doLogin() {
+    let u = document.getElementById("uIn").value.trim();
+    let p = document.getElementById("pIn").value.trim();
+    if (users[u] && users[u] === p) {
+      document.getElementById("loginBox").style.display = "none";
+      document.getElementById("tvBox").style.display = "block";
+      document.getElementById("userLabel").innerText = "👤 " + u;
+      playCh(0);
+    } else {
+      document.getElementById("msg").innerText = "தவறான Username அல்லது Password!";
+    }
+  }
+
+  function doReg() {
+    let u = document.getElementById("rUser").value.trim();
+    let p = document.getElementById("rPass").value.trim();
+    if (!u || !p) { document.getElementById("msg").innerText = "எல்லாவற்றையும் நிரப்பவும்!"; return; }
+    users[u] = p;
+    localStorage.setItem("brp_users", JSON.stringify(users));
+    showForm("fLogin");
+    document.getElementById("msg").style.color = "#46d369";
+    document.getElementById("msg").innerText = "Account Ready! இப்போது Login செய்யவும்.";
+  }
+
+  function doForgot() {
+    let u = document.getElementById("fUser").value.trim();
+    let pin = document.getElementById("fPin").value.trim();
+    let np = document.getElementById("fNewPass").value.trim();
+    if (!users[u]) { document.getElementById("msg").innerText = "Username இல்லை!"; return; }
+    if (pin !== "9999") { document.getElementById("msg").innerText = "தவறான Master PIN (9999)!"; return; }
+    if (!np) { document.getElementById("msg").innerText = "புதிய Password போடவும்!"; return; }
+    users[u] = np;
+    localStorage.setItem("brp_users", JSON.stringify(users));
+    showForm("fLogin");
+    document.getElementById("msg").style.color = "#46d369";
+    document.getElementById("msg").innerText = "Password மாற்றப்பட்டது!";
+  }
+
+  function doLogout() {
+    document.getElementById("player").src = "";
+    document.getElementById("tvBox").style.display = "none";
+    document.getElementById("loginBox").style.display = "flex";
+  }
+
+  function getYtId(url) {
+    let m = url.match(/(?:youtu\.be\/|v=|embed\/|live\/|shorts\/)([a-zA-Z0-9_-]{11})/);
+    return m ? m : (url.length === 11 ? url : null);
+  }
+
+  function playCh(i) {
+    idx = i;
+    let c = channels[i];
+    document.getElementById("osdText").innerText = "CH " + c.no + " - " + c.name;
+    document.getElementById("player").src = "https://youtube.com" + c.yt + "?autoplay=1&rel=0";
+    renderList();
+  }
+
+  function changeCh(step) {
+    idx = (idx + step + channels.length) % channels.length;
+    playCh(idx);
+  }
+
+  function renderList() {
+    let box = document.getElementById("chList");
+    box.innerHTML = "";
+    channels.forEach((c, i) => {
+      box.innerHTML += `<div class="ch-card ${i===idx?'active':''}" onclick="playCh(${i})">
+        <div class="ch-no">${c.no}</div>
+        <div><b>${c.name}</b></div>
+      </div>`;
+    });
+  }
+
+  function addNewCh() {
+    let no = prompt("Channel Number (எ.கா: 105):");
+    let name = prompt("Channel Name (எ.கா: BRP Comedy):");
+    let link = prompt("YouTube Link பேஸ்ட் செய்யவும்:");
+    let id = getYtId(link || "");
+    if (no && name && id) {
+      channels.push({ no: parseInt(no), name: name, yt: id });
+      localStorage.setItem("brp_chs", JSON.stringify(channels));
