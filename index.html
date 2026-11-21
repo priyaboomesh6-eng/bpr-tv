@@ -1,119 +1,389 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ta">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BPR FLIX</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
-body{background:#111;color:#fff;padding-bottom:30px}
-.navbar{display:flex;justify-content:space-between;align-items:center;padding:14px 15px;background:#000;position:sticky;top:0;z-index:10}
-.logo{color:#e50914;font-size:30px;font-weight:900}
-.logo span{color:#fff;font-size:10px;display:block;letter-spacing:3px}
-.hero{background:linear-gradient(90deg,#b71c1c,#ff6b00);padding:25px 20px}
-.hero h1{font-size:44px}
-.hero p{margin:8px 0 15px;color:#eee}
-button{padding:12px 22px;border:none;border-radius:5px;font-weight:900;cursor:pointer}
-.play{background:#fff;color:#000}
-.mylistbtn{background:#e50914;color:#fff}
-.row{padding:15px}
-.posters{display:flex;gap:12px;overflow-x:auto}
-.poster{min-width:150px;height:220px;border-radius:10px;padding:10px;display:flex;flex-direction:column;justify-content:flex-end;position:relative}
-.addbtn{position:absolute;top:8px;right:8px;width:34px;height:34px;border-radius:50%;background:#fff;color:#000;font-size:22px;padding:0}
-.my-card{background:#1a1a1a;border:1px solid #e50914;border-radius:10px;padding:12px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
-.mass-card{margin:15px;background:linear-gradient(45deg,#f9ce34,#ee2a7b,#6228d7);padding:3px;border-radius:20px}
-.mass-inner{background:#111;border-radius:17px;padding:20px;text-align:center}
-.follow{display:block;background:linear-gradient(45deg,#f9ce34,#ee2a7b);color:#fff;text-decoration:none;padding:14px;border-radius:30px;font-weight:900;margin-top:12px}
-#player{display:none;position:fixed;inset:0;background:#000;z-index:99;flex-direction:column;align-items:center;justify-content:center;padding:15px}
-#player video{width:100%;max-width:600px;border-radius:10px;background:#000}
-.close{position:absolute;top:15px;right:15px;background:#e50914;color:#fff;width:40px;height:40px;border-radius:50%;font-size:18px;padding:0}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BRP TV - Movies, Serials & Live TV</title>
+  <!-- HLS (.m3u8) Live TV Stream Support -->
+  <script src="https://jsdelivr.net"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #0b0c10;
+      color: #ffffff;
+    }
+
+    /* Navbar */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 5%;
+      background: linear-gradient(to bottom, #161822, #0b0c10);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid #222533;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: 800;
+      color: #ffb703;
+      letter-spacing: 1.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo span {
+      background: #ffb703;
+      color: #0b0c10;
+      padding: 2px 8px;
+      border-radius: 5px;
+      font-size: 18px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links button {
+      background: transparent;
+      border: 1px solid #2c3044;
+      color: #d1d5db;
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    .nav-links button.active,
+    .nav-links button:hover {
+      background: #ffb703;
+      color: #0b0c10;
+      border-color: #ffb703;
+      font-weight: 600;
+    }
+
+    .search-box input {
+      padding: 8px 14px;
+      border-radius: 20px;
+      border: 1px solid #2c3044;
+      background: #161822;
+      color: #fff;
+      outline: none;
+    }
+
+    /* Hero Banner */
+    .hero {
+      position: relative;
+      height: 360px;
+      background: linear-gradient(to right, rgba(11, 12, 16, 0.95) 35%, rgba(11, 12, 16, 0.2)),
+                  url('https://picsum.photos') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      padding: 0 5%;
+    }
+
+    .hero-content {
+      max-width: 520px;
+    }
+
+    .badge {
+      background: #e63946;
+      color: #fff;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      font-size: 36px;
+      margin: 12px 0;
+    }
+
+    .hero p {
+      color: #cbd5e1;
+      font-size: 15px;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .watch-btn {
+      background: #ffb703;
+      color: #0b0c10;
+      border: none;
+      padding: 12px 26px;
+      font-size: 16px;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .watch-btn:hover {
+      background: #fb8500;
+    }
+
+    /* Content Grid */
+    .container {
+      padding: 30px 5%;
+    }
+
+    .section-title {
+      font-size: 20px;
+      margin-bottom: 18px;
+      border-left: 4px solid #ffb703;
+      padding-left: 10px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: #161822;
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.25s, box-shadow 0.25s;
+      border: 1px solid #222533;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 10px 20px rgba(255, 183, 3, 0.15);
+      border-color: #ffb703;
+    }
+
+    .card img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+    }
+
+    .card-info {
+      padding: 12px;
+    }
+
+    .card-category {
+      font-size: 12px;
+      color: #ffb703;
+      font-weight: 600;
+    }
+
+    .card-title {
+      font-size: 16px;
+      margin-top: 4px;
+      font-weight: 600;
+    }
+
+    /* Video Player Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 999;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .modal-content {
+      width: 100%;
+      max-width: 850px;
+      background: #161822;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #333;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 18px;
+      background: #1f2230;
+    }
+
+    .close-btn {
+      background: #e63946;
+      color: #fff;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    video {
+      width: 100%;
+      max-height: 480px;
+      background: #000;
+      display: block;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #6b7280;
+      font-size: 14px;
+      border-top: 1px solid #1f2230;
+      margin-top: 40px;
+    }
+  </style>
 </head>
 <body>
 
-<div class="navbar">
-<div class="logo">BPR FLIX<span>BOOYAH KING</span></div>
-<a href="https://instagram.com/bpr_flix" target="_blank" style="color:#fff;text-decoration:none;font-weight:bold">📸 BPR FLIX</a>
-</div>
+  <!-- Header -->
+  <header>
+    <div class="logo">BRP <span>TV</span></div>
+    <div class="nav-links">
+      <button class="active" onclick="filterCategory('All', this)">All</button>
+      <button onclick="filterCategory('Live TV', this)">Live TV</button>
+      <button onclick="filterCategory('Movies', this)">Movies</button>
+      <button onclick="filterCategory('Serials', this)">Serials</button>
+    </div>
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Search movies, channels..." onkeyup="searchContent()" />
+    </div>
+  </header>
 
-<div class="hero">
-<h1>BOOYAH KING 👑</h1>
-<p>BPR FLIX Original - Mass, Action, Emotion!</p>
-<button class="play" onclick="playMovie('BOOYAH KING','https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4')">▶ Play</button>
-<button class="mylistbtn" onclick="addToList('BOOYAH KING')">+ My List</button>
-</div>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <span class="badge">Live Now</span>
+      <h1>BRP TV HD Live Stream</h1>
+      <p>உங்களுக்குப் பிடித்த தமிழ் திரைப்படங்கள், மெகா தொடர்கள் மற்றும் நேரலை தொலைக்காட்சி நிகழ்ச்சிகளை BRP TV-யில் கண்டு மகிழுங்கள்.</p>
+      <button class="watch-btn" onclick="openPlayer('BRP TV HD Live', 'https://mux.dev')">▶ Watch Live</button>
+    </div>
+  </section>
 
-<div class="row" id="listBox" style="display:none;background:#222;border-bottom:2px solid #e50914">
-<h2>❤️ My List (<span id="count">0</span>)</h2>
-<div id="myListArea"></div>
-<button onclick="clearList()" style="background:#333;color:#fff;margin-top:10px">Clear All</button>
-</div>
+  <!-- Content Section -->
+  <div class="container">
+    <h2 class="section-title" id="sectionHeading">Featured Channels & Shows</h2>
+    <div class="grid" id="contentGrid"></div>
+  </div>
 
-<div class="mass-card"><div class="mass-inner">
-<div style="width:80px;height:80px;margin:0 auto;background:#e50914;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:35px;border:3px solid #fff">📺</div>
-<h2 style="margin-top:10px">BPR FLIX</h2>
-<p style="color:#aaa;font-size:13px">@bpr_flix • Movies • Mass</p>
-<a class="follow" href="https://instagram.com/bpr_flix" target="_blank">📸 FOLLOW BPR FLIX</a>
-</div></div>
+  <!-- Video Player Modal -->
+  <div class="modal" id="videoModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="playerTitle">Playing...</h3>
+        <button class="close-btn" onclick="closePlayer()">✕ Close</button>
+      </div>
+      <video id="videoPlayer" controls autoplay></video>
+    </div>
+  </div>
 
-<div class="row"><h2>🔥 Trending Now</h2><div class="posters">
-<div class="poster" style="background:linear-gradient(#e50914,#ff6b00)" onclick="playMovie('BOOYAH KING','https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4')"><button class="addbtn" onclick="event.stopPropagation();addToList('BOOYAH KING')">+</button><div style="font-size:35px">🔫</div><b>BOOYAH KING</b><span>Action</span></div>
-<div class="poster" style="background:linear-gradient(#111,#555)" onclick="playMovie('JAILER 2','https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4')"><button class="addbtn" onclick="event.stopPropagation();addToList('JAILER 2')">+</button><div style="font-size:35px">🦁</div><b>JAILER 2</b><span>Action</span></div>
-<div class="poster" style="background:linear-gradient(#0d47a1,#00e5ff)" onclick="playMovie('LEO RETURNS','https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4')"><button class="addbtn" onclick="event.stopPropagation();addToList('LEO RETURNS')">+</button><div style="font-size:35px">🦁</div><b>LEO RETURNS</b><span>Action</span></div>
-<div class="poster" style="background:linear-gradient(#000,#333)" onclick="playMovie('GHOST HOUSE','https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4')"><button class="addbtn" onclick="event.stopPropagation();addToList('GHOST HOUSE')">+</button><div style="font-size:35px">👻</div><b>GHOST HOUSE</b><span>Horror</span></div>
-</div></div>
+  <footer>
+    © 2026 BRP TV. All Rights Reserved.
+  </footer>
 
-<div class="row"><h2>🎬 Action</h2><div class="posters">
-<div class="poster" style="background:linear-gradient(#3e2723,#ffab00)" onclick="playMovie('KGF 3','https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4')"><button class="addbtn" onclick="event.stopPropagation();addToList('KGF 3')">+</button><b>KGF 3</b><span>Action</span></div>
-<div class="poster" style="background:linear-gradient(#1b5e20,#76ff03)" onclick="playMovie('PUSHPA 3','https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4')"><button class="addbtn" onclick="event.stopPropagation();addToList('PUSHPA 3')">+</button><b>PUSHPA 3</b><span>Action</span></div>
-</div></div>
+  <script>
+    // உங்களுடைய சொந்த .m3u8 (Live TV) அல்லது .mp4 வீடியோ லிங்குகளை இங்கே மாற்றிக்கொள்ளவும்
+    const mediaList = [
+      {
+        title: "BRP News 24x7",
+        category: "Live TV",
+        thumb: "https://picsum.photos",
+        url: "https://mux.dev"
+      },
+      {
+        title: "BRP Entertainment HD",
+        category: "Live TV",
+        thumb: "https://picsum.photos",
+        url: "https://mux.dev"
+      },
+      {
+        title: "Super Hit Tamil Movie",
+        category: "Movies",
+        thumb: "https://picsum.photos",
+        url: "https://googleapis.com"
+      },
+      {
+        title: "Family Mega Serial - Ep 1",
+        category: "Serials",
+        thumb: "https://picsum.photos",
+        url: "https://googleapis.com"
+      },
+      {
+        title: "Action Blockbuster",
+        category: "Movies",
+        thumb: "https://picsum.photos",
+        url: "https://googleapis.com"
+      },
+      {
+        title: "Prime Time Drama",
+        category: "Serials",
+        thumb: "https://picsum.photos",
+        url: "https://googleapis.com"
+      }
+    ];
 
-<div id="player">
-<button class="close" onclick="closePlayer()">✕</button>
-<h2 id="pTitle" style="margin-bottom:12px">Movie</h2>
-<video id="myVideo" controls autoplay playsinline></video>
-<p style="margin-top:10px;color:#aaa">BPR FLIX • HD • Now Playing</p>
-</div>
+    let currentCategory = 'All';
+    let hls;
 
-<script>
-var myList = [];
-try{ myList = JSON.parse(localStorage.getItem("bprList")||"[]"); }catch(e){ myList=[]; }
-function playMovie(t,u){
-document.getElementById("pTitle").textContent=t;
-var v=document.getElementById("myVideo");
-v.src=u;
-document.getElementById("player").style.display="flex";
-v.play();
-}
-function closePlayer(){
-document.getElementById("player").style.display="none";
-var v=document.getElementById("myVideo"); v.pause(); v.src="";
-}
-function addToList(name){
-if(myList.indexOf(name)!==-1){
-myList=myList.filter(function(x){return x!==name;});
-alert(name+" Removed ❌");
-}else{
-myList.push(name);
-alert(name+" Added to My List ❤️");
-}
-try{ localStorage.setItem("bprList",JSON.stringify(myList)); }catch(e){}
-showList();
-window.scrollTo({top:0,behavior:'smooth'});
-}
-function showList(){
-var box=document.getElementById("listBox");
-document.getElementById("count").textContent=myList.length;
-if(myList.length==0){box.style.display="none";return;}
-box.style.display="block";
-var area=document.getElementById("myListArea");
-area.innerHTML="";
-myList.forEach(function(n){
-area.innerHTML+="<div class='my-card'><b>🎬 "+n+"</b><button onclick=\"addToList('"+n+"')\" style='background:#e50914;color:#fff;padding:6px 12px'>Remove ✕</button></div>";
-});
-}
-function clearList(){ myList=[]; try{localStorage.setItem("bprList","[]");}catch(e){} showList(); }
-showList();
-</script>
-</body>
-</html>
+    function renderCards(items) {
+      const grid = document.getElementById('contentGrid');
+      grid.innerHTML = '';
+      items.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.onclick = () => openPlayer(item.title, item.url);
+        card.innerHTML = `
+          <img src="${item.thumb}" alt="${item.title}" />
+          <div class="card-info">
+            <div class="card-category">${item.category}</div>
+            <div class="card-title">${item.title}</div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function filterCategory(category, btn) {
+      currentCategory = category;
+      document.querySelectorAll('.nav-links button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('sectionHeading').innerText = category === 'All' ? 'Featured Channels & Shows' : category;
+      searchContent();
+    }
+
+    function searchContent() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const filtered = mediaList.filter(item => {
+        const matchesCategory = currentCategory === 'All' || item.category === currentCategory;
+        const matchesSearch = item.title.toLowerCase().includes(query);
+        return matchesCategory && matchesSearch;
+      });
+      renderCards(filtered);
+    }
+
+    function openPlayer(title, url) {
+      const modal = document.getElementById('videoModal');
+      const video = document.getElementById('videoPlayer');
+      document.getElementById('playerTitle').innerText = title;
+      modal.style.display = 'flex';
+
+      if (hls) {
+        hls.destroy();
+      }
+
