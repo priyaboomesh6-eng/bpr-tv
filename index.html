@@ -9,7 +9,7 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
     body {
@@ -23,26 +23,25 @@
       position: fixed;
       top: 0;
       width: 100%;
-      padding: 16px 4%;
+      padding: 15px 4%;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.95) 15%, transparent);
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.95) 20%, transparent);
       z-index: 100;
-      transition: background 0.3s;
-      gap: 12px;
+      gap: 10px;
       flex-wrap: wrap;
     }
 
     nav.scrolled {
       background: #141414;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.85);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
     }
 
     .nav-left {
       display: flex;
       align-items: center;
-      gap: 24px;
+      gap: 20px;
     }
 
     .logo {
@@ -55,36 +54,33 @@
 
     .nav-menu {
       display: flex;
-      gap: 16px;
+      gap: 14px;
       list-style: none;
     }
 
     .nav-menu li {
-      color: #d1d5db;
+      color: #ccc;
       font-size: 14px;
       cursor: pointer;
-      transition: 0.2s;
     }
 
-    .nav-menu li:hover,
-    .nav-menu li.active {
-      color: #ffffff;
-      font-weight: 700;
+    .nav-menu li.active, .nav-menu li:hover {
+      color: #fff;
+      font-weight: bold;
     }
 
     .nav-right {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
 
     .search-input {
-      background: rgba(0, 0, 0, 0.75);
+      background: rgba(0, 0, 0, 0.8);
       border: 1px solid #555;
       color: #fff;
-      padding: 7px 14px;
+      padding: 7px 12px;
       border-radius: 4px;
-      font-size: 14px;
       outline: none;
     }
 
@@ -94,20 +90,15 @@
       border: none;
       padding: 8px 14px;
       border-radius: 4px;
-      font-weight: 700;
-      font-size: 13px;
+      font-weight: bold;
       cursor: pointer;
-    }
-
-    .add-btn:hover {
-      background: #b20710;
     }
 
     /* Hero Banner */
     .billboard {
       position: relative;
-      height: 75vh;
-      background: url('https://youtube.com') center/cover no-repeat;
+      height: 70vh;
+      background: url('https://ytimg.com') center/cover no-repeat;
       display: flex;
       align-items: center;
       padding: 0 4%;
@@ -117,84 +108,78 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(to right, rgba(20, 20, 20, 0.95) 28%, rgba(20, 20, 20, 0.2) 75%),
-                  linear-gradient(to top, #141414 5%, transparent 40%);
+      background: linear-gradient(to right, rgba(20, 20, 20, 0.95) 30%, rgba(20, 20, 20, 0.2) 80%),
+                  linear-gradient(to top, #141414 5%, transparent 45%);
     }
 
     .billboard-content {
       position: relative;
       z-index: 2;
-      max-width: 540px;
-      margin-top: 50px;
+      max-width: 520px;
+      margin-top: 40px;
     }
 
     .series-tag {
       font-size: 13px;
-      letter-spacing: 3px;
-      font-weight: 700;
-      color: #bcbcbc;
+      letter-spacing: 2px;
+      font-weight: bold;
+      color: #bbb;
       margin-bottom: 8px;
     }
 
     .series-tag span {
       color: #e50914;
       font-size: 18px;
-      font-weight: 900;
     }
 
     .billboard-title {
-      font-size: 46px;
+      font-size: 42px;
       font-weight: 800;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     .billboard-desc {
       font-size: 15px;
       line-height: 1.5;
-      color: #e5e5e5;
-      margin-bottom: 22px;
+      color: #ddd;
+      margin-bottom: 20px;
     }
 
     .btn-play {
-      background: #ffffff;
-      color: #000000;
+      background: #fff;
+      color: #000;
       border: none;
-      padding: 11px 28px;
-      font-size: 17px;
-      font-weight: 700;
+      padding: 10px 26px;
+      font-size: 16px;
+      font-weight: bold;
       border-radius: 4px;
       cursor: pointer;
-    }
-
-    .btn-play:hover {
-      background: rgba(255, 255, 255, 0.8);
     }
 
     /* Rows */
     .rows-container {
       position: relative;
       z-index: 5;
-      margin-top: -60px;
+      margin-top: -50px;
       padding-bottom: 50px;
     }
 
     .row {
-      margin-bottom: 32px;
+      margin-bottom: 30px;
       padding: 0 4%;
     }
 
     .row-title {
-      font-size: 20px;
-      font-weight: 700;
+      font-size: 19px;
+      font-weight: bold;
       margin-bottom: 12px;
-      color: #e5e5e5;
     }
 
     .row-posters {
       display: flex;
       gap: 14px;
       overflow-x: auto;
-      padding: 10px 0 18px 0;
+      padding: 8px 0 16px 0;
     }
 
     .row-posters::-webkit-scrollbar {
@@ -202,26 +187,25 @@
     }
 
     .row-posters::-webkit-scrollbar-thumb {
-      background: #333;
+      background: #444;
       border-radius: 4px;
     }
 
     .poster-card {
       position: relative;
-      min-width: 250px;
-      height: 140px;
+      min-width: 240px;
+      height: 135px;
       border-radius: 6px;
       overflow: hidden;
       cursor: pointer;
-      transition: transform 0.3s ease;
+      transition: transform 0.25s;
       background: #222;
       flex-shrink: 0;
     }
 
     .poster-card:hover {
-      transform: scale(1.1);
+      transform: scale(1.08);
       z-index: 10;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.9);
     }
 
     .poster-card img {
@@ -233,7 +217,7 @@
     .poster-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 10%, transparent 65%);
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.92) 12%, transparent 65%);
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
@@ -243,15 +227,15 @@
     .poster-tag {
       font-size: 11px;
       color: #46d369;
-      font-weight: 700;
+      font-weight: bold;
     }
 
     .poster-title {
       font-size: 14px;
-      font-weight: 700;
+      font-weight: bold;
     }
 
-    /* YouTube Fullscreen Modal */
+    /* Player Modal */
     .modal {
       display: none;
       position: fixed;
@@ -267,11 +251,11 @@
       position: absolute;
       top: 0;
       width: 100%;
-      padding: 18px 30px;
+      padding: 16px 25px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
+      background: rgba(0, 0, 0, 0.8);
       z-index: 1002;
     }
 
@@ -279,18 +263,17 @@
       background: #e50914;
       color: #fff;
       border: none;
-      padding: 8px 18px;
+      padding: 8px 16px;
       border-radius: 4px;
       font-weight: bold;
       cursor: pointer;
     }
 
     .iframe-wrapper {
-      width: 90%;
-      max-width: 1000px;
+      width: 92%;
+      max-width: 960px;
       aspect-ratio: 16 / 9;
       background: #000;
-      box-shadow: 0 0 30px rgba(229, 9, 20, 0.3);
     }
 
     iframe {
@@ -299,22 +282,22 @@
       border: none;
     }
 
-    /* Add Video Popup */
-    .add-modal-box {
+    /* Add Video Modal */
+    .add-box {
       background: #1f1f1f;
-      padding: 25px;
+      padding: 24px;
       border-radius: 8px;
       width: 90%;
-      max-width: 420px;
+      max-width: 400px;
       border: 1px solid #333;
     }
 
-    .add-modal-box h3 {
-      margin-bottom: 15px;
+    .add-box h3 {
+      margin-bottom: 14px;
       color: #e50914;
     }
 
-    .add-modal-box input, .add-modal-box select {
+    .add-box input, .add-box select {
       width: 100%;
       padding: 10px;
       margin-bottom: 12px;
@@ -324,56 +307,45 @@
       border-radius: 4px;
     }
 
-    .add-actions {
-      display: flex;
-      justify-content: flex-end;
-      gap: 10px;
-    }
-
-    @media (max-width: 650px) {
+    @media (max-width: 600px) {
       .nav-menu { display: none; }
-      .billboard-title { font-size: 32px; }
+      .billboard-title { font-size: 30px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Navbar -->
   <nav id="navbar">
     <div class="nav-left">
       <div class="logo" onclick="filterMenu('All', this)">BRP TV</div>
       <ul class="nav-menu">
         <li class="active" onclick="filterMenu('All', this)">Home</li>
         <li onclick="filterMenu('Movies', this)">Movies</li>
-        <li onclick="filterMenu('Live TV', this)">Live News & TV</li>
-        <li onclick="filterMenu('Music', this)">Songs & Shows</li>
+        <li onclick="filterMenu('Live TV', this)">Live TV</li>
+        <li onclick="filterMenu('Music', this)">Songs</li>
       </ul>
     </div>
     <div class="nav-right">
-      <input type="text" class="search-input" id="searchBox" placeholder="Search YouTube videos..." onkeyup="renderApp()" />
-      <button class="add-btn" onclick="openAddModal()">+ Add YouTube Link</button>
+      <input type="text" class="search-input" id="searchBox" placeholder="Search..." onkeyup="renderApp()" />
+      <button class="add-btn" onclick="openAddModal()">+ Add Video</button>
     </div>
   </nav>
 
-  <!-- Hero Banner -->
   <section class="billboard">
     <div class="billboard-content">
-      <div class="series-tag"><span>B</span> YOUTUBE STREAM</div>
-      <h1 class="billboard-title">BRP TV FEATURED</h1>
-      <p class="billboard-desc">
-        உங்களுக்குப் பிடித்த YouTube திரைப்படங்கள், பாடல்கள் மற்றும் நேரலை செய்திகளை Netflix அனுபவத்தில் BRP TV-யில் பாருங்கள்.
-      </p>
-      <button class="btn-play" onclick="playYouTube('Big Buck Bunny 4K', 'https://youtube.com')">▶ Play Now</button>
+      <div class="series-tag"><span>B</span> ORIGINALS</div>
+      <h1 class="billboard-title">BRP TV STREAM</h1>
+      <p class="billboard-desc">உங்களுக்குப் பிடித்த YouTube திரைப்படங்கள், பாடல்கள் மற்றும் நேரலை செய்திகளை BRP TV-யில் கண்டு மகிழுங்கள்.</p>
+      <button class="btn-play" onclick="playYouTube('Big Buck Bunny 4K', 'aqz-KE-bpKQ')">▶ Play Now</button>
     </div>
   </section>
 
-  <!-- Rows -->
   <div class="rows-container" id="rowsContainer"></div>
 
-  <!-- YouTube Player Modal -->
+  <!-- Player Modal -->
   <div class="modal" id="playerModal">
     <div class="modal-top">
-      <button class="close-btn" onclick="closePlayer()">← Back to BRP TV</button>
+      <button class="close-btn" onclick="closePlayer()">← Back</button>
       <h3 id="playerTitle">Playing</h3>
       <div></div>
     </div>
@@ -382,28 +354,50 @@
     </div>
   </div>
 
-  <!-- Add YouTube Video Modal -->
+  <!-- Add Modal -->
   <div class="modal" id="addModal">
-    <div class="add-modal-box">
-      <h3>Add YouTube Video to BRP TV</h3>
-      <input type="text" id="newTitle" placeholder="Video / Channel Title (எ.கா: Sun News Live)" />
-      <input type="text" id="newUrl" placeholder="Paste YouTube URL (https://youtu.be...)" />
+    <div class="add-box">
+      <h3>Add YouTube Link</h3>
+      <input type="text" id="newTitle" placeholder="Title (எ.கா: Tamil Movie)" />
+      <input type="text" id="newUrl" placeholder="YouTube Link (https://youtu.be...)" />
       <select id="newCategory">
-        <option value="Live TV">Live News & TV</option>
+        <option value="Live TV">Live TV</option>
         <option value="Movies">Movies</option>
-        <option value="Music">Songs & Shows</option>
+        <option value="Music">Songs</option>
       </select>
-      <div class="add-actions">
+      <div style="display:flex; justify-content:flex-end; gap:10px;">
         <button class="close-btn" style="background:#555;" onclick="closeAddModal()">Cancel</button>
-        <button class="close-btn" onclick="saveNewVideo()">Add Video</button>
+        <button class="close-btn" onclick="saveNewVideo()">Save</button>
       </div>
     </div>
   </div>
 
   <script>
-    // உங்களுடைய YouTube லிங்குகளை இங்கே நேரடியாக பேஸ்ட் செய்யலாம் (Thumbnail தானாக வரும்!)
-    let videos = JSON.parse(localStorage.getItem("brp_yt_videos")) || [
-      { title: "Big Buck Bunny 4K", category: "Movies", row: "Trending Movies on BRP TV", url: "https://youtube.com" },
-      { title: "Sintel - Fantasy Movie", category: "Movies", row: "Trending Movies on BRP TV", url: "https://youtube.com" },
-      { title: "Tears of Steel Sci-Fi", category: "Movies", row: "Trending Movies on BRP TV", url: "https://youtube.com" },
+    // Default Videos
+    const defaultVideos = [
+      { title: "Big Buck Bunny 4K", category: "Movies", row: "Trending Movies on BRP TV", id: "aqz-KE-bpKQ" },
+      { title: "Sintel Fantasy Movie", category: "Movies", row: "Trending Movies on BRP TV", id: "eRsGyueVLvQ" },
+      { title: "Tears of Steel Sci-Fi", category: "Movies", row: "Trending Movies on BRP TV", id: "R6MlUcmOul8" },
+      { title: "NASA Earth Live", category: "Live TV", row: "Live TV & Streams", id: "21X5lGlDOfg" },
+      { title: "Lofi Beats Radio Live", category: "Live TV", row: "Live TV & Streams", id: "jfKfPfyJRdk" },
+      { title: "Nature 4K Relaxation", category: "Music", row: "Songs & Special Shows", id: "BHACKCNDMW8" },
+      { title: "Costa Rica 4K HDR", category: "Music", row: "Songs & Special Shows", id: "LXb3EKWsInQ" }
+    ];
+
+    let videos = JSON.parse(localStorage.getItem("brp_tv_v2")) || defaultVideos;
+    let selectedCat = "All";
+
+    // Any YouTube URL-லிருந்து சரியான 11-எழுத்து Video ID எடுக்கும் ஃபங்ஷன்
+    function extractVideoID(input) {
+      if (!input) return null;
+      input = input.trim();
+      if (input.length === 11 && !input.includes("/")) return input;
+      const regExp = /(?:youtube\.com\/(?:watch\?v=|embed\/|v\/|shorts\/|live\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+      const match = input.match(regExp);
+      return match ? match[1] : null;
+    }
+
+    window.addEventListener("scroll", () => {
+      document.getElementById("navbar").classList.toggle("scrolled", window.scrollY > 40);
+    });
 
