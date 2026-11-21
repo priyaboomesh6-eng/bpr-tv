@@ -1,59 +1,409 @@
 <!DOCTYPE html>
 <html lang="ta">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BRP TV - YouTube Maathiri</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Roboto,Arial}
-body{background:#0f0f0f;color:#fff}
-a{color:#fff;text-decoration:none}
-/* TOP BAR - YOUTUBE MAATHIRI */
-.top{position:fixed;top:0;width:100%;height:56px;background:#0f0f0f;display:flex;align-items:center;justify-content:space-between;padding:0 15px;z-index:100}
-.logo{font-size:24px;font-weight:900;cursor:pointer}
-.logo b{color:#ff0000}
-.logo span{font-size:10px;background:#ff0000;padding:2px 5px;border-radius:4px;margin-left:4px}
-.search-box{display:flex;flex:1;max-width:550px;margin:0 15px}
-.search-box input{flex:1;padding:10px 15px;background:#121212;border:1px solid #303030;border-radius:20px 0 0 20px;color:#fff;outline:none;font-size:15px}
-.search-box button{padding:10px 20px;background:#222;border:1px solid #303030;border-left:none;border-radius:0 20px 20px 0;color:#fff;cursor:pointer}
-.top-right{display:flex;gap:10px;align-items:center}
-.top-right button{background:#272727;border:none;color:#fff;padding:8px 14px;border-radius:20px;cursor:pointer;font-weight:700}
-.login-btn{background:#fff !important;color:#000 !important}
-/* LAYOUT */
-.main{display:flex;padding-top:56px}
-/* SIDEBAR */
-.sidebar{width:220px;min-width:220px;padding:12px;position:sticky;top:56px;height:calc(100vh - 56px);overflow-y:auto}
-.side-item{display:flex;gap:18px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:14px}
-.side-item:hover,.side-item.active{background:#272727}
-.side-item b{font-size:16px}
-.divider{height:1px;background:#272727;margin:10px 0}
-.side-title{padding:10px 12px;font-size:15px;font-weight:700}
-/* CONTENT */
-.content{flex:1;padding:15px;overflow:hidden}
-/* CHIPS */
-.chips{display:flex;gap:10px;overflow-x:auto;padding-bottom:15px;white-space:nowrap}
-.chip{background:#272727;padding:8px 14px;border-radius:8px;font-size:14px;cursor:pointer;flex-shrink:0}
-.chip.active{background:#fff;color:#000}
-/* VIDEO GRID - YOUTUBE */
-.videos{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.card{cursor:pointer}
-.thumb{height:180px;border-radius:12px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:50px}
-.thumb span{position:absolute;bottom:8px;right:8px;background:#000;font-size:12px;padding:3px 6px;border-radius:4px}
-.card-info{display:flex;gap:10px;margin-top:10px}
-.avatar{width:36px;height:36px;border-radius:50%;background:#e50914;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
-.card h4{font-size:15px;line-height:1.3}
-.card p{font-size:13px;color:#aaa;margin-top:3px}
-/* SHORTS */
-.shorts-title{font-size:20px;font-weight:700;margin:25px 0 12px}
-.shorts{display:flex;gap:12px;overflow-x:auto}
-.short-card{min-width:150px;height:260px;border-radius:12px;padding:10px;display:flex;flex-direction:column;justify-content:flex-end;cursor:pointer}
-/* LOGIN */
-#loginPage{position:fixed;inset:0;background:#0f0f0f;z-index:999;display:flex;align-items:center;justify-content:center;padding:20px}
-.login-box{width:100%;max-width:380px;background:#212121;padding:25px;border-radius:15px;text-align:center}
-.login-box input{width:100%;padding:13px;margin:8px 0;background:#121212;border:1px solid #303030;color:#fff;border-radius:20px;outline:none}
-.login-box button{width:100%;padding:12px;border:none;border-radius:20px;font-weight:900;cursor:pointer;margin-top:8px}
-/* PLAYER */
-#player{display:none;position:fixed;inset:0;background:#000;z-index:998;flex-direction:column;padding:60px 15px 15px;overflow-y:auto}
-#player video{width:100%;max-width:800px;margin:0 auto;border-radius:12px;display:block}
-@media(max-width:900px){.sidebar{display:none}.videos{grid-template-columns:repeat(2,1fr)}.search-box{max-width:200px}}
-@media(max-width:600px){.videos{grid-template-columns:1fr}.search-box input{display:none}.search-box button{border
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BRP TV - Netflix Style YouTube Player</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: #141414;
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+
+    /* Navbar */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 16px 4%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.95) 15%, transparent);
+      z-index: 100;
+      transition: background 0.3s;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    nav.scrolled {
+      background: #141414;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.85);
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .logo {
+      color: #e50914;
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      cursor: pointer;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 16px;
+      list-style: none;
+    }
+
+    .nav-menu li {
+      color: #d1d5db;
+      font-size: 14px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .nav-menu li:hover,
+    .nav-menu li.active {
+      color: #ffffff;
+      font-weight: 700;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .search-input {
+      background: rgba(0, 0, 0, 0.75);
+      border: 1px solid #555;
+      color: #fff;
+      padding: 7px 14px;
+      border-radius: 4px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .add-btn {
+      background: #e50914;
+      color: #fff;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .add-btn:hover {
+      background: #b20710;
+    }
+
+    /* Hero Banner */
+    .billboard {
+      position: relative;
+      height: 75vh;
+      background: url('https://youtube.com') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      padding: 0 4%;
+    }
+
+    .billboard::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(20, 20, 20, 0.95) 28%, rgba(20, 20, 20, 0.2) 75%),
+                  linear-gradient(to top, #141414 5%, transparent 40%);
+    }
+
+    .billboard-content {
+      position: relative;
+      z-index: 2;
+      max-width: 540px;
+      margin-top: 50px;
+    }
+
+    .series-tag {
+      font-size: 13px;
+      letter-spacing: 3px;
+      font-weight: 700;
+      color: #bcbcbc;
+      margin-bottom: 8px;
+    }
+
+    .series-tag span {
+      color: #e50914;
+      font-size: 18px;
+      font-weight: 900;
+    }
+
+    .billboard-title {
+      font-size: 46px;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    .billboard-desc {
+      font-size: 15px;
+      line-height: 1.5;
+      color: #e5e5e5;
+      margin-bottom: 22px;
+    }
+
+    .btn-play {
+      background: #ffffff;
+      color: #000000;
+      border: none;
+      padding: 11px 28px;
+      font-size: 17px;
+      font-weight: 700;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .btn-play:hover {
+      background: rgba(255, 255, 255, 0.8);
+    }
+
+    /* Rows */
+    .rows-container {
+      position: relative;
+      z-index: 5;
+      margin-top: -60px;
+      padding-bottom: 50px;
+    }
+
+    .row {
+      margin-bottom: 32px;
+      padding: 0 4%;
+    }
+
+    .row-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #e5e5e5;
+    }
+
+    .row-posters {
+      display: flex;
+      gap: 14px;
+      overflow-x: auto;
+      padding: 10px 0 18px 0;
+    }
+
+    .row-posters::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .row-posters::-webkit-scrollbar-thumb {
+      background: #333;
+      border-radius: 4px;
+    }
+
+    .poster-card {
+      position: relative;
+      min-width: 250px;
+      height: 140px;
+      border-radius: 6px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      background: #222;
+      flex-shrink: 0;
+    }
+
+    .poster-card:hover {
+      transform: scale(1.1);
+      z-index: 10;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.9);
+    }
+
+    .poster-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .poster-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 10%, transparent 65%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 10px;
+    }
+
+    .poster-tag {
+      font-size: 11px;
+      color: #46d369;
+      font-weight: 700;
+    }
+
+    .poster-title {
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    /* YouTube Fullscreen Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 999;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-top {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      padding: 18px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
+      z-index: 1002;
+    }
+
+    .close-btn {
+      background: #e50914;
+      color: #fff;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 4px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .iframe-wrapper {
+      width: 90%;
+      max-width: 1000px;
+      aspect-ratio: 16 / 9;
+      background: #000;
+      box-shadow: 0 0 30px rgba(229, 9, 20, 0.3);
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Add Video Popup */
+    .add-modal-box {
+      background: #1f1f1f;
+      padding: 25px;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 420px;
+      border: 1px solid #333;
+    }
+
+    .add-modal-box h3 {
+      margin-bottom: 15px;
+      color: #e50914;
+    }
+
+    .add-modal-box input, .add-modal-box select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 12px;
+      background: #141414;
+      border: 1px solid #444;
+      color: #fff;
+      border-radius: 4px;
+    }
+
+    .add-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    @media (max-width: 650px) {
+      .nav-menu { display: none; }
+      .billboard-title { font-size: 32px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav id="navbar">
+    <div class="nav-left">
+      <div class="logo" onclick="filterMenu('All', this)">BRP TV</div>
+      <ul class="nav-menu">
+        <li class="active" onclick="filterMenu('All', this)">Home</li>
+        <li onclick="filterMenu('Movies', this)">Movies</li>
+        <li onclick="filterMenu('Live TV', this)">Live News & TV</li>
+        <li onclick="filterMenu('Music', this)">Songs & Shows</li>
+      </ul>
+    </div>
+    <div class="nav-right">
+      <input type="text" class="search-input" id="searchBox" placeholder="Search YouTube videos..." onkeyup="renderApp()" />
+      <button class="add-btn" onclick="openAddModal()">+ Add YouTube Link</button>
+    </div>
+  </nav>
+
+  <!-- Hero Banner -->
+  <section class="billboard">
+    <div class="billboard-content">
+      <div class="series-tag"><span>B</span> YOUTUBE STREAM</div>
+      <h1 class="billboard-title">BRP TV FEATURED</h1>
+      <p class="billboard-desc">
+        உங்களுக்குப் பிடித்த YouTube திரைப்படங்கள், பாடல்கள் மற்றும் நேரலை செய்திகளை Netflix அனுபவத்தில் BRP TV-யில் பாருங்கள்.
+      </p>
+      <button class="btn-play" onclick="playYouTube('Big Buck Bunny 4K', 'https://youtube.com')">▶ Play Now</button>
+    </div>
+  </section>
+
+  <!-- Rows -->
+  <div class="rows-container" id="rowsContainer"></div>
+
+  <!-- YouTube Player Modal -->
+  <div class="modal" id="playerModal">
+    <div class="modal-top">
+      <button class="close-btn" onclick="closePlayer()">← Back to BRP TV</button>
+      <h3 id="playerTitle">Playing</h3>
+      <div></div>
+    </div>
+    <div class="iframe-wrapper">
+      <iframe id="ytIframe" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <!-- Add YouTube Video Modal -->
+  <div class="modal" id="addModal">
+    <div class="add-modal-box">
+      <h3>Add YouTube Video to BRP TV</h3>
+      <input type="text" id="newTitle" placeholder="Video / Channel Title (எ.கா: Sun News Live)" />
+      <input type="text" id="newUrl" placeholder="Paste YouTube URL (https://youtu.be...)" />
+      <select id="newCategory">
+        <option value="Live TV">Live News & TV</option>
+        <option value="Movies">Movies</option>
+        <option value="Music">Songs & Shows</option>
+      </select>
+      <div class="add-actions">
+        <button class="close-btn" style="background:#555;" onclick="closeAddModal()">Cancel</button>
+        <button class="close-btn" onclick="saveNewVideo()">Add Video</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // உங்களுடைய YouTube லிங்குகளை இங்கே நேரடியாக பேஸ்ட் செய்யலாம் (Thumbnail தானாக வரும்!)
+    let videos = JSON.parse(localStorage.getItem("brp_yt_videos")) || [
+      { title: "Big Buck Bunny 4K", category: "Movies", row: "Trending Movies on BRP TV", url: "https://youtube.com" },
+      { title: "Sintel - Fantasy Movie", category: "Movies", row: "Trending Movies on BRP TV", url: "https://youtube.com" },
+      { title: "Tears of Steel Sci-Fi", category: "Movies", row: "Trending Movies on BRP TV", url: "https://youtube.com" },
+
