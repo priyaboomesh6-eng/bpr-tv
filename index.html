@@ -3,162 +3,57 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BRP TV - Login</title>
+<title>BRP TV - YouTube Maathiri</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
-body{background:#000;color:#fff}
-.navbar{display:flex;justify-content:space-between;padding:14px 15px;background:#000;position:sticky;top:0;z-index:10}
-.logo{color:#e50914;font-size:28px;font-weight:900}
-.logo span{color:#fff;font-size:10px;display:block;letter-spacing:3px}
-button{padding:12px 20px;border:none;border-radius:5px;font-weight:900;cursor:pointer}
-input{width:100%;padding:13px;margin:8px 0;background:#333;border:1px solid #555;color:#fff;border-radius:5px;font-size:15px;outline:none}
-.hero{background:linear-gradient(90deg,#b71c1c,#ff6b00);padding:25px 20px}
-.hero h1{font-size:42px}
-.posters{display:flex;gap:12px;overflow-x:auto}
-.poster{min-width:150px;height:220px;border-radius:10px;padding:10px;display:flex;flex-direction:column;justify-content:flex-end;position:relative}
-.addbtn{position:absolute;top:8px;right:8px;width:34px;height:34px;border-radius:50%;background:#fff;color:#000;font-size:20px;padding:0}
-.copybtn{background:#333;color:#fff;padding:6px 10px;font-size:12px;margin-top:6px}
-.my-card{background:#1a1a1a;border:1px solid #e50914;border-radius:10px;padding:12px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
-#loginPage{position:fixed;inset:0;background:#000;z-index:999;display:flex;align-items:center;justify-content:center;padding:20px}
-.login-box{width:100%;max-width:380px;background:#111;padding:25px;border-radius:15px;border:1px solid #333;text-align:center}
-#player{display:none;position:fixed;inset:0;background:#000;z-index:998;flex-direction:column;align-items:center;justify-content:center;padding:15px}
-#player video{width:100%;max-width:600px}
-</style>
-</head>
-<body>
-
-<!-- LOGIN PAGE -->
-<div id="loginPage">
-<div class="login-box">
-<div style="font-size:40px">📺</div>
-<h1 style="color:#e50914;font-size:34px">BRP TV</h1>
-<p style="color:#aaa;margin:5px 0 15px">BPR FLIX • BOOYAH KING</p>
-
-<div id="loginForm">
-<input id="uName" placeholder="Username - ex: bpr">
-<input id="uPass" type="password" placeholder="Password">
-<button onclick="doLogin()" style="background:#e50914;color:#fff;width:100%;margin-top:10px">LOGIN 🔓</button>
-<p style="font-size:12px;color:#888;margin-top:10px">Demo Login:<br>Username: <b style="color:#fff">bpr</b> / Password: <b style="color:#fff">1234</b><br>Username: <b style="color:#fff">priya</b> / Password: <b style="color:#fff">booyah</b></p>
-<button onclick="showSignup()" style="background:transparent;color:#e50914;width:100%">New User? Create Account ➜</button>
-</div>
-
-<div id="signupForm" style="display:none">
-<input id="sName" placeholder="New Username">
-<input id="sPass" type="password" placeholder="New Password">
-<button onclick="doSignup()" style="background:#fff;color:#000;width:100%;margin-top:10px">CREATE ACCOUNT ✅</button>
-<button onclick="showLogin()" style="background:transparent;color:#e50914;width:100%">Back to Login</button>
-</div>
-<p id="loginMsg" style="color:#e50914;font-size:13px;margin-top:10px"></p>
-</div>
-</div>
-
-<!-- MAIN SITE -->
-<div class="navbar">
-<div class="logo">BRP TV<span>BOOYAH KING</span></div>
-<div style="display:flex;gap:8px;align-items:center">
-<span id="welcomeUser" style="font-size:13px">👤 User</span>
-<a href="https://instagram.com/bpr_flix" target="_blank" style="color:#fff;text-decoration:none;font-weight:bold;font-size:13px">📸 BPR</a>
-<button onclick="doLogout()" style="background:#333;color:#fff;padding:7px 12px;font-size:12px">Logout</button>
-</div>
-</div>
-
-<div class="hero">
-<h1 id="heroTitle">BOOYAH KING 👑</h1>
-<p>BPR TV Original - <span id="heroUser">Welcome</span></p>
-<button style="background:#fff;color:#000" onclick="playMovie('BOOYAH KING','https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4')">▶ Play</button>
-<button style="background:#e50914;color:#fff" onclick="addToList('BOOYAH KING')">+ My List</button>
-<br>
-<button class="copybtn" onclick="copyDirectLink('BOOYAH KING')">🔗 Copy Direct Link - BOOYAH KING</button>
-<p id="directMsg" style="font-size:12px;color:#ffeb3b;margin-top:6px"></p>
-</div>
-
-<div style="padding:15px">
-<h3>🔗 Unga User Link</h3>
-<p style="color:#aaa;font-size:13px">Idha friend ku anuppu - Click panna odane BRP TV open aagum!</p>
-<div style="background:#222;padding:10px;border-radius:8px;margin-top:8px;word-break:break-all;font-size:13px" id="userLinkBox">...</div>
-<button class="copybtn" onclick="copyUserLink()">📋 Copy My User Link</button>
-</div>
-
-<div class="row" id="listBox" style="display:none;background:#222;padding:15px;border-bottom:2px solid #e50914">
-<h2>❤️ My List (<span id="count">0</span>)</h2>
-<div id="myListArea"></div>
-</div>
-
-<div style="padding:15px"><h2>🔥 Trending Now</h2><div class="posters" style="margin-top:10px">
-<div class="poster" style="background:linear-gradient(#e50914,#ff6b00)" onclick="playMovie('BOOYAH KING','https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4')"><button class="addbtn" onclick="event.stopPropagation();addToList('BOOYAH KING')">+</button><b>BOOYAH KING</b><button class="copybtn" onclick="event.stopPropagation();copyDirectLink('BOOYAH KING')">🔗 Direct Link</button></div>
-<div class="poster" style="background:linear-gradient(#111,#555)" onclick="playMovie('JAILER 2','https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4')"><button class="addbtn" onclick="event.stopPropagation();addToList('JAILER 2')">+</button><b>JAILER 2</b><button class="copybtn" onclick="event.stopPropagation();copyDirectLink('JAILER 2')">🔗 Direct Link</button></div>
-<div class="poster" style="background:linear-gradient(#0d47a1,#00e5ff)" onclick="playMovie('LEO RETURNS','https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4')"><button class="addbtn" onclick="event.stopPropagation();addToList('LEO RETURNS')">+</button><b>LEO RETURNS</b><button class="copybtn" onclick="event.stopPropagation();copyDirectLink('LEO RETURNS')">🔗 Direct Link</button></div>
-<div class="poster" style="background:linear-gradient(#000,#333)" onclick="playMovie('GHOST HOUSE','https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4')"><button class="addbtn" onclick="event.stopPropagation();addToList('GHOST HOUSE')">+</button><b>GHOST HOUSE</b><button class="copybtn" onclick="event.stopPropagation();copyDirectLink('GHOST HOUSE')">🔗 Direct Link</button></div>
-</div></div>
-
-<div id="player">
-<button onclick="closePlayer()" style="position:absolute;top:15px;right:15px;background:#e50914;color:#fff;width:40px;height:40px;border-radius:50%;padding:0">✕</button>
-<h2 id="pTitle" style="margin-bottom:12px">Movie</h2>
-<video id="myVideo" controls autoplay playsinline></video>
-</div>
-
-<script>
-var users = { "bpr":"1234", "priya":"booyah", "admin":"bpr123" };
-try{ var saved = JSON.parse(localStorage.getItem("brp_users")||"{}"); users = Object.assign(users, saved); }catch(e){}
-var myList = [];
-try{ myList = JSON.parse(localStorage.getItem("bprList")||"[]"); }catch(e){}
-
-function showSignup(){ document.getElementById("loginForm").style.display="none"; document.getElementById("signupForm").style.display="block"; }
-function showLogin(){ document.getElementById("signupForm").style.display="none"; document.getElementById("loginForm").style.display="block"; }
-
-function doSignup(){
-var u=document.getElementById("sName").value.trim().toLowerCase();
-var p=document.getElementById("sPass").value.trim();
-if(!u||!p){ document.getElementById("loginMsg").textContent="Username & Password podu da!"; return; }
-if(users[u]){ document.getElementById("loginMsg").textContent="Indha Username already irukku!"; return; }
-users[u]=p; localStorage.setItem("brp_users",JSON.stringify(users));
-document.getElementById("loginMsg").textContent="Account Created! Ipo Login pannu ✅";
-showLogin();
-}
-function doLogin(){
-var u=document.getElementById("uName").value.trim().toLowerCase();
-var p=document.getElementById("uPass").value.trim();
-if(users[u] && users[u]===p){
-localStorage.setItem("brp_login",u);
-enterSite(u);
-}else{
-document.getElementById("loginMsg").textContent="Username / Password thappu! ❌ bpr / 1234 try pannu";
-}
-}
-function enterSite(u){
-document.getElementById("loginPage").style.display="none";
-document.getElementById("welcomeUser").textContent="👤 "+u;
-document.getElementById("heroUser").textContent="Welcome, "+u;
-var base = window.location.origin + window.location.pathname;
-var link = base + "?user=" + u;
-document.getElementById("userLinkBox").textContent = link;
-showList();
-// DIRECT LINK - ?movie=BOOYAH KING na odane play
-var params = new URLSearchParams(window.location.search);
-var mv = params.get("movie");
-if(mv){ var map={"BOOYAH KING":"https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4","JAILER 2":"https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4","LEO RETURNS":"https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4","GHOST HOUSE":"https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4"}; if(map[mv]) playMovie(mv,map[mv]); }
-}
-function doLogout(){ localStorage.removeItem("brp_login"); location.reload(); }
-function copyUserLink(){
-var t=document.getElementById("userLinkBox").textContent;
-navigator.clipboard.writeText(t).then(()=>alert("User Link Copied! 📋\n"+t));
-}
-function copyDirectLink(movie){
-var base = window.location.origin + window.location.pathname;
-var link = base + "?movie=" + encodeURIComponent(movie);
-document.getElementById("directMsg").textContent="Direct Link: "+link;
-navigator.clipboard.writeText(link).then(()=>alert("Direct Link Copied! 🔗\n"+link+"\nIdha yaarukku anuppinaalum indha movie ye open aagum!"));
-}
-function playMovie(t,u){ document.getElementById("pTitle").textContent=t; var v=document.getElementById("myVideo"); v.src=u; document.getElementById("player").style.display="flex"; v.play(); }
-function closePlayer(){ document.getElementById("player").style.display="none"; var v=document.getElementById("myVideo"); v.pause(); v.src=""; }
-function addToList(n){ if(myList.indexOf(n)!==-1){ myList=myList.filter(x=>x!==n); }else{ myList.push(n); alert(n+" Added ❤️"); } localStorage.setItem("bprList",JSON.stringify(myList)); showList(); }
-function showList(){ var box=document.getElementById("listBox"); document.getElementById("count").textContent=myList.length; if(myList.length==0){box.style.display="none";return;} box.style.display="block"; var a=document.getElementById("myListArea"); a.innerHTML=""; myList.forEach(n=>{ a.innerHTML+="<div class='my-card'><b>🎬 "+n+"</b><button onclick=\"addToList('"+n+"')\" style='background:#e50914;color:#fff;padding:6px 12px'>Remove ✕</button></div>"; }); }
-
-// Auto Login check
-var logged = localStorage.getItem("brp_login");
-var urlUser = new URLSearchParams(window.location.search).get("user");
-if(logged){ enterSite(logged); }
-else if(urlUser){ document.getElementById("uName").value=urlUser; }
-</script>
-</body>
-</html>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Roboto,Arial}
+body{background:#0f0f0f;color:#fff}
+a{color:#fff;text-decoration:none}
+/* TOP BAR - YOUTUBE MAATHIRI */
+.top{position:fixed;top:0;width:100%;height:56px;background:#0f0f0f;display:flex;align-items:center;justify-content:space-between;padding:0 15px;z-index:100}
+.logo{font-size:24px;font-weight:900;cursor:pointer}
+.logo b{color:#ff0000}
+.logo span{font-size:10px;background:#ff0000;padding:2px 5px;border-radius:4px;margin-left:4px}
+.search-box{display:flex;flex:1;max-width:550px;margin:0 15px}
+.search-box input{flex:1;padding:10px 15px;background:#121212;border:1px solid #303030;border-radius:20px 0 0 20px;color:#fff;outline:none;font-size:15px}
+.search-box button{padding:10px 20px;background:#222;border:1px solid #303030;border-left:none;border-radius:0 20px 20px 0;color:#fff;cursor:pointer}
+.top-right{display:flex;gap:10px;align-items:center}
+.top-right button{background:#272727;border:none;color:#fff;padding:8px 14px;border-radius:20px;cursor:pointer;font-weight:700}
+.login-btn{background:#fff !important;color:#000 !important}
+/* LAYOUT */
+.main{display:flex;padding-top:56px}
+/* SIDEBAR */
+.sidebar{width:220px;min-width:220px;padding:12px;position:sticky;top:56px;height:calc(100vh - 56px);overflow-y:auto}
+.side-item{display:flex;gap:18px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:14px}
+.side-item:hover,.side-item.active{background:#272727}
+.side-item b{font-size:16px}
+.divider{height:1px;background:#272727;margin:10px 0}
+.side-title{padding:10px 12px;font-size:15px;font-weight:700}
+/* CONTENT */
+.content{flex:1;padding:15px;overflow:hidden}
+/* CHIPS */
+.chips{display:flex;gap:10px;overflow-x:auto;padding-bottom:15px;white-space:nowrap}
+.chip{background:#272727;padding:8px 14px;border-radius:8px;font-size:14px;cursor:pointer;flex-shrink:0}
+.chip.active{background:#fff;color:#000}
+/* VIDEO GRID - YOUTUBE */
+.videos{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{cursor:pointer}
+.thumb{height:180px;border-radius:12px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:50px}
+.thumb span{position:absolute;bottom:8px;right:8px;background:#000;font-size:12px;padding:3px 6px;border-radius:4px}
+.card-info{display:flex;gap:10px;margin-top:10px}
+.avatar{width:36px;height:36px;border-radius:50%;background:#e50914;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.card h4{font-size:15px;line-height:1.3}
+.card p{font-size:13px;color:#aaa;margin-top:3px}
+/* SHORTS */
+.shorts-title{font-size:20px;font-weight:700;margin:25px 0 12px}
+.shorts{display:flex;gap:12px;overflow-x:auto}
+.short-card{min-width:150px;height:260px;border-radius:12px;padding:10px;display:flex;flex-direction:column;justify-content:flex-end;cursor:pointer}
+/* LOGIN */
+#loginPage{position:fixed;inset:0;background:#0f0f0f;z-index:999;display:flex;align-items:center;justify-content:center;padding:20px}
+.login-box{width:100%;max-width:380px;background:#212121;padding:25px;border-radius:15px;text-align:center}
+.login-box input{width:100%;padding:13px;margin:8px 0;background:#121212;border:1px solid #303030;color:#fff;border-radius:20px;outline:none}
+.login-box button{width:100%;padding:12px;border:none;border-radius:20px;font-weight:900;cursor:pointer;margin-top:8px}
+/* PLAYER */
+#player{display:none;position:fixed;inset:0;background:#000;z-index:998;flex-direction:column;padding:60px 15px 15px;overflow-y:auto}
+#player video{width:100%;max-width:800px;margin:0 auto;border-radius:12px;display:block}
+@media(max-width:900px){.sidebar{display:none}.videos{grid-template-columns:repeat(2,1fr)}.search-box{max-width:200px}}
+@media(max-width:600px){.videos{grid-template-columns:1fr}.search-box input{display:none}.search-box button{border
