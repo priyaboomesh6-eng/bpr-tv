@@ -2,209 +2,238 @@
 <html lang="ta">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BPR ❤️ PRIYADHARSINI - CABLE TV</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>BPR - PRIYADHARSINI</title>
+<link rel="manifest" href="data:application/json,{}">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:Arial}
-body{background:#0b0b0e;color:#fff;overflow-x:hidden}
-.heart{position:fixed;bottom:-30px;font-size:20px;animation:flyUp linear infinite;opacity:.8;pointer-events:none;z-index:1}
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial;-webkit-tap-highlight-color:transparent}
+body{background:#000;color:#fff;overflow-x:hidden;padding-bottom:70px}
+.heart{position:fixed;bottom:-30px;font-size:18px;animation:flyUp linear infinite;pointer-events:none;z-index:1}
 @keyframes flyUp{0%{transform:translateY(0);opacity:0}10%{opacity:1}100%{transform:translateY(-110vh);opacity:0}}
-#loginBox{min-height:100vh;display:flex;justify-content:center;align-items:center;padding:20px;background:radial-gradient(circle,#1a0a0a,#0a1a0a,#0b0b0e);position:relative}
-.card{background:rgba(22,22,29,.96);padding:28px;border-radius:15px;width:100%;max-width:390px;text-align:center;border-top:4px solid #ff0000;position:relative;z-index:2}
-input{width:100%;padding:12px;margin-bottom:12px;background:#0f0f14;border:1px solid #444;color:#fff;border-radius:6px}
-.btn{width:100%;padding:12px;background:linear-gradient(90deg,#ff0000,#00c853);color:#fff;border:none;border-radius:6px;font-weight:900;cursor:pointer}
-.links{display:flex;justify-content:space-between;margin-top:15px;font-size:13px}.links span{color:#ffb703;cursor:pointer}
-#msg{color:#ff6b6b;font-size:13px;font-weight:bold;margin-bottom:10px}
-/* BPR SIVAPPU PACCHAI */
-.bpr-big{display:flex;justify-content:center;font-size:80px;font-weight:900;letter-spacing:6px;line-height:1;animation:pulse 1.2s infinite}
-.bpr-big span:nth-child(1){color:#ff0000;text-shadow:0 0 20px #ff0000,0 5px 0 #000}
-.bpr-big span:nth-child(2){color:#00e676;text-shadow:0 0 20px #00e676,0 5px 0 #000}
-.bpr-big span:nth-child(3){color:#ff0000;text-shadow:0 0 20px #ff0000,0 5px 0 #000}
-@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
-.priya-name{margin:10px 0 2px;background:linear-gradient(90deg,#ff1744,#ff6b00,#00e676,#ffb703,#ff1744);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:25px;font-weight:900;animation:shine 2s linear infinite}
+
+/* 🔥 SPLASH - MASS */
+#splash{position:fixed;inset:0;background:radial-gradient(circle,#2a0000,#000 75%);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;text-align:center}
+.bpr-mass{display:flex;font-size:105px;font-weight:900;letter-spacing:6px;line-height:1;animation:pulse 1s infinite}
+.bpr-mass span:nth-child(1){color:#ff0000;text-shadow:0 0 30px #ff0000,0 8px 0 #000}
+.bpr-mass span:nth-child(2){color:#00e676;text-shadow:0 0 30px #00e676,0 8px 0 #000}
+.bpr-mass span:nth-child(3){color:#ff0000;text-shadow:0 0 30px #ff0000,0 8px 0 #000}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+.priya-mass{margin-top:8px;font-size:28px;font-weight:900;letter-spacing:1px;background:linear-gradient(90deg,#ff1744,#ffb703,#00e676,#ff1744);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shine 2s linear infinite}
 @keyframes shine{to{background-position:300% center}}
-.priya-sub{font-size:14px;margin-bottom:16px}
-#tvBox{display:none;padding-bottom:30px}
-header{background:#16161d;padding:10px 4%;display:flex;justify-content:space-between;align-items:center;border-bottom:3px solid #ff0000;position:sticky;top:0;z-index:10}
-.hdr-logo{line-height:1;text-align:center}
-.hdr-logo .letters{display:flex;justify-content:center;font-size:30px;font-weight:900}
-.hdr-logo .letters span:nth-child(1){color:#ff0000}.hdr-logo .letters span:nth-child(2){color:#00e676}.hdr-logo .letters span:nth-child(3){color:#ff0000}
-.hdr-logo span{font-size:9px;color:#fff;font-weight:900;letter-spacing:1px}
-.logout{background:#333;color:#fff;border:none;padding:6px 12px;border-radius:4px;cursor:pointer}
-.main{max-width:900px;margin:15px auto;padding:0 12px}
-.screen{position:relative;width:100%;aspect-ratio:16/9;background:#000;border:2px solid #333;border-radius:10px;overflow:hidden}
-.screen:fullscreen{border:none;border-radius:0;width:100%;height:100%;aspect-ratio:auto}
-iframe{width:100%;height:100%;border:none}
-.watermark{position:absolute;top:12px;right:12px;z-index:999;pointer-events:none;text-align:center;background:rgba(0,0,0,.85);padding:8px 14px 6px;border:2px solid #00e676;border-radius:10px}
-.watermark .letters{display:flex;justify-content:center;font-size:28px;font-weight:900}
-.watermark .letters span:nth-child(1){color:#ff0000;text-shadow:0 0 10px #ff0000}.watermark .letters span:nth-child(2){color:#00e676;text-shadow:0 0 10px #00e676}.watermark .letters span:nth-child(3){color:#ff0000;text-shadow:0 0 10px #ff0000}
-.watermark .priya{font-size:11px;font-weight:900;color:#fff;margin-top:3px;background:#111;padding:3px 6px;border-radius:4px}
-.watermark .hearts{font-size:11px;margin-top:2px}
-.osd{position:absolute;top:12px;left:12px;background:rgba(0,0,0,.8);padding:6px 10px;border-left:3px solid #00e676;font-size:13px;z-index:999;pointer-events:none}
-.bottom-mass{position:absolute;bottom:12px;left:12px;z-index:999;pointer-events:none;background:rgba(0,0,0,.75);padding:6px 10px;border-radius:8px;border-left:3px solid #ff0000}
-.bottom-mass b{font-size:15px}.bottom-mass b .r{color:#ff1744}.bottom-mass b .g{color:#00e676}
-.bottom-mass span{display:block;font-size:11px;color:#fff;font-weight:800}
-.full-btn{position:absolute;bottom:12px;right:12px;background:linear-gradient(90deg,#ff0000,#00c853);color:#fff;border:none;padding:8px 12px;border-radius:5px;font-weight:bold;cursor:pointer;z-index:1000}
-.ticker{background:linear-gradient(90deg,#ff0000,#00c853);padding:7px 10px;font-size:13px;font-weight:bold;margin-top:6px;border-radius:4px}
-.controls{display:flex;gap:8px;margin:12px 0;flex-wrap:wrap}
-.c-btn{background:#222;color:#fff;border:1px solid #444;padding:9px 14px;border-radius:5px;cursor:pointer;font-weight:bold}
-.c-btn.gold{background:#00c853;color:#fff;border:none}
-.c-btn.red{background:#ff0000;color:#fff;border:none}
-.ch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-top:12px}
-.ch-card{background:#16161d;padding:12px;border-radius:6px;cursor:pointer;border-left:4px solid #ff0000;display:flex;align-items:center;gap:10px}
-.ch-card.active{border-left-color:#00e676;background:#22222c}
-.ch-no{background:linear-gradient(90deg,#ff0000,#00c853);padding:4px 8px;border-radius:4px;font-weight:bold;font-size:13px}
-.how-box{background:#16161d;border:1px solid #333;padding:15px;border-radius:10px;margin-top:20px;line-height:1.6;font-size:14px}
-.how-box b{color:#00e676}
+.load{width:180px;height:4px;background:#333;border-radius:10px;margin-top:25px;overflow:hidden}
+.load div{height:100%;width:50%;background:linear-gradient(90deg,#ff0000,#00e676);animation:load 1s infinite}
+@keyframes load{0%{transform:translateX(-100%)}100%{transform:translateX(400%)}}
+
+/* APP TOP - SUN NXT MAATHIRI */
+.top{position:sticky;top:0;z-index:100;background:#000;padding:10px 14px;display:flex;justify-content:space-between;align-items:center}
+.top .letters{display:flex;font-size:28px;font-weight:900}
+.top .letters span:nth-child(1){color:#ff0000}.top .letters span:nth-child(2){color:#00e676}.top .letters span:nth-child(3){color:#ff0000}
+.top small{display:block;font-size:8px;color:#fff;letter-spacing:1px}
+.top-right{display:flex;gap:12px;align-items:center}
+.icon-btn{width:36px;height:36px;background:#222;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer}
+.avatar{width:36px;height:36px;background:linear-gradient(90deg,#ff0000,#00c853);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900}
+
+/* HERO - SUN NXT */
+.hero{margin:8px 14px;border-radius:14px;overflow:hidden;position:relative;height:260px;background:linear-gradient(135deg,#3a0000,#003a1a,#000);display:flex;align-items:flex-end;padding:16px}
+.hero:before{content:"❤️💚";position:absolute;right:15px;top:10px;font-size:60px;opacity:.25}
+.hero-content{position:relative;z-index:2}
+.hero-logo{display:flex;font-size:48px;font-weight:900}
+.hero-logo span:nth-child(1){color:#ff0000}.hero-logo span:nth-child(2){color:#00e676}.hero-logo span:nth-child(3){color:#ff0000}
+.hero-priya{font-size:16px;font-weight:900;color:#fff;margin:2px 0}
+.hero-btns{display:flex;gap:8px;margin-top:10px}
+.h-btn{padding:10px 18px;border:none;border-radius:20px;font-weight:900;cursor:pointer}
+.h-btn.play{background:#fff;color:#000}
+.h-btn.list{background:rgba(255,255,255,.2);color:#fff;border:1px solid #fff}
+
+/* CATEGORY PILLS - SUN NXT */
+.pills{display:flex;gap:8px;overflow-x:auto;padding:12px 14px}
+.pills::-webkit-scrollbar{display:none}
+.pill{padding:8px 16px;background:#222;border-radius:20px;font-size:13px;white-space:nowrap;cursor:pointer;border:1px solid #333}
+.pill.active{background:linear-gradient(90deg,#ff0000,#00c853);border-color:#fff}
+
+/* ROWS */
+.sec{padding:0 14px}
+.sec-title{font-size:17px;font-weight:900;margin:16px 0 10px}
+.row{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px}
+.row::-webkit-scrollbar{display:none}
+.card{min-width:140px;height:200px;border-radius:10px;cursor:pointer;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:10px;flex-shrink:0}
+.card b{font-size:14px;text-shadow:0 2px 8px #000}.card span{font-size:11px;color:#ddd}
+.card .live-tag{position:absolute;top:8px;left:8px;background:#ff0000;padding:3px 7px;border-radius:4px;font-size:10px;font-weight:900}
+.card .plus{position:absolute;top:8px;right:8px;background:#000;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;border:1px solid #fff}
+
+/* BOTTOM NAV - APP MAATHIRI */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#111;border-top:1px solid #333;display:flex;justify-content:space-around;padding:8px 0 12px;z-index:200}
+.nav-item{display:flex;flex-direction:column;align-items:center;font-size:11px;color:#888;cursor:pointer;gap:2px}
+.nav-item.active{color:#fff}.nav-item.active span:first-child{color:#00e676}
+.nav-item .ico{font-size:22px}
+.center-btn{width:52px;height:52px;background:linear-gradient(90deg,#ff0000,#00c853);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;margin-top:-28px;border:3px solid #000;box-shadow:0 0 15px rgba(255,0,0,.6)}
+
+/* PLAYER - FULL APP */
+#playerBox{display:none;position:fixed;inset:0;background:#000;z-index:999;flex-direction:column}
+#playerBox .p-top{padding:12px;display:flex;justify-content:space-between;align-items:center}
+#playerBox iframe{flex:1;width:100%;border:none}
+.wm{position:absolute;top:60px;right:12px;z-index:1000;text-align:center;background:rgba(0,0,0,.85);padding:6px 10px;border:2px solid #00e676;border-radius:8px;pointer-events:none}
+.wm .letters{display:flex;justify-content:center;font-size:22px;font-weight:900}
+.wm .letters span:nth-child(1){color:#ff0000}.wm .letters span:nth-child(2){color:#00e676}.wm .letters span:nth-child(3){color:#ff0000}
+.wm div{font-size:10px;font-weight:900}
+
+/* PAGES */
+.page{display:none}.page.active{display:block}
+.profile-card{margin:14px;background:#16161d;padding:18px;border-radius:14px;text-align:center}
+.search-input{margin:12px 14px;width:calc(100% - 28px);padding:12px;background:#222;border:1px solid #333;color:#fff;border-radius:25px;outline:none}
 </style>
 </head>
 <body>
 
-<div class="heart" style="left:10%;animation-duration:4s">❤️</div>
-<div class="heart" style="left:35%;animation-duration:5s;animation-delay:.5s">💚</div>
-<div class="heart" style="left:60%;animation-duration:3.5s;animation-delay:1s">❤️</div>
-<div class="heart" style="left:85%;animation-duration:4.5s;animation-delay:.2s">💚</div>
+<div class="heart" style="left:15%;animation-duration:4s">❤️</div>
+<div class="heart" style="left:45%;animation-duration:5s;animation-delay:.5s">💚</div>
+<div class="heart" style="left:75%;animation-duration:3.5s;animation-delay:1s">❤️</div>
 
-<div id="loginBox">
-<div class="card">
-<div style="letter-spacing:4px">❤️💚❤️💚</div>
-<div class="bpr-big"><span>B</span><span>P</span><span>R</span></div>
-<div style="font-size:12px;letter-spacing:5px"><span style="color:#ff1744;font-weight:900">BPR</span> <span style="color:#00e676;font-weight:900">CABLE TV</span></div>
-<div class="priya-name">PRIYADHARSINI</div>
-<div class="priya-sub">❤️ For You 💚</div>
-<div id="msg"></div>
-<div id="fLogin">
-<input id="uIn" placeholder="Username (bpr)">
-<input id="pIn" type="password" placeholder="Password (1234)">
-<button class="btn" id="loginBtn">Login ❤️</button>
-<div class="links"><span id="toForgot">Forgot Password?</span><span id="toReg">New Account</span></div>
-<button class="btn" onclick="guestLogin()" style="background:#333;margin-top:12px">👤 Guest ah Paaru</button>
+<!-- SPLASH -->
+<div id="splash">
+<div style="letter-spacing:5px">❤️💚❤️💚</div>
+<div class="bpr-mass"><span>B</span><span>P</span><span>R</span></div>
+<div class="priya-mass">PRIYADHARSINI</div>
+<div style="font-size:18px;margin-top:8px">❤️💚❤️💚</div>
+<div class="load"><div></div></div>
+<div style="color:#aaa;font-size:12px;margin-top:10px">Loading BPR App...</div>
 </div>
-<div id="fReg" style="display:none">
-<input id="rUser" placeholder="New Username"><input id="rPass" type="password" placeholder="New Password">
-<button class="btn" id="regBtn">Create Account</button>
-<div class="links"><span id="backLogin1">← Back</span></div>
-</div>
-<div id="fForgot" style="display:none">
-<input id="fUser" placeholder="Username"><input id="fPin" type="password" placeholder="Master PIN (9999)"><input id="fNewPass" type="password" placeholder="New Password">
-<button class="btn" id="forgotBtn">Reset Password</button>
-<div class="links"><span id="backLogin2">← Back</span></div>
-</div>
+
+<!-- APP -->
+<div id="app" style="display:none">
+<div class="top">
+<div><div class="letters"><span>B</span><span>P</span><span>R</span></div><small>PRIYADHARSINI ❤️💚</small></div>
+<div class="top-right">
+<div class="icon-btn" onclick="showPage('search')">🔍</div>
+<div class="icon-btn" onclick="shareApp()">🔗</div>
+<div class="avatar">❤️</div>
 </div>
 </div>
 
-<div id="tvBox">
-<header>
-<div class="hdr-logo"><div class="letters"><span>B</span><span>P</span><span>R</span></div><span>PRIYADHARSINI ❤️💚</span></div>
-<div><span id="userLabel" style="font-size:13px;color:#46d369;margin-right:10px"></span><button class="logout" id="logoutBtn">Logout</button></div>
-</header>
-<div class="main">
-
-<div class="screen" id="screenBox">
-<div class="watermark"><div class="letters"><span>B</span><span>P</span><span>R</span></div><div class="priya">PRIYADHARSINI</div><div class="hearts">❤️💚❤️💚</div></div>
-<div class="osd" id="osdText">CH 101 - BPR Movies</div>
-<div class="bottom-mass"><b><span class="r">B</span><span class="g">P</span><span class="r">R</span> ❤️</b><span>PRIYADHARSINI</span></div>
-<iframe id="player" allow="autoplay; fullscreen; encrypted-media" allowfullscreen></iframe>
-<button class="full-btn" id="fsBtn" onclick="toggleFS()">⛶ FULL SCREEN</button>
+<!-- HOME PAGE -->
+<div id="page-home" class="page active">
+<div class="hero">
+<div class="hero-content">
+<div style="font-size:11px;color:#ffb703;font-weight:900">● LIVE NOW • BPR ORIGINAL</div>
+<div class="hero-logo"><span>B</span><span>P</span><span>R</span></div>
+<div class="hero-priya">PRIYADHARSINI ❤️💚</div>
+<div style="font-size:13px;color:#ddd">Priyadharsini ku special BPR App!</div>
+<div class="hero-btns">
+<button class="h-btn play" onclick="playCh(0)">▶ Play</button>
+<button class="h-btn list" onclick="addToList(0)">＋ My List</button>
 </div>
-
-<div class="ticker"><marquee id="tickerText">❤️ BPR CABLE TV - PRIYADHARSINI ku Nalvaravu! 💚 Ungalukku Piditha Channel ah Select Panni Paarunga! ❤️💚</marquee></div>
-
-<div class="controls">
-<button class="c-btn" id="prevBtn">◄ CH -</button>
-<button class="c-btn" id="nextBtn">CH + ►</button>
-<button class="c-btn gold" onclick="toggleFS()">⛶ Full Screen</button>
-<button class="c-btn" id="newsBtn">✎ Scroll Text</button>
-<button class="c-btn red" id="addChBtn">+ Add Channel (Ulla Eathi)</button>
-<button class="c-btn gold" onclick="copyShare()">🔗 Share - Mathavanga Paakka</button>
-</div>
-
-<input id="searchCh" onkeyup="renderCh()" placeholder="🔍 Channel Search - Movies, Music..." style="width:100%;padding:11px;background:#16161d;border:1px solid #333;color:#fff;border-radius:20px;outline:none">
-
-<h3 style="margin-top:14px">📺 Cable Channels List</h3>
-<div class="ch-grid" id="chList"></div>
-
-<!-- EPPADI ADD PANTRADHU -->
-<div class="how-box">
-<b>➕ Ulla Eathi Eppadi Add Pantrathu?</b><br>
-1. Mela irukka <b>+ Add Channel</b> button ah click pannu<br>
-2. <b>Channel Name</b> podu - Ex: <i>En Songs</i><br>
-3. <b>YouTube Link</b> podu - Ex: <i>https://youtu.be/aqz-KE-bpKQ</i><br>
-4. Odane pudhu Channel <b>CH 105, 106...</b> nu add aayidum! ✅<br><br>
-<b>🗑️ Delete Pantrathu?</b> Channel card la <b>✕</b> ah click pannu
-</div>
-
-<!-- MATHAVANGA EPPADI PAAKKURA -->
-<div class="how-box" style="border-color:#00e676">
-<b>👥 Mathavanga Eppadi Paakkuranga?</b><br>
-1. Un website ah <b>Netlify / GitHub Pages la FREE ah podu</b><br>
-2. Aprom <b>🔗 Share</b> button ah click pannu - Link copy aagum<br>
-3. Andha link ah <b>WhatsApp / Instagram la</b> friend ku anuppu<br>
-4. Avanga link ah click panna - <b>Guest ah paakalaam!</b> Password theva illa! ✅<br><br>
-<b>Example Link:</b> <span id="demoLink" style="color:#ffb703">https://bpr-tv.netlify.app/?ch=101</span><br>
-<b>CH Link:</b> <span style="color:#ffb703">?ch=101</span> potta andha channel ye open aagum!
-</div>
-
-<div style="margin-top:20px;background:linear-gradient(90deg,#ff0000,#00e676,#ff0000);padding:3px;border-radius:15px">
-<div style="background:#111;padding:20px;border-radius:12px;text-align:center">
-<div style="display:flex;justify-content:center;font-size:42px;font-weight:900"><span style="color:#ff0000">B</span><span style="color:#00e676">P</span><span style="color:#ff0000">R</span></div>
-<div style="font-size:20px;font-weight:900">PRIYADHARSINI</div>
-<div style="font-size:18px;margin-top:6px">❤️💚❤️💚</div>
-<p style="color:#aaa;font-size:13px;margin-top:6px">For Priyadharsini - With Love ❤️💚</p>
 </div>
 </div>
 
+<div class="pills" id="pills">
+<div class="pill active" onclick="filterCat('All',this)">All</div>
+<div class="pill" onclick="filterCat('Movies',this)">🎬 Movies</div>
+<div class="pill" onclick="filterCat('Music',this)">🎵 Music</div>
+<div class="pill" onclick="filterCat('Live',this)">📺 Live TV</div>
+<div class="pill" onclick="filterCat('Horror',this)">👻 Horror</div>
 </div>
+
+<div class="sec">
+<div class="sec-title">🔴 Live TV - <span style="color:#ff1744">● LIVE</span></div>
+<div class="row" id="liveRow"></div>
+<div class="sec-title">🔥 Trending Now</div>
+<div class="row" id="trendRow"></div>
+<div class="sec-title">🎬 Movies</div>
+<div class="row" id="movieRow"></div>
+<div class="sec-title">❤️ My List - <span id="myCount">0</span></div>
+<div id="myListHome" style="color:#aaa;font-size:13px">Innum illa - Card la ＋ ah click pannu</div>
+</div>
+</div>
+
+<!-- LIVE TV PAGE - CABLE TV -->
+<div id="page-live" class="page">
+<div style="padding:14px"><h3>📺 Live TV Channels</h3><p style="color:#aaa;font-size:13px">Ava paakkuradha mathavanga paakkuranga - TV Channel maathiri!</p></div>
+<div id="liveList" style="padding:0 14px"></div>
+</div>
+
+<!-- SEARCH PAGE -->
+<div id="page-search" class="page">
+<input class="search-input" id="searchInput" placeholder="🔍 Search Movies, Music, Live..." onkeyup="renderAll()">
+<div id="searchResult" style="padding:0 14px"></div>
+</div>
+
+<!-- MY LIST PAGE -->
+<div id="page-mylist" class="page">
+<div style="padding:14px"><h3>❤️ My List</h3></div>
+<div id="myListPage" style="padding:0 14px"></div>
+</div>
+
+<!-- PROFILE PAGE -->
+<div id="page-profile" class="page">
+<div class="profile-card">
+<div style="display:flex;justify-content:center;font-size:60px;font-weight:900"><span style="color:#ff0000">B</span><span style="color:#00e676">P</span><span style="color:#ff0000">R</span></div>
+<div style="font-size:22px;font-weight:900;margin-top:6px">PRIYADHARSINI</div>
+<div style="margin-top:6px">❤️💚❤️💚</div>
+<p style="color:#aaa;font-size:13px;margin-top:10px">BPR App • For Priyadharsini - With Love ❤️</p>
+<button onclick="shareApp()" style="margin-top:14px;background:linear-gradient(90deg,#ff0000,#00c853);color:#fff;border:none;padding:11px 22px;border-radius:20px;font-weight:900;width:100%">🔗 Share App - Mathavanga Install Panna</button>
+<button onclick="addChannel()" style="margin-top:10px;background:#222;color:#fff;border:1px solid #444;padding:11px 22px;border-radius:20px;font-weight:900;width:100%">+ Add Channel</button>
+<p style="color:#666;font-size:12px;margin-top:14px">Version 1.0 • BPR App</p>
+</div>
+</div>
+
+<!-- BOTTOM NAV - APP MAATHIRI -->
+<div class="bottom-nav">
+<div class="nav-item active" onclick="showPage('home',this)"><span class="ico">🏠</span><span>Home</span></div>
+<div class="nav-item" onclick="showPage('live',this)"><span class="ico">📺</span><span>Live TV</span></div>
+<div class="center-btn" onclick="playCh(0)">▶</div>
+<div class="nav-item" onclick="showPage('mylist',this)"><span class="ico">❤️</span><span>My List</span></div>
+<div class="nav-item" onclick="showPage('profile',this)"><span class="ico">👤</span><span>Profile</span></div>
+</div>
+</div>
+
+<!-- PLAYER -->
+<div id="playerBox">
+<div class="p-top">
+<div><div style="display:flex;font-size:22px;font-weight:900"><span style="color:#ff0000">B</span><span style="color:#00e676">P</span><span style="color:#ff0000">R</span></div><div style="font-size:10px;font-weight:900">PRIYADHARSINI ❤️💚</div></div>
+<div style="display:flex;gap:8px"><button onclick="toggleFS()" style="background:#333;color:#fff;padding:8px 12px;border:none;border-radius:6px">⛶</button><button onclick="closePlayer()" style="background:#ff0000;color:#fff;padding:8px 14px;border:none;border-radius:6px">✕</button></div>
+</div>
+<div style="position:relative;flex:1;display:flex"><div class="wm"><div class="letters"><span>B</span><span>P</span><span>R</span></div><div>PRIYADHARSINI</div></div><iframe id="player" allow="autoplay; fullscreen; encrypted-media" allowfullscreen></iframe></div>
+<div style="padding:12px;display:flex;gap:8px"><b id="pTitle" style="flex:1">Movie</b><button onclick="shareLive()" style="background:#333;color:#fff;padding:8px 12px;border:none;border-radius:6px">🔗 Share</button><button onclick="addToList(curIdx)" style="background:linear-gradient(90deg,#ff0000,#00c853);color:#fff;padding:8px 12px;border:none;border-radius:6px">＋ List</button></div>
 </div>
 
 <script>
-var users=JSON.parse(localStorage.getItem("brp_users")||"null")||{"bpr":"1234","brp":"1234"};
-var channels=JSON.parse(localStorage.getItem("brp_chs")||"null")||[
-{no:101,name:"BPR Movies HD",yt:"aqz-KE-bpKQ",cat:"Movies"},
-{no:102,name:"BPR Sci-Fi TV",yt:"R6MlUcmOul8",cat:"Movies"},
-{no:103,name:"BPR Music 24x7",yt:"jfKfPfyJRdk",cat:"Music"},
-{no:104,name:"BPR World Live",yt:"21X5lGlDOfg",cat:"Live"}
+var channels=JSON.parse(localStorage.getItem("bpr_chs")||"null")||[
+{no:101,name:"BPR Movies HD",cat:"Movies",g:"linear-gradient(135deg,#ff0000,#ff6b00)",yt:"aqz-KE-bpKQ"},
+{no:102,name:"BPR Music 24x7",cat:"Music",g:"linear-gradient(135deg,#1b5e20,#00e676)",yt:"jfKfPfyJRdk"},
+{no:103,name:"BPR Live TV",cat:"Live",g:"linear-gradient(135deg,#0d47a1,#00e5ff)",yt:"21X5lGlDOfg"},
+{no:104,name:"BPR Sci-Fi",cat:"Movies",g:"linear-gradient(135deg,#111,#555)",yt:"R6MlUcmOul8"},
+{no:105,name:"BPR Horror",cat:"Horror",g:"linear-gradient(135deg,#000,#4a0000)",yt:"Sintel"},
+{no:106,name:"Priyadharsini Love ❤️",cat:"Music",g:"linear-gradient(135deg,#ff1744,#ff6b81)",yt:"jfKfPfyJRdk"}
 ];
-var idx=0;
-function showForm(id){["fLogin","fReg","fForgot"].forEach(f=>document.getElementById(f).style.display="none");document.getElementById(id).style.display="block";}
-document.getElementById("toForgot").onclick=()=>showForm("fForgot");
-document.getElementById("toReg").onclick=()=>showForm("fReg");
-document.getElementById("backLogin1").onclick=()=>showForm("fLogin");
-document.getElementById("backLogin2").onclick=()=>showForm("fLogin");
-function enterTV(u){document.getElementById("loginBox").style.display="none";document.getElementById("tvBox").style.display="block";document.getElementById("userLabel").innerText="👤 "+u.toUpperCase();renderCh();playCh(0);document.getElementById("demoLink").innerText=location.origin+location.pathname+"?ch=101";}
-document.getElementById("loginBtn").onclick=function(){var u=document.getElementById("uIn").value.trim().toLowerCase();var p=document.getElementById("pIn").value.trim();if(users[u]&&users[u]===p){localStorage.setItem("brp_login",u);enterTV(u);}else{document.getElementById("msg").innerText="Thappu! bpr / 1234 try pannu";}};
-function guestLogin(){localStorage.setItem("brp_login","guest");enterTV("guest");}
-document.getElementById("regBtn").onclick=function(){var u=document.getElementById("rUser").value.trim().toLowerCase();var p=document.getElementById("rPass").value.trim();if(!u||!p)return;users[u]=p;localStorage.setItem("brp_users",JSON.stringify(users));showForm("fLogin");document.getElementById("msg").style.color="#46d369";document.getElementById("msg").innerText="Account Ready! Login pannu";};
-document.getElementById("forgotBtn").onclick=function(){var u=document.getElementById("fUser").value.trim().toLowerCase();var pin=document.getElementById("fPin").value.trim();var np=document.getElementById("fNewPass").value.trim();if(!users[u])return;if(pin!=="9999")return;users[u]=np;localStorage.setItem("brp_users",JSON.stringify(users));showForm("fLogin");};
-document.getElementById("logoutBtn").onclick=function(){document.getElementById("player").src="";localStorage.removeItem("brp_login");document.getElementById("tvBox").style.display="none";document.getElementById("loginBox").style.display="flex";};
-function toggleFS(){var el=document.getElementById("screenBox");if(!document.fullscreenElement){if(el.requestFullscreen)el.requestFullscreen();document.getElementById("fsBtn").textContent="✕ EXIT FULL";}else{if(document.exitFullscreen)document.exitFullscreen();document.getElementById("fsBtn").textContent="⛶ FULL SCREEN";}}
-function getYtId(url){if(!url)return null;url=url.trim();if(url.includes("youtu.be/"))return url.split("youtu.be/")[1].split("?")[0].substring(0,11);if(url.includes("v="))return url.split("v=")[1].split("&")[0].substring(0,11);if(url.includes("/live/"))return url.split("/live/")[1].split("?")[0].substring(0,11);if(url.includes("/shorts/"))return url.split("/shorts/")[1].split("?")[0].substring(0,11);if(url.includes("/embed/"))return url.split("/embed/")[1].split("?")[0].substring(0,11);if(url.length===11)return url;return null;}
-function playCh(i){idx=i;var c=channels[i];document.getElementById("osdText").innerText="CH "+c.no+" - "+c.name;document.getElementById("player").src="https://www.youtube.com/embed/"+c.yt+"?autoplay=1&rel=0&fs=0";renderCh();}
-function renderCh(){
-var q=(document.getElementById("searchCh").value||"").toLowerCase();var list=document.getElementById("chList");list.innerHTML="";
-channels.forEach((c,i)=>{
-if(q&&!c.name.toLowerCase().includes(q))return;
-var d=document.createElement("div");d.className="ch-card"+(i===idx?" active":"");
-d.innerHTML="<span class='ch-no'>"+c.no+"</span><div><b>"+c.name+"</b><div style='font-size:12px;color:#aaa'>"+c.cat+" • Click to Watch</div></div><button onclick=\"event.stopPropagation();delCh("+i+")\" style='margin-left:auto;background:#333;color:#fff;border:none;padding:5px 8px;border-radius:4px;cursor:pointer'>✕</button>";
-d.onclick=()=>playCh(i);list.appendChild(d);
-});
+var myList=JSON.parse(localStorage.getItem("bprList")||"[]");
+var curIdx=0, curCat="All";
+setTimeout(()=>{document.getElementById("splash").style.display="none";document.getElementById("app").style.display="block";var ch=new URLSearchParams(location.search).get("ch"); if(ch){var f=channels.findIndex(c=>c.no==ch); if(f!==-1) playCh(f);} renderAll();},1800);
+function showPage(p,el){document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));document.getElementById("page-"+p).classList.add("active");document.querySelectorAll(".nav-item").forEach(x=>x.classList.remove("active"));if(el)el.classList.add("active");window.scrollTo({top:0,behavior:'smooth'});renderAll();}
+function filterCat(cat,el){curCat=cat;document.querySelectorAll(".pill").forEach(x=>x.classList.remove("active"));el.classList.add("active");renderAll();}
+function cardHTML(c,i){return "<div class='card' style='background:"+c.g+"' onclick='playCh("+i+")'><span class='live-tag'>● LIVE</span><span class='plus' onclick='event.stopPropagation();addToList("+i+")'>"+(myList.includes(i)?"✓":"＋")+"</span><b>"+c.name+"</b><span>CH "+c.no+" • "+c.cat+"</span></div>";}
+function renderAll(){
+var q=(document.getElementById("searchInput")?document.getElementById("searchInput").value:"")||"";q=q.toLowerCase();
+var filt=channels.filter((c,i)=>(curCat==="All"||c.cat===curCat)&&(!q||c.name.toLowerCase().includes(q)));
+document.getElementById("liveRow").innerHTML=channels.filter(c=>c.cat==="Live").map((c)=>cardHTML(c,channels.indexOf(c))).join("");
+document.getElementById("trendRow").innerHTML=filt.map((c)=>cardHTML(c,channels.indexOf(c))).join("");
+document.getElementById("movieRow").innerHTML=channels.filter(c=>c.cat==="Movies").map((c)=>cardHTML(c,channels.indexOf(c))).join("");
+document.getElementById("searchResult").innerHTML=filt.length?filt.map((c)=>cardHTML(c,channels.indexOf(c))).join(""):"<p style='color:#aaa'>Onnum illa</p>";
+document.getElementById("liveList").innerHTML=channels.map((c,i)=>"<div style='background:#16161d;padding:14px;border-radius:10px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;cursor:pointer' onclick='playCh("+i+")'><div><b>CH "+c.no+" - "+c.name+"</b><div style='color:#aaa;font-size:12px'>● LIVE • "+c.cat+"</div></div><button style='background:linear-gradient(90deg,#ff0000,#00c853);color:#fff;border:none;padding:8px 14px;border-radius:20px;font-weight:900'>▶ Play</button></div>").join("");
+document.getElementById("myCount").textContent=myList.length;
+var myHTML=myList.length?myList.map(i=>"<div style='background:#16161d;padding:12px;border-radius:10px;margin-bottom:8px;display:flex;justify-content:space-between'>❤️ "+channels[i].name+" <button onclick='addToList("+i+")' style='background:#ff0000;color:#fff;border:none;padding:5px 10px;border-radius:6px'>Remove</button></div>").join(""):"Innum illa";
+document.getElementById("myListHome").innerHTML=myHTML;document.getElementById("myListPage").innerHTML=myHTML;
 }
-function delCh(i){if(!confirm("Delete pannava? "+channels[i].name))return;channels.splice(i,1);localStorage.setItem("brp_chs",JSON.stringify(channels));if(idx>=channels.length)idx=0;renderCh();playCh(idx);}
-document.getElementById("prevBtn").onclick=()=>{idx=(idx-1+channels.length)%channels.length;playCh(idx);};
-document.getElementById("nextBtn").onclick=()=>{idx=(idx+1)%channels.length;playCh(idx);};
-document.getElementById("newsBtn").onclick=()=>{var t=prompt("Scroll Text la enna podanum?","BPR - PRIYADHARSINI ❤️");if(t)document.getElementById("tickerText").innerText="❤️ "+t+" 💚";};
-// ULLA EATHI ADD PANTRATHU - MAIN
-document.getElementById("addChBtn").onclick=()=>{
-var name=prompt("📺 Channel Name podu:\nEx: En Tamil Songs");if(!name)return;
-var link=prompt("🔗 YouTube Link podu:\nEx: https://youtu.be/aqz-KE-bpKQ\nilla Video ID mattum podu: aqz-KE-bpKQ");if(!link)return;
-var id=getYtId(link);if(!id){alert("❌ Link thappu! YouTube link correct ah podu");return;}
-var no=channels.length?Math.max(...channels.map(c=>c.no))+1:101;
-channels.push({no:no,name:name,yt:id,cat:"User"});localStorage.setItem("brp_chs",JSON.stringify(channels));renderCh();playCh(channels.length-1);alert("✅ Channel Added!\nCH "+no+" - "+name);
-};
-function copyShare(){var link=location.origin+location.pathname+"?ch="+channels[idx].no;navigator.clipboard.writeText(link).then(()=>alert("🔗 Share Link Copied!\n"+link+"\n\nIdha WhatsApp la friend ku anuppu - Avanga click panna andha channel ye open aagum!"));}
-var saved=localStorage.getItem("brp_login");
-if(saved){enterTV(saved);var chParam=new URLSearchParams(location.search).get("ch");if(chParam){var fi=channels.findIndex(c=>c.no==chParam);if(fi!==-1)playCh(fi);}}
-else{renderCh();}
+function playCh(i){curIdx=i;var c=channels[i];document.getElementById("pTitle").textContent="CH "+c.no+" - "+c.name+" • LIVE";document.getElementById("player").src="https://www.youtube.com/embed/"+c.yt+"?autoplay=1&rel=0&fs=0";document.getElementById("playerBox").style.display="flex";history.replaceState(null,"","?ch="+c.no);localStorage.setItem("bpr_live_ch",c.no);}
+function closePlayer(){document.getElementById("playerBox").style.display="none";document.getElementById("player").src="";}
+function toggleFS(){var el=document.getElementById("playerBox");if(!document.fullscreenElement)el.requestFullscreen&&el.requestFullscreen();else document.exitFullscreen&&document.exitFullscreen();}
+function addToList(i){if(myList.includes(i))myList=myList.filter(x=>x!==i);else{myList.push(i);}localStorage.setItem("bprList",JSON.stringify(myList));renderAll();}
+function getId(url){url=url.trim();if(url.includes("youtu.be/"))return url.split("youtu.be/")[1].split("?")[0].substring(0,11);if(url.includes("v="))return url.split("v=")[1].split("&")[0].substring(0,11);if(url.includes("/live/"))return url.split("/live/")[1].split("?")[0].substring(0,11);if(url.length===11)return url;return null;}
+function addChannel(){var name=prompt("Channel Name?");if(!name)return;var link=prompt("YouTube Link?");if(!link)return;var id=getId(link);if(!id){alert("Link thappu");return;}var no=channels.length?Math.max(...channels.map(c=>c.no))+1:101;channels.push({no:no,name:name,cat:"Live",g:"linear-gradient(135deg,#333,#666)",yt:id});localStorage.setItem("bpr_chs",JSON.stringify(channels));renderAll();alert("Channel Added! CH "+no);}
+function shareApp(){var link=location.origin+location.pathname+"?ch="+channels[curIdx].no;navigator.clipboard.writeText(link).then(()=>alert("🔗 App Link Copied!\n"+link+"\n\nIdha Anuppu - Avanga Install Panni Paappanga!"));}
+function shareLive(){shareApp();}
+setInterval(()=>{var live=localStorage.getItem("bpr_live_ch");if(live){var f=channels.findIndex(c=>c.no==live);if(f!==-1&&f!==curIdx&&document.getElementById("playerBox").style.display==="flex"){playCh(f);}}},3000);
 </script>
 </body>
 </html>
