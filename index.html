@@ -3,32 +3,48 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BRP TV - Logo Fix</title>
+<title>BRP TV - PRIYADHARSINI</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:Arial}
 body{background:#0b0b0e;color:#fff}
-#loginBox{min-height:100vh;display:flex;justify-content:center;align-items:center;padding:20px;background:radial-gradient(circle,#240b0e 0%,#0b0b0e 100%)}
-.card{background:#16161d;padding:28px;border-radius:10px;width:100%;max-width:360px;border-top:4px solid #e50914}
-.logo{text-align:center;font-size:26px;font-weight:900;color:#e50914;margin-bottom:18px}
+#loginBox{min-height:100vh;display:flex;justify-content:center;align-items:center;padding:20px;background:radial-gradient(circle,#3a0a0e 0%,#0b0b0e 100%)}
+.card{background:#16161d;padding:28px;border-radius:15px;width:100%;max-width:380px;border-top:4px solid #e50914;text-align:center;box-shadow:0 0 40px rgba(229,9,20,.4)}
 input{width:100%;padding:12px;margin-bottom:12px;background:#0f0f14;border:1px solid #333;color:#fff;border-radius:5px}
 .btn{width:100%;padding:12px;background:#e50914;color:#fff;border:none;border-radius:5px;font-weight:bold;cursor:pointer}
 .links{display:flex;justify-content:space-between;margin-top:15px;font-size:13px}.links span{color:#ffb703;cursor:pointer}
 #msg{text-align:center;font-size:13px;color:#ff6b6b;font-weight:bold;margin-bottom:10px}
 #tvBox{display:none;padding-bottom:30px}
-header{background:#16161d;padding:12px 4%;display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #e50914;position:sticky;top:0;z-index:10}
-.hdr-title{font-size:20px;font-weight:900;color:#e50914}
+header{background:#16161d;padding:10px 4%;display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #e50914;position:sticky;top:0;z-index:10}
 .logout{background:#333;color:#fff;border:none;padding:6px 12px;border-radius:4px;cursor:pointer}
 .main{max-width:900px;margin:15px auto;padding:0 12px}
-/* SCREEN - LOGO FIX */
 .screen{position:relative;width:100%;aspect-ratio:16/9;background:#000;border:2px solid #222;border-radius:8px;overflow:hidden}
 .screen:fullscreen{border:none;border-radius:0;width:100%;height:100%;aspect-ratio:auto}
-.screen:fullscreen iframe{height:100%}
 iframe{width:100%;height:100%;border:none}
-/* LOGO - FULLSCREEN LA KOODA THERIYUM */
-.watermark{position:absolute;top:12px;right:12px;background:#e50914;color:#fff;padding:6px 12px;font-size:15px;font-weight:900;border-radius:5px;z-index:999;pointer-events:none;box-shadow:0 0 10px rgba(0,0,0,.8);letter-spacing:1px}
-.watermark small{display:block;font-size:8px;letter-spacing:2px;text-align:center}
+
+/* 🔥 MASS LOGO - LOGIN */
+.mass-logo{font-size:52px;font-weight:900;letter-spacing:2px;line-height:1;
+background:linear-gradient(180deg,#fff 0%,#ff1744 30%,#e50914 50%,#ffb703 80%,#ff6b00 100%);
+-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+filter:drop-shadow(0 0 15px rgba(229,9,20,.9)) drop-shadow(0 4px 0 #000);
+animation:massPulse 1.5s infinite}
+@keyframes massPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
+.mass-sub{font-size:14px;letter-spacing:6px;color:#ffb703;font-weight:900;margin-top:4px;text-shadow:0 0 10px #ffb703}
+.priya-name{margin:12px 0 16px;background:linear-gradient(90deg,#e50914,#ff6b00,#ffb703,#e50914);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:20px;font-weight:900;letter-spacing:2px;animation:shine 2s linear infinite}
+@keyframes shine{to{background-position:200% center}}
+
+/* 🔥 MASS WATERMARK - VIDEO MELA */
+.watermark{position:absolute;top:12px;right:12px;z-index:999;pointer-events:none;text-align:center;
+background:linear-gradient(135deg,rgba(0,0,0,.85),rgba(229,9,20,.9));padding:8px 14px 6px;border:2px solid #ffb703;border-radius:10px;box-shadow:0 0 20px rgba(229,9,20,.9)}
+.watermark .big{font-size:28px;font-weight:900;letter-spacing:1px;line-height:1;
+background:linear-gradient(180deg,#fff,#ffb703,#ff1744);-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+filter:drop-shadow(0 0 8px #ff0000);animation:massPulse 1.2s infinite}
+.watermark .priya{font-size:11px;font-weight:900;letter-spacing:2px;color:#fff;margin-top:2px;text-shadow:0 0 8px #ffb703;background:#000;padding:2px 6px;border-radius:4px}
+.watermark .booyah{font-size:8px;letter-spacing:3px;color:#ffb703;margin-top:2px}
+
 .osd{position:absolute;top:12px;left:12px;background:rgba(0,0,0,.8);padding:6px 10px;border-left:3px solid #ffb703;font-size:13px;z-index:999;pointer-events:none}
-.bottom-logo{position:absolute;bottom:12px;left:12px;background:rgba(0,0,0,.7);color:#ffb703;padding:4px 8px;font-size:11px;font-weight:bold;border-radius:4px;z-index:999;pointer-events:none}
+.bottom-mass{position:absolute;bottom:12px;left:12px;z-index:999;pointer-events:none;text-align:left;background:rgba(0,0,0,.7);padding:6px 10px;border-radius:8px;border-left:3px solid #e50914}
+.bottom-mass b{font-size:14px;color:#ffb703;letter-spacing:1px}
+.bottom-mass span{display:block;font-size:11px;color:#fff;font-weight:700}
 .full-btn{position:absolute;bottom:12px;right:12px;background:#e50914;color:#fff;border:none;padding:8px 14px;border-radius:5px;font-weight:bold;cursor:pointer;z-index:1000}
 .ticker{background:#e50914;padding:7px 10px;font-size:13px;font-weight:bold;margin-top:6px;border-radius:4px}
 .controls{display:flex;gap:8px;margin:12px 0;flex-wrap:wrap}
@@ -38,13 +54,20 @@ iframe{width:100%;height:100%;border:none}
 .ch-card{background:#16161d;padding:12px;border-radius:6px;cursor:pointer;border-left:4px solid #333;display:flex;align-items:center;gap:10px}
 .ch-card.active{border-left-color:#ffb703;background:#22222c}
 .ch-no{background:#e50914;padding:4px 8px;border-radius:4px;font-weight:bold;font-size:13px}
+/* HEADER MASS LOGO */
+.hdr-logo{line-height:1}
+.hdr-logo b{font-size:26px;font-weight:900;background:linear-gradient(180deg,#fff,#ffb703,#e50914);-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 8px #e50914)}
+.hdr-logo span{display:block;font-size:9px;letter-spacing:3px;color:#ffb703;font-weight:900;margin-top:1px}
 </style>
 </head>
 <body>
 
 <div id="loginBox">
 <div class="card">
-<div class="logo">BRP TV</div>
+<!-- MASS LOGO -->
+<div class="mass-logo">BRP TV</div>
+<div class="mass-sub">★ BOOYAH KING ★</div>
+<div class="priya-name">❤️ PRIYADHARSINI ❤️</div>
 <div id="msg"></div>
 <div id="fLogin">
 <input id="uIn" placeholder="Username (brp)">
@@ -67,30 +90,47 @@ iframe{width:100%;height:100%;border:none}
 </div>
 
 <div id="tvBox">
-<header><div class="hdr-title">BRP TV CABLE 📺</div><div><span id="userLabel" style="font-size:13px;color:#46d369;margin-right:10px"></span><button class="logout" id="logoutBtn">Logout</button></div></header>
-<div class="main">
+<header>
+<div class="hdr-logo"><b>BRP TV</b><span>PRIYADHARSINI • BOOYAH KING</span></div>
+<div><span id="userLabel" style="font-size:13px;color:#46d369;margin-right:10px"></span><button class="logout" id="logoutBtn">Logout</button></div>
+</header>
 
-<!-- SCREEN WITH LOGO -->
+<div class="main">
 <div class="screen" id="screenBox">
-<div class="watermark">BRP TV<small>BOOYAH KING</small></div>
+<!-- MASS LOGO VIDEO MELA -->
+<div class="watermark">
+<div class="big">BRP TV</div>
+<div class="priya">PRIYADHARSINI</div>
+<div class="booyah">★ BOOYAH KING ★</div>
+</div>
 <div class="osd" id="osdText">CH 101 - BRP Movies</div>
-<div class="bottom-logo">© BRP TV • BPR FLIX</div>
+<!-- KEEZHA PRIYADHARSINI -->
+<div class="bottom-mass"><b>BRP TV</b><span>PRIYADHARSINI ❤️</span></div>
 <iframe id="player" allow="autoplay; fullscreen; encrypted-media" allowfullscreen></iframe>
-<!-- NAMMA FULLSCREEN BUTTON - IDHA MATTUM USE PANNU -->
 <button class="full-btn" id="fsBtn" onclick="toggleFS()">⛶ FULL SCREEN</button>
 </div>
 
-<div class="ticker"><marquee id="tickerText">★ BRP TV ku Nalvaravu! ★ Full Screen la kooda BRP TV Logo theriyum! ★</marquee></div>
+<div class="ticker"><marquee>★ BRP TV - PRIYADHARSINI ku Nalvaravu! ★ BOOYAH KING 🔥 ★</marquee></div>
 <div class="controls">
 <button class="c-btn" id="prevBtn">◄ CH -</button>
 <button class="c-btn" id="nextBtn">CH + ►</button>
-<button class="c-btn gold" onclick="toggleFS()">⛶ Full Screen + Logo</button>
+<button class="c-btn gold" onclick="toggleFS()">⛶ Full Screen + Mass Logo</button>
 <button class="c-btn" id="newsBtn">✎ Scroll Text</button>
 <button class="c-btn gold" id="addChBtn">+ Add YouTube Channel</button>
 </div>
 <input id="searchCh" onkeyup="renderCh()" placeholder="🔍 Search Channel..." style="width:100%;padding:11px;background:#16161d;border:1px solid #333;color:#fff;border-radius:20px;outline:none">
 <h3 style="margin-top:14px">📺 Channels List</h3>
 <div class="ch-grid" id="chList"></div>
+
+<!-- KEEZHA PERIYA MASS BANNER -->
+<div style="margin-top:20px;background:linear-gradient(90deg,#e50914,#ff6b00,#ffb703);padding:3px;border-radius:15px">
+<div style="background:#111;padding:20px;border-radius:12px;text-align:center">
+<div style="font-size:36px;font-weight:900;background:linear-gradient(180deg,#fff,#ffb703,#e50914);-webkit-background-clip:text;-webkit-text-fill-color:transparent">BRP TV</div>
+<div style="font-size:18px;font-weight:900;color:#fff;letter-spacing:2px;margin-top:4px">PRIYADHARSINI ❤️</div>
+<p style="color:#aaa;font-size:13px;margin-top:6px">For Priyadharsini - With Love From BOOYAH KING 👑</p>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -111,32 +151,16 @@ document.getElementById("backLogin2").onclick=()=>showForm("fLogin");
 function enterTV(u){document.getElementById("loginBox").style.display="none";document.getElementById("tvBox").style.display="block";document.getElementById("userLabel").innerText="👤 "+u.toUpperCase();renderCh();playCh(0);}
 document.getElementById("loginBtn").onclick=function(){var u=document.getElementById("uIn").value.trim().toLowerCase();var p=document.getElementById("pIn").value.trim();if(users[u]&&users[u]===p){localStorage.setItem("brp_login",u);enterTV(u);}else{document.getElementById("msg").innerText="Thappu! bpr / 1234 try pannu";}};
 function guestLogin(){localStorage.setItem("brp_login","guest");enterTV("guest");}
-document.getElementById("regBtn").onclick=function(){var u=document.getElementById("rUser").value.trim().toLowerCase();var p=document.getElementById("rPass").value.trim();if(!u||!p)return;users[u]=p;localStorage.setItem("brp_users",JSON.stringify(users));showForm("fLogin");document.getElementById("msg").innerText="Account Ready!";};
+document.getElementById("regBtn").onclick=function(){var u=document.getElementById("rUser").value.trim().toLowerCase();var p=document.getElementById("rPass").value.trim();if(!u||!p)return;users[u]=p;localStorage.setItem("brp_users",JSON.stringify(users));showForm("fLogin");};
 document.getElementById("forgotBtn").onclick=function(){var u=document.getElementById("fUser").value.trim().toLowerCase();var pin=document.getElementById("fPin").value.trim();var np=document.getElementById("fNewPass").value.trim();if(!users[u])return;if(pin!=="9999")return;users[u]=np;localStorage.setItem("brp_users",JSON.stringify(users));showForm("fLogin");};
 document.getElementById("logoutBtn").onclick=function(){document.getElementById("player").src="";localStorage.removeItem("brp_login");document.getElementById("tvBox").style.display="none";document.getElementById("loginBox").style.display="flex";};
-
-// FULLSCREEN FIX - SCREEN AH FULLSCREEN PANNUVOM, IFRAME AH ILLA!
-function toggleFS(){
-var el=document.getElementById("screenBox");
-if(!document.fullscreenElement){
-if(el.requestFullscreen) el.requestFullscreen();
-else if(el.webkitRequestFullscreen) el.webkitRequestFullscreen();
-document.getElementById("fsBtn").textContent="✕ EXIT FULL";
-}else{
-if(document.exitFullscreen) document.exitFullscreen();
-document.getElementById("fsBtn").textContent="⛶ FULL SCREEN";
-}
-}
-document.addEventListener("fullscreenchange",()=>{
-if(!document.fullscreenElement) document.getElementById("fsBtn").textContent="⛶ FULL SCREEN";
-});
-
+function toggleFS(){var el=document.getElementById("screenBox");if(!document.fullscreenElement){if(el.requestFullscreen)el.requestFullscreen();document.getElementById("fsBtn").textContent="✕ EXIT FULL";}else{if(document.exitFullscreen)document.exitFullscreen();document.getElementById("fsBtn").textContent="⛶ FULL SCREEN";}}
 function getYtId(url){if(!url)return null;url=url.trim();if(url.includes("youtu.be/"))return url.split("youtu.be/")[1].split("?")[0].substring(0,11);if(url.includes("v="))return url.split("v=")[1].split("&")[0].substring(0,11);if(url.includes("/live/"))return url.split("/live/")[1].split("?")[0].substring(0,11);if(url.includes("/shorts/"))return url.split("/shorts/")[1].split("?")[0].substring(0,11);if(url.length===11)return url;return null;}
 function playCh(i){idx=i;var c=channels[i];document.getElementById("osdText").innerText="CH "+c.no+" - "+c.name;document.getElementById("player").src="https://www.youtube.com/embed/"+c.yt+"?autoplay=1&rel=0&fs=0";renderCh();}
 function renderCh(){var q=(document.getElementById("searchCh").value||"").toLowerCase();var list=document.getElementById("chList");list.innerHTML="";channels.forEach((c,i)=>{if(q&&!c.name.toLowerCase().includes(q))return;var d=document.createElement("div");d.className="ch-card"+(i===idx?" active":"");d.innerHTML="<span class='ch-no'>"+c.no+"</span><div><b>"+c.name+"</b><div style='font-size:12px;color:#aaa'>"+c.cat+"</div></div>";d.onclick=()=>playCh(i);list.appendChild(d);});}
 document.getElementById("prevBtn").onclick=()=>{idx=(idx-1+channels.length)%channels.length;playCh(idx);};
 document.getElementById("nextBtn").onclick=()=>{idx=(idx+1)%channels.length;playCh(idx);};
-document.getElementById("newsBtn").onclick=()=>{var t=prompt("Scroll Text?","BRP TV - BOOYAH KING");if(t)document.getElementById("tickerText").innerText="★ "+t+" ★";};
+document.getElementById("newsBtn").onclick=()=>{var t=prompt("Scroll Text?","BRP TV - PRIYADHARSINI");if(t)document.querySelector("marquee").innerText="★ "+t+" ★";};
 document.getElementById("addChBtn").onclick=()=>{var name=prompt("Channel Name?");if(!name)return;var link=prompt("YouTube Link?");if(!link)return;var id=getYtId(link);if(!id){alert("Link thappu!");return;}var no=channels.length?Math.max(...channels.map(c=>c.no))+1:101;channels.push({no:no,name:name,yt:id,cat:"User"});localStorage.setItem("brp_chs",JSON.stringify(channels));renderCh();playCh(channels.length-1);};
 var saved=localStorage.getItem("brp_login");if(saved)enterTV(saved);
 </script>
