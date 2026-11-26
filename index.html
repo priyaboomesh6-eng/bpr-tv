@@ -1,102 +1,372 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>BPR FAMILY - PRIVATE</title>
-<style>
-body{font-family:Arial; background:#FFF0F5; margin:0; padding:15px; text-align:center;}
-.card{background:white; border-radius:20px; padding:20px; box-shadow:0 4px 15px #ffb6c1;}
-.logo{width:140px; height:140px; background:#FF69B4; border-radius:50%; color:white; font-size:60px; display:flex; align-items:center; justify-content:center; margin:auto; border:4px solid gold;}
-h1{color:#C2185B; margin:5px;}
-button{width:100%; padding:16px; margin:8px 0; border:none; border-radius:15px; font-size:18px; font-weight:bold; cursor:pointer;}
-.green{background:#25D366; color:white;}
-.pink{background:#FF69B4; color:white;}
-.gold{background:gold; color:black;}
-.blue{background:#2196F3; color:white;}
-.grey{background:#eee;}
-input{width:90%; padding:15px; border-radius:12px; border:2px solid #FF69B4; font-size:18px; text-align:center;}
-.hidden{display:none;}
-.member{background:#FFF0F5; padding:12px; border-radius:12px; margin:8px 0; display:flex; justify-content:space-between; align-items:center;}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NAMMA KUDUMBAM TV - 4K Private Network</title>
+  <style>
+    @import url('https://googleapis.com');
+
+    :root {
+      --bg: #050508;
+      --gold: #ff9900;
+      --saffron: #ff4500;
+      --crimson: #e50914;
+      --cyan: #00f0ff;
+      --glass: rgba(15, 20, 35, 0.75);
+    }
+
+    * { box-sizing: border-box; user-select: none; }
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: #fff;
+      font-family: 'Montserrat', 'Noto Sans Tamil', sans-serif;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* TV REMOTE FOCUS RING */
+    button:focus, input:focus, .ch-btn:focus {
+      outline: 3px solid var(--gold);
+      box-shadow: 0 0 25px rgba(255, 153, 0, 0.8);
+      transform: scale(1.05);
+    }
+
+    /* ================= 1. PIN LOCK SCREEN ================= */
+    #pin-screen {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at center, #1a1025 0%, #050508 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+    .pin-card {
+      background: var(--glass);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 153, 0, 0.3);
+      padding: 50px;
+      border-radius: 24px;
+      text-align: center;
+      width: 90%;
+      max-width: 460px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.9);
+    }
+    .brand-logo {
+      font-size: 32px;
+      font-weight: 900;
+      background: linear-gradient(90deg, #ffcc00, #ff4500);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+    .pin-input {
+      width: 100%;
+      padding: 16px;
+      font-size: 28px;
+      text-align: center;
+      letter-spacing: 12px;
+      border-radius: 12px;
+      border: 2px solid #333;
+      background: #0a0a10;
+      color: var(--gold);
+      margin: 20px 0;
+    }
+    .enter-btn {
+      width: 100%;
+      padding: 16px;
+      font-size: 18px;
+      font-weight: 800;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(90deg, var(--gold), var(--saffron));
+      color: #000;
+      cursor: pointer;
+      letter-spacing: 1px;
+    }
+
+    /* ================= 2. FULLSCREEN VIDEO CANVAS ================= */
+    #tv-app {
+      display: none;
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+    }
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: contrast(1.08) saturate(1.15);
+    }
+    /* Cinematic Vignette */
+    .vignette {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle, transparent 55%, rgba(0,0,0,0.85) 100%);
+      pointer-events: none;
+    }
+
+    /* ================= 3. TOP CHANNEL SWITCHER HUD ================= */
+    .top-hud {
+      position: absolute;
+      top: 25px;
+      left: 40px;
+      right: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 20;
+    }
+    .channel-switcher {
+      display: flex;
+      gap: 12px;
+      background: var(--glass);
+      backdrop-filter: blur(15px);
+      padding: 8px;
+      border-radius: 50px;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+    .ch-btn {
+      background: transparent;
+      border: none;
+      color: #ccc;
+      padding: 10px 22px;
+      border-radius: 40px;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .ch-btn.active {
+      background: linear-gradient(90deg, var(--gold), var(--saffron));
+      color: #000;
+      box-shadow: 0 0 20px rgba(255, 102, 0, 0.6);
+    }
+
+    /* TOP RIGHT BROADCAST CHANNEL BUG (Watermark) */
+    .channel-bug {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(0,0,0,0.65);
+      backdrop-filter: blur(10px);
+      padding: 10px 20px;
+      border-radius: 12px;
+      border-right: 4px solid var(--gold);
+    }
+    .bug-title {
+      font-weight: 900;
+      font-size: 20px;
+      letter-spacing: 1px;
+    }
+    .bug-badge {
+      background: var(--crimson);
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 900;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+    /* ================= MODE 1: SUN NXT CINEMA OVERLAY ================= */
+    #overlay-nxt {
+      position: absolute;
+      bottom: 50px;
+      left: 50px;
+      max-width: 650px;
+      z-index: 15;
+      background: linear-gradient(90deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 80%, transparent 100%);
+      padding: 30px;
+      border-left: 5px solid var(--gold);
+      border-radius: 8px;
+    }
+    .nxt-tag {
+      color: var(--gold);
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing: 3px;
+      margin-bottom: 8px;
+    }
+    .nxt-title {
+      font-size: 42px;
+      font-weight: 900;
+      margin: 0 0 10px 0;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.9);
+    }
+    .nxt-meta {
+      display: flex;
+      gap: 12px;
+      font-size: 14px;
+      color: #ddd;
+      margin-bottom: 12px;
+    }
+    .badge-4k {
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+
+    /* ================= MODE 2: SUN MUSIC OVERLAY ================= */
+    #overlay-music {
+      display: none;
+      position: absolute;
+      bottom: 45px;
+      left: 45px;
+      z-index: 15;
+      background: rgba(10, 15, 30, 0.82);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(0, 240, 255, 0.4);
+      border-left: 6px solid var(--cyan);
+      padding: 22px 32px;
+      border-radius: 16px;
+      box-shadow: 0 15px 40px rgba(0, 240, 255, 0.2);
+      min-width: 460px;
+    }
+    .eq-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 4px;
+      height: 22px;
+      margin-bottom: 8px;
+    }
+    .eq-bar {
+      width: 5px;
+      background: var(--cyan);
+      animation: bounce 0.6s infinite alternate;
+    }
+    .eq-bar:nth-child(2) { animation-delay: 0.2s; background: var(--gold); }
+    .eq-bar:nth-child(3) { animation-delay: 0.4s; }
+    .eq-bar:nth-child(4) { animation-delay: 0.1s; background: var(--saffron); }
+    @keyframes bounce { from { height: 5px; } to { height: 22px; } }
+
+    .song-name { font-size: 26px; font-weight: 900; color: #fff; margin: 4px 0; }
+    .dedication { font-size: 15px; color: var(--cyan); font-weight: 600; }
+
+    /* ================= MODE 3: TAMIL NEWS OVERLAY ================= */
+    #overlay-news {
+      display: none;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 15;
+    }
+    .breaking-box {
+      display: flex;
+      align-items: stretch;
+      margin: 0 40px 12px 40px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    }
+    .breaking-label {
+      background: linear-gradient(180deg, #ff1e1e, #990000);
+      color: #fff;
+      font-weight: 900;
+      font-size: 22px;
+      padding: 14px 28px;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      border-right: 4px solid #ffcc00;
+    }
+    .breaking-headline {
+      background: linear-gradient(90deg, #ffcc00, #ff9900);
+      color: #000;
+      font-weight: 900;
+      font-size: 26px;
+      padding: 14px 30px;
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+    .news-ticker {
+      background: #0a0f1d;
+      border-top: 3px solid var(--crimson);
+      display: flex;
+      align-items: center;
+      height: 46px;
+      overflow: hidden;
+    }
+    .ticker-tag {
+      background: var(--crimson);
+      color: #fff;
+      font-weight: 800;
+      padding: 0 20px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      z-index: 2;
+      white-space: nowrap;
+    }
+    .ticker-scroll {
+      white-space: nowrap;
+      padding-left: 100%;
+      font-size: 19px;
+      font-weight: 700;
+      color: #fff;
+      animation: ticker 22s linear infinite;
+    }
+    @keyframes ticker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+
+    /* ================= DIRECTOR ADMIN MODAL ================= */
+    #admin-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+    }
+    .admin-box {
+      background: #111827;
+      border: 1px solid var(--gold);
+      padding: 30px;
+      border-radius: 16px;
+      width: 90%;
+      max-width: 500px;
+    }
+    .admin-box input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0 16px;
+      background: #1f2937;
+      border: 1px solid #4b5563;
+      color: white;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+  </style>
 </head>
 <body>
 
-<!-- PIN LOCK SCREEN -->
-<div id="lockScreen" class="card">
-  <div class="logo">P</div>
-  <h1>PRIYADHARSINI FAMILY</h1>
-  <p>BPR FAMILY - PRIVATE APP 🔒</p>
-  <p>Family Mattum - PIN Podu</p>
-  <input type="password" id="pinInput" placeholder="PIN - 1234" maxlength="4">
-  <button class="pink" onclick="unlock()">🔓 OPEN APP</button>
-  <p style="font-size:12px;">PIN theriyadha - Open panna mudiyadhu!</p>
-</div>
+  <!-- 1. PRIVATE FAMILY PIN SCREEN -->
+  <div id="pin-screen">
+    <div class="pin-card">
+      <div class="brand-logo">☀️ KUDUMBAM TV</div>
+      <p style="color:#aaa; margin:0;">PRIVATE FAMILY 4K NETWORK</p>
+      <input type="password" id="pin-code" class="pin-input" maxlength="4" placeholder="••••" autofocus>
+      <button class="enter-btn" onclick="checkPin()">ENTER CHANNEL</button>
+      <p id="err" style="color:#ff4444; margin-top:12px; font-weight:bold;"></p>
+    </div>
+  </div>
 
-<!-- MAIN APP -->
-<div id="mainApp" class="card hidden">
-  <div class="logo">P</div>
-  <h1>PRIYADHARSINI FAMILY ❤️</h1>
-  <p>BPR FAMILY - Private & Safe</p>
-  <p>🟢 Online - Family</p>
+  <!-- 2. MAIN CINEMATIC TV SCREEN -->
+  <div id="tv-app">
+    <video id="tv-player" autoplay loop controls>
+      <source src="https://googleapis.com" type="video/mp4">
+    </video>
+    <div class="vignette"></div>
 
-  <!-- FAMILY MEMBERS -->
-  <div class="member"><span>👨‍👩‍👧 Amma - Family</span><button style="width:auto; padding:8px;" class="green" onclick="callSIM('Amma')">📱</button></div>
-  <div class="member"><span>👨 Appa - Family</span><button style="width:auto; padding:8px;" class="green" onclick="callSIM('Appa')">📱</button></div>
-  <div class="member"><span>❤️ Priyadharsini K - Family</span><button style="width:auto; padding:8px;" class="green" onclick="callSIM('Priyadharsini K')">📱</button></div>
-
-  <!-- RENDUM CALL -->
-  <h3>📞 CALL - RENDUM</h3>
-  <button class="green" onclick="callSIM('Family')">📱 PHONE CALL - SIM Call<br><small>Number ku - Recharge la pogum</small></button>
-  <button class="pink" onclick="appCall()">💬 APP CALL - Internet Call<br><small>WiFi / Hotspot la pogum</small></button>
-  <button class="gold" onclick="videoCall()">📹 VIDEO CALL - Live Video<br><small>Family Live</small></button>
-
-  <!-- GOOGLE + SOCIAL -->
-  <h3>🔍 GOOGLE + SOCIAL - PRIVATE LA</h3>
-  <button class="blue" onclick="window.open('https://www.google.com')">🔍 GOOGLE</button>
-  <button class="blue" onclick="window.open('https://www.youtube.com')">📺 YOUTUBE - TV la Podu</button>
-  <button class="blue" onclick="window.open('https://www.facebook.com')">📘 FACEBOOK</button>
-  <button class="blue" onclick="window.open('https://www.instagram.com')">📸 INSTAGRAM</button>
-  <button class="green" onclick="window.open('https://wa.me/919876543210')">💬 WHATSAPP</button>
-
-  <!-- TV CAST -->
-  <h3>📺 TV</h3>
-  <button class="gold" onclick="alert('📺 TV Cast: YouTube la Cast Button ah click pannu - TV la odum!')">📺 CAST TO TV</button>
-
-  <!-- SECURITY -->
-  <h3>🔒 SECURITY</h3>
-  <button class="grey" onclick="lockApp()">🔒 APP AH LOCK PANNU</button>
-  <p style="font-size:12px;">Private App - Yaarukkum Share Pannaadha!<br>Hotspot Password: BPR1234</p>
-</div>
-
-<script>
-let myPIN = "1234"; // Nee indha PIN ah maathikko da K!
-
-function unlock(){
-  let pin = document.getElementById('pinInput').value;
-  if(pin === myPIN){
-    document.getElementById('lockScreen').classList.add('hidden');
-    document.getElementById('mainApp').classList.remove('hidden');
-    alert("Welcome BPR Family ❤️");
-  } else {
-    alert("❌ Thappu PIN! Family mattum thaan!");
-    document.getElementById('pinInput').value="";
-  }
-}
-function lockApp(){
-  document.getElementById('mainApp').classList.add('hidden');
-  document.getElementById('lockScreen').classList.remove('hidden');
-  document.getElementById('pinInput').value="";
-}
-function callSIM(name){
-  // Indha number ah un family number ah maathu da K!
-  window.location.href = 'tel:+919876543210';
-}
-function appCall(){
-  alert("💬 App Call Pogudhu... Family Online la irundha - Call pogum! Net venum!");
-}
-function videoCall(){
-  alert("📹 Live Video Start... Family ku Link pogum!");
-}
-</script>
-</body>
-</html>
+    <!-- TOP CHANNEL CONTROLS -->
+    <div class="top-hud">
+      <div class="channel-switcher">
