@@ -1,116 +1,388 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PRIYADHARSINI PRB TV - 4K</title>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap');
-:root{--bg:#050508;--gold:#ffcc00;--saffron:#ff5500;--crimson:#e50914;--cyan:#00f0ff;--glass:rgba(12,16,28,0.8);}
-*{box-sizing:border-box;} body{margin:0;background:var(--bg);color:#fff;font-family:'Montserrat',sans-serif;height:100vh;overflow:hidden;}
-button:focus,input:focus{outline:3px solid var(--gold);}
-.flying-heart-icon{display:inline-block;animation:floatWing 2.5s ease-in-out infinite;filter:drop-shadow(0 0 12px rgba(255,50,80,.9));}
-@keyframes floatWing{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px) scale(1.1)}}
-.bg-heart{position:absolute;bottom:-30px;color:rgba(255,45,85,.45);font-size:20px;pointer-events:none;z-index:12;animation:riseHeart 7s linear infinite;}
-@keyframes riseHeart{0%{transform:translateY(0);opacity:0}20%{opacity:.7}100%{transform:translateY(-105vh) rotate(25deg);opacity:0}}
-#pin-screen{position:fixed;inset:0;background:radial-gradient(circle at center,#240b18 0%,#050508 100%);display:flex;align-items:center;justify-content:center;z-index:999;overflow:hidden;}
-.pin-card{background:var(--glass);padding:35px;border-radius:24px;text-align:center;width:92%;max-width:480px;border:1px solid rgba(255,204,0,.35);z-index:10;}
-.brand-title{font-size:27px;font-weight:900;background:linear-gradient(90deg,#ffe066,#ff9900);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-.prb-badge{display:inline-block;background:linear-gradient(180deg,#ff1e1e,#990000);color:#fff;font-weight:900;padding:3px 12px;border-radius:6px;border:1px solid var(--gold);}
-.pin-input{width:100%;padding:15px;font-size:28px;text-align:center;letter-spacing:12px;border-radius:12px;border:2px solid #333;background:#0a0a10;color:var(--gold);margin:20px 0;}
-.enter-btn{width:100%;padding:16px;font-size:18px;font-weight:900;border:none;border-radius:12px;background:linear-gradient(90deg,var(--gold),var(--saffron));cursor:pointer;}
-#tv-app{display:none;position:relative;width:100vw;height:100vh;}
-video{width:100%;height:100%;object-fit:cover;}
-.vignette{position:absolute;inset:0;background:radial-gradient(circle,transparent 58%,rgba(0,0,0,.88) 100%);pointer-events:none;}
-.top-hud{position:absolute;top:15px;left:15px;right:15px;display:flex;justify-content:space-between;z-index:20;flex-wrap:wrap;gap:10px;}
-.channel-switcher{display:flex;gap:6px;background:var(--glass);padding:6px;border-radius:50px;}
-.ch-btn{background:transparent;border:none;color:#ddd;padding:10px 14px;border-radius:40px;font-weight:800;cursor:pointer;}
-.ch-btn.active{background:linear-gradient(90deg,var(--gold),var(--saffron));color:#000;}
-.tv-watermark{background:rgba(5,8,15,.72);padding:8px 14px;border-radius:14px;border:1px solid rgba(255,204,0,.35);text-align:center;}
-.wm-name{font-size:14px;font-weight:900;background:linear-gradient(90deg,#ffe066,#ff9900);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-.overlay{position:absolute;bottom:70px;left:20px;right:20px;z-index:15;background:linear-gradient(90deg,rgba(0,0,0,.92),transparent);padding:20px;border-left:5px solid var(--gold);border-radius:8px;}
-.nxt-title{font-size:32px;font-weight:900;margin:5px 0;}
-#overlay-music{display:none;position:absolute;bottom:70px;left:20px;right:20px;z-index:15;background:rgba(12,16,32,.85);border-left:6px solid var(--cyan);padding:20px;border-radius:16px;}
-#overlay-news{display:none;position:absolute;bottom:0;left:0;right:0;z-index:15;}
-.breaking-box{display:flex;margin:0 15px 10px;}
-.breaking-label{background:#c00;color:#fff;font-weight:900;padding:12px 16px;display:flex;align-items:center;}
-.breaking-headline{background:linear-gradient(90deg,#ffcc00,#ff9900);color:#000;font-weight:900;padding:12px 16px;flex:1;}
-.news-ticker{background:#090d1a;border-top:3px solid var(--crimson);display:flex;height:42px;overflow:hidden;align-items:center;}
-.ticker-tag{background:var(--crimson);padding:0 12px;height:100%;display:flex;align-items:center;font-weight:900;}
-.ticker-scroll{white-space:nowrap;animation:ticker 22s linear infinite;}
-@keyframes ticker{0%{transform:translateX(100%)}100%{transform:translateX(-100%)}}
-.bottom-bar{position:absolute;bottom:12px;right:15px;left:15px;z-index:20;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
-.bottom-bar button{padding:10px 14px;border-radius:20px;border:none;font-weight:700;background:#222;color:#fff;cursor:pointer;}
-</style>
-</head>
-<body>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PRIYADHARSINI PRB TV - 4K Broadcast</title>
+  <style>
+    @import url('https://googleapis.com');
 
-<div id="pin-screen">
-  <div class="pin-card">
-    <div style="font-size:50px;"><span class="flying-heart-icon">❤️</span> 🪽</div>
-    <div class="brand-title">PRIYADHARSINI PRB TV</div>
-    <div><span class="prb-badge">PRB • LIVE • 4K</span></div>
-    <p style="color:#aaa;font-size:13px;">PRIVATE FAMILY - Family Mattum</p>
-    <input type="password" id="pin-code" class="pin-input" maxlength="4" placeholder="••••">
-    <button class="enter-btn" onclick="checkPin()">ENTER CHANNEL</button>
-    <p id="err" style="color:#ff4444;font-weight:bold;"></p>
-  </div>
-  <span class="bg-heart" style="left:10%;">❤️</span><span class="bg-heart" style="left:50%;animation-delay:2s;">💖</span><span class="bg-heart" style="left:85%;animation-delay:4s;">❤️</span>
-</div>
+    :root {
+      --bg: #050508;
+      --gold: #ffcc00;
+      --saffron: #ff5500;
+      --crimson: #e50914;
+      --cyan: #00f0ff;
+      --glass: rgba(12, 16, 28, 0.8);
+    }
 
-<div id="tv-app">
-  <video id="tv-player" autoplay loop muted playsinline>
-    <source src="https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_1MB.mp4" type="video/mp4">
-  </video>
-  <div class="vignette"></div>
-  <div class="top-hud">
-    <div class="channel-switcher">
-      <button class="ch-btn active" onclick="switchChannel('cinema',this)">🎬 CINEMA</button>
-      <button class="ch-btn" onclick="switchChannel('music',this)">🎵 MUSIC</button>
-      <button class="ch-btn" onclick="switchChannel('news',this)">📰 NEWS</button>
-      <button class="ch-btn" onclick="switchChannel('family',this)">❤️ FAMILY</button>
-    </div>
-    <div class="tv-watermark"><div style="font-size:20px;">❤️🪽</div><div class="wm-name">PRIYADHARSINI PRB</div><div style="font-size:11px;color:var(--gold);font-weight:800;" id="wm-mode">CINEMA • LIVE</div></div>
-  </div>
+    * { box-sizing: border-box; user-select: none; }
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: #fff;
+      font-family: 'Montserrat', 'Noto Sans Tamil', sans-serif;
+      height: 100vh;
+      overflow: hidden;
+    }
 
-  <div id="overlay-cinema" class="overlay">
-    <div style="color:var(--gold);font-weight:900;letter-spacing:3px;">PRB CINEMA • 4K</div>
-    <div class="nxt-title" id="cinemaTitle">Namma Kudumbam - Special Show ❤️</div>
-    <div>Family • 2026 • Private • PRB</div>
-    <p style="color:#ddd;">Priyadharsini Family ku mattum - Private Cinema.</p>
-  </div>
-  <div id="overlay-music"><div style="color:var(--cyan);font-weight:800;">🎵 NOW PLAYING</div><div style="font-size:22px;font-weight:900;">Kudumbam Song - For Priyadharsini Family ❤️</div><div style="color:var(--cyan);">Dedication: Amma, Appa, Priyadharsini K</div></div>
-  <div id="overlay-news"><div class="breaking-box"><div class="breaking-label">BREAKING</div><div class="breaking-headline" id="newsHeadline">Namma Kudumbam TV - Family News!</div></div><div class="news-ticker"><div class="ticker-tag">PRB NEWS</div><div class="ticker-scroll">❤️ Priyadharsini PRB Family - Private TV - Ellarum Happy ah Irukkom ❤️</div></div></div>
+    button:focus, input:focus, .ch-btn:focus {
+      outline: 3px solid var(--gold);
+      box-shadow: 0 0 25px rgba(255, 204, 0, 0.8);
+      transform: scale(1.05);
+    }
 
-  <div class="bottom-bar">
-    <button onclick="callFamily()">📞 FAMILY CALL</button>
-    <button onclick="appCall()">💬 APP CALL</button>
-    <button onclick="adminOpen()">⚙️ DIRECTOR</button>
-    <button onclick="lockApp()">🔒 LOCK</button>
-  </div>
-</div>
+    /* FLYING HEART LOGO & PARTICLES */
+    .flying-heart-icon {
+      display: inline-block;
+      animation: floatWing 2.5s ease-in-out infinite;
+      filter: drop-shadow(0 0 12px rgba(255, 50, 80, 0.9));
+    }
+    @keyframes floatWing {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-6px) scale(1.1); }
+    }
 
-<div id="admin-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:100;align-items:center;justify-content:center;">
-  <div style="background:#111827;border:1px solid var(--gold);padding:25px;border-radius:16px;width:90%;max-width:480px;">
-    <h3>🎬 DIRECTOR - PRB</h3>
-    <label>Cinema Title</label><input id="inTitle" style="width:100%;padding:10px;margin:5px 0;background:#1f2937;color:white;border-radius:8px;">
-    <label>News Headline</label><input id="inNews" style="width:100%;padding:10px;margin:5px 0;background:#1f2937;color:white;border-radius:8px;">
-    <label>Video Link (MP4)</label><input id="inVideo" placeholder="https://...mp4" style="width:100%;padding:10px;margin:5px 0;background:#1f2937;color:white;border-radius:8px;">
-    <button onclick="saveDirector()" style="width:100%;padding:12px;background:var(--gold);font-weight:800;border:none;border-radius:10px;">SAVE & PLAY</button>
-    <button onclick="document.getElementById('admin-modal').style.display='none'" style="width:100%;padding:10px;margin-top:8px;background:#333;color:white;border:none;border-radius:10px;">CLOSE</button>
-  </div>
-</div>
+    .bg-heart {
+      position: absolute;
+      bottom: -30px;
+      color: rgba(255, 45, 85, 0.45);
+      font-size: 20px;
+      pointer-events: none;
+      z-index: 12;
+      animation: riseHeart 7s linear infinite;
+    }
+    @keyframes riseHeart {
+      0% { transform: translateY(0) scale(0.8) rotate(0deg); opacity: 0; }
+      20% { opacity: 0.7; }
+      100% { transform: translateY(-105vh) scale(1.4) rotate(25deg); opacity: 0; }
+    }
 
-<script>
-let MY_PIN = "1234";
-function checkPin(){ let v=document.getElementById('pin-code').value; if(v===MY_PIN){ document.getElementById('pin-screen').style.display='none'; document.getElementById('tv-app').style.display='block'; document.getElementById('tv-player').play(); } else { document.getElementById('err').innerText="❌ Thappu PIN! Family mattum!"; document.getElementById('pin-code').value=""; } }
-function lockApp(){ document.getElementById('tv-app').style.display='none'; document.getElementById('pin-screen').style.display='flex'; document.getElementById('pin-code').value=""; }
-function switchChannel(mode,btn){ document.querySelectorAll('.ch-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); document.getElementById('overlay-cinema').style.display=mode==='cinema'||mode==='family'?'block':'none'; document.getElementById('overlay-music').style.display=mode==='music'?'block':'none'; document.getElementById('overlay-news').style.display=mode==='news'?'block':'none'; document.getElementById('wm-mode').innerText=mode.toUpperCase()+" • LIVE"; if(mode==='family') document.getElementById('cinemaTitle').innerText="Priyadharsini Family - Live ❤️"; }
-function adminOpen(){ document.getElementById('admin-modal').style.display='flex'; }
-function saveDirector(){ let t=document.getElementById('inTitle').value; let n=document.getElementById('inNews').value; let v=document.getElementById('inVideo').value; if(t) document.getElementById('cinemaTitle').innerText=t; if(n) document.getElementById('newsHeadline').innerText=n; if(v){ let p=document.getElementById('tv-player'); p.src=v; p.play(); } document.getElementById('admin-modal').style.display='none'; alert("Saved da K! ✅"); }
-function callFamily(){ window.location.href='tel:+919876543210'; }
-function appCall(){ alert("💬 App Call - Family ku pogudhu... Net irundha work aagum!"); }
-document.getElementById('pin-code').addEventListener('keyup',e=>{ if(e.key==='Enter') checkPin(); });
-</script>
-</body>
-</html>
+    /* 1. PIN LOCK SCREEN */
+    #pin-screen {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at center, #240b18 0%, #050508 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+    .pin-card {
+      background: var(--glass);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 204, 0, 0.35);
+      padding: 45px 40px;
+      border-radius: 24px;
+      text-align: center;
+      width: 92%;
+      max-width: 500px;
+      box-shadow: 0 25px 70px rgba(0,0,0,0.95);
+    }
+    .brand-title {
+      font-size: 28px;
+      font-weight: 900;
+      background: linear-gradient(90deg, #ffe066, #ff9900);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 1.5px;
+      margin: 10px 0 4px;
+    }
+    .prb-badge {
+      display: inline-block;
+      background: linear-gradient(180deg, #ff1e1e, #990000);
+      color: #fff;
+      font-weight: 900;
+      padding: 3px 12px;
+      border-radius: 6px;
+      font-size: 16px;
+      border: 1px solid var(--gold);
+      letter-spacing: 1px;
+    }
+    .pin-input {
+      width: 100%;
+      padding: 15px;
+      font-size: 28px;
+      text-align: center;
+      letter-spacing: 12px;
+      border-radius: 12px;
+      border: 2px solid #333;
+      background: #0a0a10;
+      color: var(--gold);
+      margin: 22px 0;
+    }
+    .enter-btn {
+      width: 100%;
+      padding: 16px;
+      font-size: 18px;
+      font-weight: 900;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(90deg, var(--gold), var(--saffron));
+      color: #000;
+      cursor: pointer;
+      letter-spacing: 1px;
+    }
+
+    /* 2. FULLSCREEN TV SCREEN */
+    #tv-app {
+      display: none;
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+    }
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: contrast(1.08) saturate(1.15);
+    }
+    .vignette {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle, transparent 58%, rgba(0,0,0,0.88) 100%);
+      pointer-events: none;
+    }
+
+    /* 3. TOP BAR & BROADCAST LOGO BUG */
+    .top-hud {
+      position: absolute;
+      top: 25px;
+      left: 35px;
+      right: 35px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      z-index: 20;
+    }
+    .channel-switcher {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      background: var(--glass);
+      backdrop-filter: blur(15px);
+      padding: 8px;
+      border-radius: 50px;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+    .ch-btn {
+      background: transparent;
+      border: none;
+      color: #ddd;
+      padding: 10px 20px;
+      border-radius: 40px;
+      font-weight: 800;
+      font-size: 14px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .ch-btn.active {
+      background: linear-gradient(90deg, var(--gold), var(--saffron));
+      color: #000;
+      box-shadow: 0 0 20px rgba(255, 136, 0, 0.7);
+    }
+
+    /* TOP-RIGHT WATERMARK */
+    .tv-watermark {
+      background: rgba(5, 8, 15, 0.72);
+      backdrop-filter: blur(10px);
+      padding: 10px 18px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 204, 0, 0.35);
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+    }
+    .wm-top { font-size: 22px; line-height: 1; }
+    .wm-name {
+      font-size: 16px;
+      font-weight: 900;
+      background: linear-gradient(90deg, #ffe066, #ff9900);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 1px;
+      margin-top: 2px;
+    }
+    .wm-sub {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 4px;
+    }
+    .wm-prb {
+      background: var(--crimson);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 900;
+      padding: 2px 7px;
+      border-radius: 4px;
+      letter-spacing: 1px;
+    }
+    .wm-mode {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--gold);
+      letter-spacing: 1px;
+    }
+
+    /* MODE 1: SUN NXT CINEMA OVERLAY */
+    #overlay-nxt {
+      position: absolute;
+      bottom: 50px;
+      left: 45px;
+      max-width: 680px;
+      z-index: 15;
+      background: linear-gradient(90deg, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.45) 85%, transparent 100%);
+      padding: 28px 32px;
+      border-left: 5px solid var(--gold);
+      border-radius: 8px;
+    }
+    .nxt-tag {
+      color: var(--gold);
+      font-weight: 900;
+      font-size: 13px;
+      letter-spacing: 3px;
+      margin-bottom: 6px;
+    }
+    .nxt-title {
+      font-size: 40px;
+      font-weight: 900;
+      margin: 0 0 10px 0;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.9);
+    }
+    .nxt-meta {
+      display: flex;
+      gap: 12px;
+      font-size: 14px;
+      color: #eee;
+      margin-bottom: 10px;
+      align-items: center;
+    }
+    .badge-4k {
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-weight: 800;
+    }
+
+    /* MODE 2: SUN MUSIC OVERLAY */
+    #overlay-music {
+      display: none;
+      position: absolute;
+      bottom: 45px;
+      left: 45px;
+      z-index: 15;
+      background: rgba(12, 16, 32, 0.85);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(0, 240, 255, 0.45);
+      border-left: 6px solid var(--cyan);
+      padding: 22px 32px;
+      border-radius: 16px;
+      box-shadow: 0 15px 40px rgba(0, 240, 255, 0.25);
+      min-width: 480px;
+    }
+    .eq-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 4px;
+      height: 20px;
+      margin-bottom: 8px;
+    }
+    .eq-bar {
+      width: 5px;
+      background: var(--cyan);
+      animation: bounce 0.6s infinite alternate;
+    }
+    .eq-bar:nth-child(2) { animation-delay: 0.2s; background: var(--gold); }
+    .eq-bar:nth-child(3) { animation-delay: 0.4s; }
+    .eq-bar:nth-child(4) { animation-delay: 0.1s; background: #ff2d55; }
+    @keyframes bounce { from { height: 5px; } to { height: 20px; } }
+
+    .song-name { font-size: 26px; font-weight: 900; color: #fff; margin: 4px 0; }
+    .dedication { font-size: 15px; color: var(--cyan); font-weight: 700; }
+
+    /* MODE 3: TAMIL NEWS OVERLAY */
+    #overlay-news {
+      display: none;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 15;
+    }
+    .breaking-box {
+      display: flex;
+      align-items: stretch;
+      margin: 0 35px 12px 35px;
+      box-shadow: 0 10px 35px rgba(0,0,0,0.85);
+    }
+    .breaking-label {
+      background: linear-gradient(180deg, #ff1e1e, #990000);
+      color: #fff;
+      font-weight: 900;
+      font-size: 20px;
+      padding: 14px 26px;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      border-right: 4px solid var(--gold);
+      white-space: nowrap;
+    }
+    .breaking-headline {
+      background: linear-gradient(90deg, #ffcc00, #ff9900);
+      color: #000;
+      font-weight: 900;
+      font-size: 25px;
+      padding: 14px 28px;
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+    .news-ticker {
+      background: #090d1a;
+      border-top: 3px solid var(--crimson);
+      display: flex;
+      align-items: center;
+      height: 46px;
+      overflow: hidden;
+    }
+    .ticker-tag {
+      background: var(--crimson);
+      color: #fff;
+      font-weight: 900;
+      padding: 0 20px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      z-index: 2;
+      white-space: nowrap;
+    }
+    .ticker-scroll {
+      white-space: nowrap;
+      padding-left: 100%;
+      font-size: 19px;
+      font-weight: 700;
+      color: #fff;
+      animation: ticker 24s linear infinite;
+    }
+    @keyframes ticker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+
+    /* ADMIN MODAL */
+    #admin-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.88);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+    }
+    .admin-box {
+      background: #111827;
+      border: 1px solid var(--gold);
+      padding: 30px;
